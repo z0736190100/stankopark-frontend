@@ -40,7 +40,7 @@ const dashboardRoutes = [
   {
     path: "/exp",
     sidebarName: "experimental",
-    navbarName: "experimental",
+    navbarName: "experimental -- Паспорт оборудования",
     icon: "voice_over_off",
     component: ExperimentalClass
   },

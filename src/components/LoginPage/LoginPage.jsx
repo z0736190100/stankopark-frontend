@@ -121,11 +121,11 @@ class LoginPage extends React.Component {
                           </Button>
                           <p>или так:</p>
                           <Button
-                            disabled
+                           // disabled
                             round
                             justIcon
                             color="danger"
-                            href={"http://localhost:5000/auth/google"}
+                            href={"/auth/google"}
                           >
                             <i className={"fab fa-google-plus-g"} />
 

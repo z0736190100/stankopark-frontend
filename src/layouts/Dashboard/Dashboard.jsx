@@ -58,11 +58,14 @@ class App extends React.Component {
   };
   componentDidMount() {
 
-    // this.props.fetchUserAction();
-    // //LOGGER
-    // console.log("\n < layouts/DASHBOARD:59 > this.props.auth = \n");
-    // console.log(this.props.auth);
-    // //END LOGGER
+    this.props.fetchUserAction();
+    //LOGGER
+      setTimeout(() => {
+          console.log("\n < layouts/DASHBOARD:59 > this.props.auth = \n");
+          console.log(this.props.auth);
+      }, 2000);
+
+    //END LOGGER
 
     // if (navigator.platform.indexOf("Win") > -1) {
     //   const ps = new PerfectScrollbar(this.refs.mainPanel);
@@ -85,7 +88,7 @@ class App extends React.Component {
   };
   render() {
     const { classes, ...rest } = this.props;
-    return this.state.permitted ? (
+    return this.state.permitted || this.props.auth ? (
       <div className={classes.wrapper}>
         <Sidebar
           routes={dashboardRoutes}

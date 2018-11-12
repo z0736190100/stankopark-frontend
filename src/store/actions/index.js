@@ -3,13 +3,21 @@ import { FETCH_USER } from "./types";
 import axios from "axios";
 
 export const fetchUserAction = () => async dispatch => {
-  const res = await axios.get("http://localhost:5000/api/current_user");
+  const res = await axios.get("/api/current_user");
+  //LOGGER
   console.log(
     "\n < actions/index.js:7 > fetchUserAction() --> response.data = \n"
   );
   console.log(res.data);
+    console.log(
+        "\n < actions/index.js:7 > fetchUserAction() --> response = \n"
+    );
   console.log(res);
-
+    console.log(
+        "\n < actions/index.js:7 > fetchUserAction() --> response.headers = \n"
+    );
+    console.log(res.headers);
+//END LOGGER
   dispatch({
     type: FETCH_USER,
     payload: res.data

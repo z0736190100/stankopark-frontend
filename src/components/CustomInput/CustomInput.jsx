@@ -6,12 +6,13 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import Input from "@material-ui/core/Input";
+import FormHelperText from "@material-ui/core/es/FormHelperText/FormHelperText";
 // @material-ui/icons
 import Clear from "@material-ui/icons/Clear";
 import Check from "@material-ui/icons/Check";
 // core components
 import customInputStyle from "assets/jss/material-dashboard-react/components/customInputStyle.jsx";
-import FormHelperText from "@material-ui/core/es/FormHelperText/FormHelperText";
+
 
 
 //TODO: define default on change handler mock with placeholder text : "no onChangeHandler is defined" 
@@ -44,6 +45,7 @@ function CustomInput({ ...props }) {
     <FormControl
       {...formControlProps}
       className={formControlProps.className + " " + classes.formControl}
+      margin={"dense"}
     >
       {labelText !== undefined ? (
         <InputLabel
@@ -65,7 +67,7 @@ function CustomInput({ ...props }) {
         {...inputProps}
         endAdornment={endAdornment}
       />
-      <FormHelperText className={labelClasses}>{"helper"}</FormHelperText>
+      <FormHelperText className={labelClasses}>{"Вспомогательный текст"}</FormHelperText>
       {error ? (
         <Clear className={classes.feedback + " " + classes.labelRootError} />
       ) : success ? (
