@@ -73,6 +73,25 @@ function Experimental(props) {
         }
     ];
 
+    const menuItemValuesUsage = [
+        {
+            value: "заготовительные работы",
+            text: "заготовительные работы"
+        },
+        {
+            value: "сборочные работы",
+            text: "сборочные работы"
+        },
+        {
+            value: "затяжные работы",
+            text: "затяжные работы"
+        },
+        {
+            value: "финишные и упаковочные работы",
+            text: "финишные и упаковочные работы"
+        },
+    ];
+
     const changeFormState = fs => {
         formState[fs.id] = fs.value;
         console.log(JSON.stringify(formState));
@@ -154,6 +173,22 @@ function Experimental(props) {
                                             </ExpansionPanelSummary>
                                             <ExpansionPanelDetails>
                                                 <GridContainer>
+                                                    <GridItem xs={12} sm={12} md={12}>
+                                                        <CustomSelectInput
+                                                            onChange={event => props.selectOC(event)}
+                                                            labelText={"Целевое назначение (группа работ)"}
+                                                            helperText={"Выберите значение"}
+                                                            menuValues={menuItemValuesUsage}
+                                                            formControlProps={{
+                                                                fullWidth: true
+                                                            }}
+                                                            inputProps={{
+                                                                name: "usage",
+                                                                id: "usage",
+                                                                value: props.iii
+                                                            }}
+                                                        />
+                                                    </GridItem>
                                                     {formFieldsRenderer()}
                                                     <GridItem xs={12} sm={12} md={12}>
                                                         <CustomInput
@@ -181,134 +216,134 @@ function Experimental(props) {
                                                 <h4 className={classes.heading}>{"Электрообеспечение"}</h4>
                                             </ExpansionPanelSummary>
                                             <ExpansionPanelDetails>
-                                                    <GridItem xs={12} sm={12} md={4}>
-                                                        <CustomSelectInput
-                                                            onChange={event => props.selectOC(event)}
-                                                            labelText={"Напряжение"}
-                                                            helperText={"Выберите значение"}
-                                                            startAdornment={"V"}
-                                                            menuValues={menuItemValues}
-                                                            formControlProps={{
-                                                                fullWidth: true
-                                                            }}
-                                                            inputProps={{
-                                                                name: "voltage",
-                                                                id: "voltage",
-                                                                value: props.iii
-                                                            }}
-                                                        />
-                                                    </GridItem>
-                                                    <GridItem xs={12} sm={12} md={4}>
-                                                        <CustomInput
-                                                            disabled
-                                                            onChange={event => changeFormState(event.target)}
-                                                            labelText={"Мощность"}
-                                                            id={"watts"}
-                                                            formControlProps={{
-                                                                fullWidth: true
-                                                            }}
-                                                            inputProps={{
-                                                                name: "watts",
-                                                                id: "watts",
-                                                            }}
-                                                            startAdornment={"W"}
-                                                        />
-                                                    </GridItem>
-                                                    <GridItem xs={12} sm={12} md={4}>
-                                                        <CustomInput
-                                                            disabled
-                                                            onChange={event => changeFormState(event.target)}
-                                                            labelText={"Сила тока"}
-                                                            id={"ampers"}
-                                                            formControlProps={{
-                                                                fullWidth: true
-                                                            }}
-                                                            inputProps={{
-                                                                name: "ampers",
-                                                                id: "ampers",
-                                                            }}
-                                                            startAdornment={"A"}
-                                                            helperText={"Высчитано по формуле"}
-                                                        />
-                                                    </GridItem>
+                                                <GridItem xs={12} sm={12} md={4}>
+                                                    <CustomSelectInput
+                                                        onChange={event => props.selectOC(event)}
+                                                        labelText={"Напряжение"}
+                                                        helperText={"Выберите значение"}
+                                                        startAdornment={"V"}
+                                                        menuValues={menuItemValues}
+                                                        formControlProps={{
+                                                            fullWidth: true
+                                                        }}
+                                                        inputProps={{
+                                                            name: "voltage",
+                                                            id: "voltage",
+                                                            value: props.iii
+                                                        }}
+                                                    />
+                                                </GridItem>
+                                                <GridItem xs={12} sm={12} md={4}>
+                                                    <CustomInput
+                                                        disabled
+                                                        onChange={event => changeFormState(event.target)}
+                                                        labelText={"Мощность"}
+                                                        id={"watts"}
+                                                        formControlProps={{
+                                                            fullWidth: true
+                                                        }}
+                                                        inputProps={{
+                                                            name: "watts",
+                                                            id: "watts",
+                                                        }}
+                                                        startAdornment={"W"}
+                                                    />
+                                                </GridItem>
+                                                <GridItem xs={12} sm={12} md={4}>
+                                                    <CustomInput
+                                                        disabled
+                                                        onChange={event => changeFormState(event.target)}
+                                                        labelText={"Сила тока"}
+                                                        id={"ampers"}
+                                                        formControlProps={{
+                                                            fullWidth: true
+                                                        }}
+                                                        inputProps={{
+                                                            name: "ampers",
+                                                            id: "ampers",
+                                                        }}
+                                                        startAdornment={"A"}
+                                                        helperText={"Высчитано по формуле"}
+                                                    />
+                                                </GridItem>
                                             </ExpansionPanelDetails>
                                         </ExpansionPanel>
                                     </GridItem>
                                     <GridItem xs={12} sm={12} md={12}>
                                         <ExpansionPanel elevation={3}>
-                                            <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                                            <ExpansionPanelSummary expandIcon={<ExpandMoreIcon/>}>
                                                 <h4 className={classes.heading}>{"Гидравлическая система"}</h4>
                                             </ExpansionPanelSummary>
                                             <ExpansionPanelDetails>
-                                                    <GridItem xs={12} sm={12} md={6}>
-                                                        <CustomInput
-                                                            onChange={event => changeFormState(event.target)}
-                                                            labelText={"Рабочее давление системы"}
-                                                            id={"oil_pressure"}
-                                                            formControlProps={{
-                                                                fullWidth: true
-                                                            }}
-                                                            inputProps={{
-                                                                name: "oil_pressure",
-                                                                id: "oil_pressure",
-                                                            }}
-                                                            endAdornment={"КПа"}
-                                                        />
-                                                    </GridItem>
-                                                    <GridItem xs={12} sm={12} md={6}>
-                                                        <CustomInput
-                                                            onChange={event => changeFormState(event.target)}
-                                                            labelText={"Емкость системы"}
-                                                            id={"oil_value"}
-                                                            formControlProps={{
-                                                                fullWidth: true
-                                                            }}
-                                                            inputProps={{
-                                                                name: "oil_value",
-                                                                id: "oil_value",
-                                                            }}
-                                                            endAdornment={"Кг"}
-                                                        />
-                                                    </GridItem>
+                                                <GridItem xs={12} sm={12} md={6}>
+                                                    <CustomInput
+                                                        onChange={event => changeFormState(event.target)}
+                                                        labelText={"Рабочее давление системы"}
+                                                        id={"oil_pressure"}
+                                                        formControlProps={{
+                                                            fullWidth: true
+                                                        }}
+                                                        inputProps={{
+                                                            name: "oil_pressure",
+                                                            id: "oil_pressure",
+                                                        }}
+                                                        endAdornment={"КПа"}
+                                                    />
+                                                </GridItem>
+                                                <GridItem xs={12} sm={12} md={6}>
+                                                    <CustomInput
+                                                        onChange={event => changeFormState(event.target)}
+                                                        labelText={"Емкость системы"}
+                                                        id={"oil_value"}
+                                                        formControlProps={{
+                                                            fullWidth: true
+                                                        }}
+                                                        inputProps={{
+                                                            name: "oil_value",
+                                                            id: "oil_value",
+                                                        }}
+                                                        endAdornment={"Кг"}
+                                                    />
+                                                </GridItem>
                                             </ExpansionPanelDetails>
                                         </ExpansionPanel>
                                     </GridItem>
                                     <GridItem xs={12} sm={12} md={12}>
                                         <ExpansionPanel elevation={3}>
-                                            <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+                                            <ExpansionPanelSummary expandIcon={<ExpandMoreIcon/>}>
                                                 <h4 className={classes.heading}>{"Пневматическая система"}</h4>
                                             </ExpansionPanelSummary>
                                             <ExpansionPanelDetails>
-                                                   <GridItem xs={12} sm={12} md={6}>
-                                                       <CustomInput
-                                                           onChange={event => changeFormState(event.target)}
-                                                           labelText={"Рабочее давление системы"}
-                                                           id={"air_pressure"}
-                                                           formControlProps={{
-                                                               fullWidth: true
-                                                           }}
-                                                           inputProps={{
-                                                               name: "air_pressure",
-                                                               id: "air_pressure",
-                                                           }}
-                                                           endAdornment={"КПа"}
-                                                       />
-                                                   </GridItem>
-                                                   <GridItem xs={12} sm={12} md={6}>
-                                                       <CustomInput
-                                                           onChange={event => changeFormState(event.target)}
-                                                           labelText={"Потребление за рабочий цикл"}
-                                                           id={"air_value"}
-                                                           formControlProps={{
-                                                               fullWidth: true
-                                                           }}
-                                                           inputProps={{
-                                                               name: "air_value",
-                                                               id: "air_value",
-                                                           }}
-                                                           endAdornment={"М куб."}
-                                                       />
-                                                   </GridItem>
+                                                <GridItem xs={12} sm={12} md={6}>
+                                                    <CustomInput
+                                                        onChange={event => changeFormState(event.target)}
+                                                        labelText={"Рабочее давление системы"}
+                                                        id={"air_pressure"}
+                                                        formControlProps={{
+                                                            fullWidth: true
+                                                        }}
+                                                        inputProps={{
+                                                            name: "air_pressure",
+                                                            id: "air_pressure",
+                                                        }}
+                                                        endAdornment={"КПа"}
+                                                    />
+                                                </GridItem>
+                                                <GridItem xs={12} sm={12} md={6}>
+                                                    <CustomInput
+                                                        onChange={event => changeFormState(event.target)}
+                                                        labelText={"Потребление за рабочий цикл"}
+                                                        id={"air_value"}
+                                                        formControlProps={{
+                                                            fullWidth: true
+                                                        }}
+                                                        inputProps={{
+                                                            name: "air_value",
+                                                            id: "air_value",
+                                                        }}
+                                                        endAdornment={"М куб."}
+                                                    />
+                                                </GridItem>
                                             </ExpansionPanelDetails>
                                         </ExpansionPanel>
                                     </GridItem>
