@@ -8,16 +8,24 @@ import customSwitchInputStyle from "views/Experimental/trans/customSwitchInputSt
 
 const CustomSwitchInput = props => {
 
-    const {classes} = props;
+    const {
+        classes,
+        checked,
+        value,
+        name,
+        label,
+        onClick,
+        id
+    } = props;
 
     return (
         <div>
             <FormControlLabel
                 control={
                     <Switch
-                        checked={props.checked}
-                        //onChange={this.handleChange("checkedA")}
-                        value="checkedA"
+                        checked={checked}
+                        onClick={onClick}
+                        value={value}
                         classes={{
                             switchBase: classes.switchBase,
                             checked: classes.switchChecked,
@@ -25,20 +33,22 @@ const CustomSwitchInput = props => {
                             iconChecked: classes.switchIconChecked,
                             bar: classes.switchBar
                         }}
+                        inputProps={{
+                            name: {name},
+                            id: {id}
+                        }}
                     />
                 }
                 classes={{
                     label: classes.label
                 }}
-                label={props.label}
+                label={label}
             />
 
         </div>
     );
 };
 
-CustomSwitchInput.propTypes = {
-
-};
+CustomSwitchInput.propTypes = {};
 
 export default withStyles(customSwitchInputStyle)(CustomSwitchInput);

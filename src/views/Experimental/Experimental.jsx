@@ -48,7 +48,7 @@ function Experimental(props) {
     const {classes} = props;
 
     // KUNG-FUSION: i18n of form field labels - how to?
-
+    let switchState = {};
     let formState = {};
     const menuItemValues = [
         {
@@ -97,6 +97,51 @@ function Experimental(props) {
         console.log(JSON.stringify(formState));
     };
 
+    const SWITCH_ITEMS = [
+        {
+            label: "Электрическое",
+            name: "electric",
+            id: "electric",
+            checked: false,
+            value: "electric"
+        },
+        {
+            label: "Пневматическое",
+            name: "pneumatic",
+            id: "pneumatic",
+            checked: false,
+            value: "pneumatic"
+        },
+        {
+            label: "Гидравлическое",
+            name: "hydraulic",
+            id: "hydraulic",
+            checked: false,
+            value: "hydraulic"
+        },
+        {
+            label: "Ручное",
+            name: "manual",
+            id: "manual",
+            checked: true,
+            value: "manual"
+        },
+    ];
+
+    const switchInputRenderer = () => {
+        return _.map(SWITCH_ITEMS, val => {
+            return (
+                <GridItem key={val.name} xs={12} sm={6} md={3}>
+                    <CustomSwitchInput
+                        id={val.id}
+                        label={val.label}
+                        name={val.name}
+                        checked={props.switchState[val.name] || false}
+                        onClick={(name) => props.switchStateHandler(val.name)}/>
+                </GridItem>
+            );
+        });
+    };
 
     const formFieldsRenderer = () => {
         return _.map(formFields, ({inputProps, itemBreakpoints}) => {
@@ -140,16 +185,8 @@ function Experimental(props) {
                             </p>
                         </CardHeader>
                         <CardBody>
-
                             <GridContainer direction={"row"} zeroMinWidth>
-                                <GridItem xs={12} sm={6} md={3}><CustomSwitchInput label={"Электрическое"}
-                                                                                   checked={true}/></GridItem>
-                                <GridItem xs={12} sm={6} md={3}><CustomSwitchInput label={"Пневматическое"}
-                                                                                   checked={true}/></GridItem>
-                                <GridItem xs={12} sm={6} md={3}><CustomSwitchInput label={"Гидравлическое"}
-                                                                                   checked={true}/></GridItem>
-                                <GridItem xs={12} sm={6} md={3}><CustomSwitchInput label={"Механическое"}
-                                                                                   checked={false}/></GridItem>
+                                {switchInputRenderer()}
                             </GridContainer>
                         </CardBody>
                         <CardFooter/>
