@@ -48,7 +48,7 @@ function Experimental(props) {
     const {classes} = props;
 
     // KUNG-FUSION: i18n of form field labels - how to?
-    let switchState = {};
+
     let formState = {};
     const menuItemValues = [
         {
@@ -106,18 +106,18 @@ function Experimental(props) {
             value: "electric"
         },
         {
-            label: "Пневматическое",
-            name: "pneumatic",
-            id: "pneumatic",
-            checked: false,
-            value: "pneumatic"
-        },
-        {
             label: "Гидравлическое",
             name: "hydraulic",
             id: "hydraulic",
             checked: false,
             value: "hydraulic"
+        },
+        {
+            label: "Пневматическое",
+            name: "pneumatic",
+            id: "pneumatic",
+            checked: false,
+            value: "pneumatic"
         },
         {
             label: "Ручное",
@@ -168,6 +168,7 @@ function Experimental(props) {
             <GridContainer>
                 <GridItem xs={12} sm={12} md={8}>
                     <Button
+                        disabled
                         color={"primary"}
                         onClick={() => saveMachineUnit(formState)}
                     >
@@ -204,7 +205,8 @@ function Experimental(props) {
                             <form action="#">
                                 <GridContainer>
                                     <GridItem xs={12} sm={12} md={12}>
-                                        <ExpansionPanel defaultExpanded elevation={3}>
+                                        <ExpansionPanel defaultExpanded
+                                                        elevation={3}>
                                             <ExpansionPanelSummary expandIcon={<ExpandMoreIcon/>}>
                                                 <h4 className={classes.heading}>{"Общие"}</h4>
                                             </ExpansionPanelSummary>
@@ -248,7 +250,9 @@ function Experimental(props) {
                                         </ExpansionPanel>
                                     </GridItem>
                                     <GridItem xs={12} sm={12} md={12}>
-                                        <ExpansionPanel elevation={3}>
+                                        <ExpansionPanel
+                                            disabled={!props.switchState["electric"]}
+                                            elevation={3}>
                                             <ExpansionPanelSummary expandIcon={<ExpandMoreIcon/>}>
                                                 <h4 className={classes.heading}>{"Электрообеспечение"}</h4>
                                             </ExpansionPanelSummary>
@@ -307,7 +311,9 @@ function Experimental(props) {
                                         </ExpansionPanel>
                                     </GridItem>
                                     <GridItem xs={12} sm={12} md={12}>
-                                        <ExpansionPanel elevation={3}>
+                                        <ExpansionPanel
+                                            disabled={!props.switchState["hydraulic"]}
+                                            elevation={3}>
                                             <ExpansionPanelSummary expandIcon={<ExpandMoreIcon/>}>
                                                 <h4 className={classes.heading}>{"Гидравлическая система"}</h4>
                                             </ExpansionPanelSummary>
@@ -346,7 +352,9 @@ function Experimental(props) {
                                         </ExpansionPanel>
                                     </GridItem>
                                     <GridItem xs={12} sm={12} md={12}>
-                                        <ExpansionPanel elevation={3}>
+                                        <ExpansionPanel
+                                            disabled={!props.switchState["pneumatic"]}
+                                            elevation={3}>
                                             <ExpansionPanelSummary expandIcon={<ExpandMoreIcon/>}>
                                                 <h4 className={classes.heading}>{"Пневматическая система"}</h4>
                                             </ExpansionPanelSummary>
@@ -412,6 +420,7 @@ function Experimental(props) {
                 </GridItem>
                 <GridItem xs={12} sm={12} md={8}>
                     <Button
+                        disabled
                         color={"primary"}
                         onClick={() => saveMachineUnit(formState)}
                     >

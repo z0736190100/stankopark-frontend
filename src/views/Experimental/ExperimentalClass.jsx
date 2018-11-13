@@ -10,7 +10,7 @@ class ExperimentalClass extends Component {
         electric: false,
         pneumatic: false,
         hydraulic: false,
-        manual: false
+        manual: true
 
     };
 
