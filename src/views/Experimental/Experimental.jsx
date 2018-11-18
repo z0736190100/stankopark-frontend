@@ -120,7 +120,7 @@ function Experimental(props) {
             value: "pneumatic"
         },
         {
-            label: "Ручное",
+            label: "Механическое",
             name: "manual",
             id: "manual",
             checked: true,
