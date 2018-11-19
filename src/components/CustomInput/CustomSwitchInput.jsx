@@ -4,7 +4,7 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import FormControlLabel from "@material-ui/core/es/FormControlLabel/FormControlLabel";
 import Switch from "@material-ui/core/es/Switch/Switch";
 
-import customSwitchInputStyle from "views/Experimental/trans/customSwitchInputStyle.jsx"
+import customSwitchInputStyle from "assets/jss/material-dashboard-react/components/customSwitchInputStyle.jsx"
 
 const CustomSwitchInput = props => {
 
@@ -49,6 +49,9 @@ const CustomSwitchInput = props => {
     );
 };
 
-CustomSwitchInput.propTypes = {};
+// TODO
+CustomSwitchInput.propTypes = {
+    classes: PropTypes.object.isRequired
+};
 
 export default withStyles(customSwitchInputStyle)(CustomSwitchInput);

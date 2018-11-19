@@ -1,30 +1,24 @@
+/**
+ * mandatory fields
+ *
+ * наличие нагревательных элементов
+ * - тип (слект)
+ * - мощность
+ * - напряжение
+ * - описание (пространственные характеристики, количество)
+ *
+ *
+ *
+ * arbitrary fields:
+ *
+ * производительность в смену
+ * время рабочего цикла
+ * количество персонала
+ *
+ *
+ */
+
 export default [
-  {
-    inputProps: {
-      name: "inventoryNumber",
-      id: "inventoryNumber",
-      labelText: "Инвент. номер",
-      value: ""
-    },
-    itemBreakpoints: {
-      xs: 12,
-      sm: 12,
-      md: 2
-    }
-  },
-  {
-    inputProps: {
-      name: "usage",
-      id: "usage",
-      labelText: "Назначение",
-      value: ""
-    },
-    itemBreakpoints: {
-      xs: 12,
-      sm: 12,
-      md: 10
-    }
-  },
   {
     inputProps: {
       name: "producerBrand",
@@ -66,32 +60,6 @@ export default [
   },
   {
     inputProps: {
-      name: "voltage",
-      id: "voltage",
-      labelText: "Напряжение",
-      value: ""
-    },
-    itemBreakpoints: {
-      xs: 12,
-      sm: 12,
-      md: 2
-    }
-  },
-  {
-    inputProps: {
-      name: "power",
-      id: "power",
-      labelText: "Мощность",
-      value: ""
-    },
-    itemBreakpoints: {
-      xs: 12,
-      sm: 12,
-      md: 2
-    }
-  },
-  {
-    inputProps: {
       name: "documentation",
       id: "documentation",
       labelText: "Документация (ссылка на файл)",
@@ -100,7 +68,7 @@ export default [
     itemBreakpoints: {
       xs: 12,
       sm: 12,
-      md: 8
+      md: 12
     }
   }
 ];

@@ -1,10 +1,10 @@
 import React, {Component} from "react";
-import Experimental from "views/Experimental/Experimental.jsx";
+import Experimental from "views/MachineUnit/AddMachineUnit.jsx";
 //import { connect } from "react-redux";
 //import * as actions from "store/actions";
 
 //TODO uncontrolled CustomForm component + redux-form
-class ExperimentalClass extends Component {
+class AddMachineUnitClass extends Component {
     state = {
         mockSelectVal: "one",
         electric: false,
@@ -50,4 +50,4 @@ class ExperimentalClass extends Component {
 //   return { test };
 // }
 
-export default ExperimentalClass;
+export default AddMachineUnitClass;

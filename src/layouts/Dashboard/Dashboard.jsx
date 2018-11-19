@@ -4,7 +4,7 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import * as actions from "store/actions";
 // creates a beautiful scrollbar
-import PerfectScrollbar from "perfect-scrollbar";
+// import PerfectScrollbar from "perfect-scrollbar";
 import "perfect-scrollbar/css/perfect-scrollbar.css";
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
@@ -12,7 +12,7 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import Header from "components/Header/Header.jsx";
 import Footer from "components/Footer/Footer.jsx";
 import Sidebar from "components/Sidebar/Sidebar.jsx";
-import LoginPage from "components/LoginPage/LoginPage.jsx";
+import LoginPage from "views/LoginPage/LoginPage.jsx";
 
 import dashboardRoutes from "routes/dashboard.jsx";
 
@@ -52,7 +52,7 @@ class App extends React.Component {
     return this.props.location.pathname !== "/maps";
   };
   resizeFunction = () => {
-    if (window.innerWidth >= 960) {
+    if (window.innerWidth >= 617) {
       this.setState({ mobileOpen: false });
     }
   };

@@ -11,7 +11,7 @@ import CardBody from "components/Card/CardBody.jsx";
 import CardHeader from "components/Card/CardHeader.jsx";
 import LoginForm from "under_construction/components/LoginForm.jsx";
 
-import loginPageStyle from "assets/jss/material-dashboard-react/layouts/loginStyle.jsx";
+import loginPageStyle from "assets/jss/material-dashboard-react/views/loginStyle.jsx";
 
 
 import image from "assets/img/sidebar-1.jpg";
@@ -29,7 +29,7 @@ class LoginPage extends React.Component {
     }, 777);
   }
   render() {
-    const { classes, ...rest } = this.props;
+    const { classes } = this.props;
     return (
       <div>
         <div
@@ -45,14 +45,14 @@ class LoginPage extends React.Component {
             <GridContainer justify="center">
               <GridItem xs={12} sm={12} md={4}>
                 <Card className={classes[this.state.cardAnimaton]}>
-                  <form className={classes.form}>
+                  <div className={classes.form}>
                     <CardHeader color="primary" className={classes.cardHeader}>
                       <h4>Добро Пожаловать!</h4>
                     </CardHeader>
                       <CardBody>
                         <LoginForm/>
                       </CardBody>
-                  </form>
+                  </div>
                 </Card>
               </GridItem>
             </GridContainer>

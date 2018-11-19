@@ -17,7 +17,7 @@ import CardHeader from "components/Card/CardHeader.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
 import CustomInput from "components/CustomInput/CustomInput.jsx";
 
-import loginPageStyle from "assets/jss/material-dashboard-react/layouts/loginStyle.jsx";
+import loginPageStyle from "assets/jss/material-dashboard-react/views/loginStyle.jsx";
 
 import image from "assets/img/sidebar-1.jpg";
 
@@ -34,7 +34,7 @@ class LoginPage extends React.Component {
     }, 777);
   }
   render() {
-    const { classes, ...rest } = this.props;
+    const { classes } = this.props;
     return (
       <div>
         <div
