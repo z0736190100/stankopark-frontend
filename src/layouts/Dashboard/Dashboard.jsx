@@ -97,7 +97,7 @@ class App extends React.Component {
           image={image}
           handleDrawerToggle={this.handleDrawerToggle}
           open={this.state.mobileOpen}
-          color="blue"
+          color="purple"
           {...rest}
         />
         <div className={classes.mainPanel} ref="mainPanel">
