@@ -16,6 +16,7 @@ import CardBody from "components/Card/CardBody.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
 import CustomInput from "components/CustomInput/CustomInput.jsx";
 import CustomSelectInput from "components/CustomInput/CustomSelectInput.jsx";
+import CustomSelectInputRedux from "components/CustomInput/CustomSelectInputRedux.jsx";
 import CustomSwitchInput from "components/CustomInput/CustomSwitchInput.jsx";
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
@@ -261,19 +262,16 @@ function AddMachineUnit(props) {
                                             <ExpansionPanelDetails>
                                                 <GridContainer>
                                                     <GridItem xs={12} sm={12} md={12}>
-                                                        <CustomSelectInput
-                                                            onChange={event => props.selectOC(event)}
+                                                        <Field
+                                                            name= {"usage"}
+                                                            value={props.iii}
                                                             labelText={"Целевое назначение (группа работ)"}
                                                             helperText={"Выберите значение"}
                                                             menuValues={menuItemValuesUsage}
                                                             formControlProps={{
                                                                 fullWidth: true
                                                             }}
-                                                            inputProps={{
-                                                                name: "usage",
-                                                                id: "usage",
-                                                                value: props.iii
-                                                            }}
+                                                            component={CustomSelectInputRedux}
                                                         />
                                                     </GridItem>
                                                     {formRenderer()}
@@ -323,19 +321,16 @@ function AddMachineUnit(props) {
                                                     />
                                                 </GridItem>
                                                 <GridItem xs={12} sm={12} md={4}>
-                                                    <CustomInput
-                                                        disabled
+                                                    <Field
+                                                        name={"power"}
                                                         onChange={event => changeFormState(event.target)}
                                                         labelText={"Мощность"}
                                                         id={"watts"}
                                                         formControlProps={{
                                                             fullWidth: true
                                                         }}
-                                                        inputProps={{
-                                                            name: "watts",
-                                                            id: "watts",
-                                                        }}
                                                         startAdornment={"W"}
+                                                        component={CustomInputForRedux}
                                                     />
                                                 </GridItem>
                                                 <GridItem xs={12} sm={12} md={4}>
