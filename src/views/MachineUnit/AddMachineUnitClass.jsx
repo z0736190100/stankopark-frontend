@@ -1,18 +1,35 @@
 import React, {Component} from "react";
-import Experimental from "views/MachineUnit/AddMachineUnit.jsx";
-//import { connect } from "react-redux";
-//import * as actions from "store/actions";
+import AddMachineUnit from "views/MachineUnit/AddMachineUnit.jsx";
+import {connect} from "react-redux";
+import * as actions from "store/actions";
 
 //TODO uncontrolled CustomForm component + redux-form
 class AddMachineUnitClass extends Component {
+
     state = {
         mockSelectVal: "one",
         electric: false,
         pneumatic: false,
         hydraulic: false,
-        manual: true
-
+        manual: true,
+        tableData: []
     };
+
+    componentDidUpdate(){
+        if (this.props.form.addMachineUnitForm !== undefined)
+        console.log(this.props.form.addMachineUnitForm);
+    }
+
+    tableHelper(){
+        if (this.props.form.addMachineUnitForm !== undefined){
+            let values = this.props.form.addMachineUnitForm.values;
+            this.setState({
+                tableData: this.state.tableData.push([
+
+                ])
+            })
+        }
+    }
 
     selectOC = event => {
         this.setState({
@@ -20,7 +37,7 @@ class AddMachineUnitClass extends Component {
         });
     };
 
-    switchOnChangeHandler = (name) => {
+    switchInputOnChange = (name) => {
         if (name === "manual") {
             this.setState({
                 electric: false,
@@ -37,17 +54,22 @@ class AddMachineUnitClass extends Component {
         }
     };
 
-
     render() {
         return (
-            <Experimental selectOC={this.selectOC} iii={this.state.mockSelectVal}
-                          switchStateHandler={this.switchOnChangeHandler} switchState={this.state}/>
+            <AddMachineUnit selectOC={this.selectOC}
+                            iii={this.state.mockSelectVal}
+                            switchStateHandler={this.switchInputOnChange}
+                            switchState={this.state}
+                            tableData={this.state.tableData}
+            />
         );
     }
 }
 
-// function mapStateToProps({ test }) {
-//   return { test };
-// }
+function mapStateToProps({form}) {
+    return {
+        form
+    };
+}
 
-export default AddMachineUnitClass;
+export default connect(mapStateToProps, actions)(AddMachineUnitClass);

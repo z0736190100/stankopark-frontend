@@ -1,6 +1,7 @@
 import React from "react";
 import _ from "lodash";
 import axios from "axios";
+import {Field, reduxForm} from "redux-form";
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
 import ExpansionPanel from "@material-ui/core/es/ExpansionPanel/ExpansionPanel";
@@ -8,20 +9,21 @@ import ExpansionPanelSummary from "@material-ui/core/es/ExpansionPanelSummary/Ex
 import ExpansionPanelDetails from "@material-ui/core/es/ExpansionPanelDetails/ExpansionPanelDetails";
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 // core components
-import GridItem from "components/Grid/GridItem.jsx";
-import GridContainer from "components/Grid/GridContainer.jsx";
-import CustomInput from "components/CustomInput/CustomInput.jsx";
 import Button from "components/CustomButtons/Button.jsx";
 import Card from "components/Card/Card.jsx";
 import CardHeader from "components/Card/CardHeader.jsx";
-import CardAvatar from "components/Card/CardAvatar.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
+import CustomInput from "components/CustomInput/CustomInput.jsx";
 import CustomSelectInput from "components/CustomInput/CustomSelectInput.jsx";
-import CustomSwitchInput from "components/CustomInput/CustomSwitchInput"
-
-import avatar from "assets/img/faces/gh_logo.png";
+import CustomSwitchInput from "components/CustomInput/CustomSwitchInput.jsx";
+import GridItem from "components/Grid/GridItem.jsx";
+import GridContainer from "components/Grid/GridContainer.jsx";
+import Table from "under_construction/components/Table/Table.jsx";
+import CustomInputForRedux from "under_construction/components/CustomInputForRedux.jsx"
+//assets
 import formFields from "views/MachineUnit/machineUnitFormFields.js";
+import ADD_MACHINE_UNIT_FORM_FIELD_PROPS from "views/MachineUnit/addMachineUnitFormFields.js";
 
 
 const styles = {
@@ -44,8 +46,51 @@ const styles = {
     }
 };
 
+// const ADD_MACHINE_UNIT_FORM_FIELD_PROPS = [
+//     {
+//         name: "username",
+//         labelText: "Email",
+//        // endAdornment: <Email/>,
+//         errorText: "А емейл?",
+//         value: ""
+//     },
+//     {
+//         name: "password",
+//         labelText: "Пароль",
+//         // endAdornment:
+//         //     <Icon>
+//         //         lock_outline
+//         //     </Icon>,
+//         errorText: "А пололь?",
+//         value:""
+//     }
+// ];
+
+const formRenderer = () => {
+    const defaultErrorText = "Check if right.";
+    return _.map(ADD_MACHINE_UNIT_FORM_FIELD_PROPS, item => {
+        return (
+            <GridItem key={item.name} {...item.breakpoints}>
+            <Field
+                key={item.name}
+                name={item.name}
+                component={
+                    CustomInputForRedux
+                }
+                formControlProps={{
+                    fullWidth: true
+                }}
+                labelText={item.labelText}
+                endAdornment={item.endAdornment || null}
+                errorText={item.errorText || defaultErrorText}
+            />
+            </GridItem>
+        );
+    })
+};
+
 function AddMachineUnit(props) {
-    const {classes} = props;
+    const {classes, tableData} = props;
 
     // KUNG-FUSION: i18n of form field labels - how to?
 
@@ -132,10 +177,13 @@ function AddMachineUnit(props) {
         return _.map(SWITCH_ITEMS, val => {
             return (
                 <GridItem key={val.name} xs={12} sm={6} md={3}>
-                    <CustomSwitchInput
+                    <Field
+                        key={val.name}
+                        name={val.name}
+                        component={CustomSwitchInput}
                         id={val.id}
                         label={val.label}
-                        name={val.name}
+
                         checked={props.switchState[val.name] || false}
                         onClick={(name) => props.switchStateHandler(val.name)}/>
                 </GridItem>
@@ -202,7 +250,7 @@ function AddMachineUnit(props) {
                             </p>
                         </CardHeader>
                         <CardBody>
-                            <form action="#">
+                            <form onSubmit={props.handleSubmit(values => console.log(values))}>
                                 <GridContainer>
                                     <GridItem xs={12} sm={12} md={12}>
                                         <ExpansionPanel defaultExpanded
@@ -228,7 +276,7 @@ function AddMachineUnit(props) {
                                                             }}
                                                         />
                                                     </GridItem>
-                                                    {formFieldsRenderer()}
+                                                    {formRenderer()}
                                                     <GridItem xs={12} sm={12} md={12}>
                                                         <CustomInput
                                                             error={true}
@@ -400,21 +448,26 @@ function AddMachineUnit(props) {
                     </Card>
                 </GridItem>
                 <GridItem xs={12} sm={12} md={4}>
-                    <Card profile>
-                        <CardAvatar profile>
-                            <a href="#rr">
-                                <img alt={"avatar"} src={avatar}/>
-                            </a>
-                        </CardAvatar>
-                        <CardBody profile>
-                            <h6 className={classes.cardCategory}>{"ЖУРНАЛ"}</h6>
-                            <h4 className={classes.cardTitle}>{props.iii}</h4>
-                            <p className={classes.description}>
-                                {
-                                    "--выборка из общего журнала техобслуживания в табличном виде--"
-                                }
+                    <Card>
+                        <CardHeader color="primary">
+                            <h4 className={classes.cardTitleWhite}>Паспорт</h4>
+                            <p className={classes.cardCategoryWhite}>
+                                чекаут перед сохранением
                             </p>
-                            <Button color={"success"}>{"TEST"}</Button>
+                        </CardHeader>
+                        <CardBody>
+                            <Table
+                                tableHeaderColor="success"
+                                tableHead={["Field", "Value"]}
+                                tableData={tableData}
+                            />
+                            <Button
+                                disabled
+                                color={"primary"}
+                                onClick={() => saveMachineUnit(formState)}
+                            >
+                                {"Сохранить изменения"}
+                            </Button>
                         </CardBody>
                     </Card>
                 </GridItem>
@@ -432,4 +485,19 @@ function AddMachineUnit(props) {
     );
 }
 
-export default withStyles(styles)(AddMachineUnit);
+function validate(values) {
+    const errors = {};
+
+    _.each(ADD_MACHINE_UNIT_FORM_FIELD_PROPS, ({name}) => {
+        if (!values[name]) {
+            errors[name] = true;
+        }
+    });
+
+    return errors;
+}
+
+export default reduxForm({
+    validate,
+    form: "addMachineUnitForm"
+})(withStyles(styles)(AddMachineUnit));

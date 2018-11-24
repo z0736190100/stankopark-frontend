@@ -151,6 +151,7 @@ class HeaderLinks extends React.Component {
           </Poppers>
         </div>
         <Button
+            href={"/api/logout"}
           color={window.innerWidth > 959 ? "transparent" : "white"}
           justIcon={window.innerWidth > 959}
           simple={!(window.innerWidth > 959)}

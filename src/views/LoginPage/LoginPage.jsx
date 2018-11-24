@@ -49,12 +49,13 @@ class LoginPage extends React.Component {
           <div className={classes.container}>
             <GridContainer justify="center">
               <GridItem xs={12} sm={12} md={4}>
-                <Card className={classes[this.state.cardAnimaton]}>
+                <Card className={classes[this.state.cardAnimaton]}
+                profile>
                   <form className={classes.form}>
                     <CardHeader color="primary" className={classes.cardHeader}>
                       <h4>Добро Пожаловать!</h4>
                     </CardHeader>
-                    <CardBody>
+                    <CardBody profile>
                       <CustomInput
                         labelText="Ник"
                         id="first"
@@ -102,14 +103,6 @@ class LoginPage extends React.Component {
                           )
                         }}
                       />
-                    </CardBody>
-                    <CardFooter className={classes.cardFooter}>
-                      <GridContainer alignItems="center" justify="center">
-                        <div
-                          style={{
-                            width: "347px"
-                          }}
-                        >
                           <Button
                             onClick={this.props.switchPermitted}
                             color="primary"
@@ -128,11 +121,8 @@ class LoginPage extends React.Component {
                             href={"/auth/google"}
                           >
                             <i className={"fab fa-google-plus-g"} />
-
                           </Button>
-                        </div>
-                      </GridContainer>
-                    </CardFooter>
+                    </CardBody>
                   </form>
                 </Card>
               </GridItem>

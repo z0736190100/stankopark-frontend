@@ -13,13 +13,31 @@ import GridItem from "components/Grid/GridItem.jsx";
 import Card from "components/Card/Card.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import CardHeader from "components/Card/CardHeader.jsx";
-import CardFooter from "components/Card/CardFooter";
 import CustomInputForRedux from "under_construction/components/CustomInputForRedux.jsx";
 //assets
 import loginPageStyle from "assets/jss/material-dashboard-react/views/loginStyle.jsx";
 import image from "assets/img/sidebar-1.jpg";
 
 //FIXME: CardFooter buttons centering- bad
+
+const FORM_FIELD_PROPS = [
+    {
+        name: "username",
+        labelText: "Email",
+        endAdornment: <Email/>,
+        errorText: "А емейл?"
+    },
+    {
+        name: "password",
+        labelText: "Пароль",
+        endAdornment:
+            <Icon>
+                lock_outline
+            </Icon>,
+        errorText: "А пололь?"
+    }
+];
+
 class UCLoginPage extends React.Component {
 
     state = {
@@ -35,24 +53,8 @@ class UCLoginPage extends React.Component {
         }, 777);
     }
 
-    FORM_FIELD_PROPS = [
-        {
-            name: "username",
-            labelText: "Email",
-            endAdornment: <Email className={this.classes.inputIconsColor}/>
-        },
-        {
-            name: "password",
-            labelText: "Пароль",
-            endAdornment:
-                <Icon className={this.classes.inputIconsColor}>
-                    lock_outline
-                </Icon>
-        }
-    ];
-
     formRenderer = () => {
-        return _.map(this.FORM_FIELD_PROPS, item => {
+        return _.map(FORM_FIELD_PROPS, item => {
             return (
                 <Field
                     key={item.name}
@@ -65,6 +67,7 @@ class UCLoginPage extends React.Component {
                     }}
                     labelText={item.labelText}
                     endAdornment={item.endAdornment}
+                    errorText={item.errorText}
                 />
             );
         })
@@ -104,6 +107,16 @@ class UCLoginPage extends React.Component {
                                             >
                                                 submit
                                             </Button>
+                                            <p>или так:</p>
+                                            <Button
+                                                disabled
+                                                round
+                                                justIcon
+                                                color="danger"
+                                                href={"/auth/google"}
+                                            >
+                                                <i className={"fab fa-google-plus-g"}/>
+                                            </Button>
                                         </CardBody>
                                     </form>
                                 </Card>
@@ -116,6 +129,19 @@ class UCLoginPage extends React.Component {
     }
 }
 
+function validate(values) {
+    const errors = {};
+
+    _.each(FORM_FIELD_PROPS, ({name}) => {
+        if (!values[name]) {
+            errors[name] = true;
+        }
+    });
+
+    return errors;
+}
+
 export default reduxForm({
+    validate,
     form: "loginForm"
 })((withStyles(loginPageStyle)(UCLoginPage)));

@@ -6,7 +6,7 @@ import Switch from "@material-ui/core/es/Switch/Switch";
 
 import customSwitchInputStyle from "assets/jss/material-dashboard-react/components/customSwitchInputStyle.jsx"
 
-const CustomSwitchInput = props => {
+const CustomSwitchInput = (props, input) => {
 
     const {
         classes,
@@ -17,7 +17,7 @@ const CustomSwitchInput = props => {
         onClick,
         id
     } = props;
-
+const inputProps = input;
     return (
         <div>
             <FormControlLabel
@@ -33,10 +33,7 @@ const CustomSwitchInput = props => {
                             iconChecked: classes.switchIconChecked,
                             bar: classes.switchBar
                         }}
-                        inputProps={{
-                            name: {name},
-                            id: {id}
-                        }}
+                        {...inputProps}
                     />
                 }
                 classes={{

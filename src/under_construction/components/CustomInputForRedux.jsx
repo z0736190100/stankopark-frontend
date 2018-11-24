@@ -25,17 +25,18 @@ function CustomInput({input, meta: {touched, error}, ...props}) {
         startAdornment,
         success,
         disabled,
-        helperText
+        helperText,
+        errorText
     } = props;
 
     const inputProps = input || props.inputProps;
 
     const labelClasses = classNames({
-        [" " + classes.labelRootError]: error,
+        [" " + classes.labelRootError]: (touched && error),
         [" " + classes.labelRootSuccess]: success && !error
     });
     const underlineClasses = classNames({
-        [classes.underlineError]: error,
+        [classes.underlineError]: (touched && error),
         [classes.underlineSuccess]: success && !error,
         [classes.underline]: true
     });
@@ -74,7 +75,7 @@ function CustomInput({input, meta: {touched, error}, ...props}) {
                 ) : null)}
                 startAdornment={startAdornment}
             />
-            <FormHelperText className={labelClasses}>{ error || helperText }</FormHelperText>
+            <FormHelperText className={labelClasses}>{ ( touched && error ) ? errorText : helperText }</FormHelperText>
 
         </FormControl>
     );
