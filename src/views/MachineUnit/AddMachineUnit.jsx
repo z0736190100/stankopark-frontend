@@ -1,6 +1,5 @@
 import React from "react";
 import _ from "lodash";
-import axios from "axios";
 import {Field, reduxForm} from "redux-form";
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
@@ -20,8 +19,7 @@ import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
 import Table from "under_construction/components/Table/Table.jsx";
 //assets
-import ADD_MACHINE_UNIT_FORM_FIELD_PROPS from "views/MachineUnit/addMachineUnitFormFields.js";
-
+import ADD_MACHINE_UNIT_FORM_FIELD_PROPS from "variables/addMachineUnitFormFields.js";
 
 const styles = {
     cardCategoryWhite: {
@@ -43,92 +41,42 @@ const styles = {
     }
 };
 
-
 function AddMachineUnit(props) {
     const {classes, tableData} = props;
 
     // KUNG-FUSION: i18n of form field labels - how to?
 
-    let formState = {};
-    const VOLTAGE_MENU_VALUES = [
-        {
-            value: 12,
-            text: 12
-        },
-        {
-            value: 36,
-            text: 36
-        },
-        {
-            value: 110,
-            text: 110
-        },
-        {
-            value: 220,
-            text: 220
-        },
-        {
-            value: 380,
-            text: 380
-        }
-    ];
-
-    const USAGE_MENU_VALUES = [
-        {
-            value: "заготовительные работы",
-            text: "заготовительные работы"
-        },
-        {
-            value: "сборочные работы",
-            text: "сборочные работы"
-        },
-        {
-            value: "затяжные работы",
-            text: "затяжные работы"
-        },
-        {
-            value: "финишные и упаковочные работы",
-            text: "финишные и упаковочные работы"
-        },
-    ];
-
-    const changeFormState = fs => {
-        formState[fs.id] = fs.value;
-        console.log(JSON.stringify(formState));
-    };
-
-    const SWITCH_ITEMS = [
-        {
-            label: "Электрическое",
-            name: "electric",
-            id: "electric",
-            checked: false,
-            value: "electric"
-        },
-        {
-            label: "Гидравлическое",
-            name: "hydraulic",
-            id: "hydraulic",
-            checked: false,
-            value: "hydraulic"
-        },
-        {
-            label: "Пневматическое",
-            name: "pneumatic",
-            id: "pneumatic",
-            checked: false,
-            value: "pneumatic"
-        },
-        {
-            label: "Механическое",
-            name: "manual",
-            id: "manual",
-            checked: true,
-            value: "manual"
-        },
-    ];
-
     const switchInputRenderer = () => {
+        const SWITCH_ITEMS = [
+            {
+                label: "Электрическое",
+                name: "electric",
+                id: "electric",
+                checked: false,
+                value: "electric"
+            },
+            {
+                label: "Гидравлическое",
+                name: "hydraulic",
+                id: "hydraulic",
+                checked: false,
+                value: "hydraulic"
+            },
+            {
+                label: "Пневматическое",
+                name: "pneumatic",
+                id: "pneumatic",
+                checked: false,
+                value: "pneumatic"
+            },
+            {
+                label: "Механическое",
+                name: "manual",
+                id: "manual",
+                checked: true,
+                value: "manual"
+            },
+        ];
         return _.map(SWITCH_ITEMS, val => {
             return (
                 <GridItem key={val.name} xs={12} sm={6} md={3}>
@@ -138,7 +86,6 @@ function AddMachineUnit(props) {
                         component={CustomSwitchInput}
                         id={val.id}
                         label={val.label}
-
                         checked={props.switchState[val.name] || false}
                         onClick={(name) => props.switchStateHandler(val.name)}/>
                 </GridItem>
@@ -179,10 +126,6 @@ function AddMachineUnit(props) {
         })
     };
 
-    const saveMachineUnit = unit => {
-        axios.post("/api/machine_units", unit);
-    };
-
     return (
         <div>
             <GridContainer>
@@ -190,7 +133,6 @@ function AddMachineUnit(props) {
                     <Button
                         disabled
                         color={"primary"}
-                        onClick={() => saveMachineUnit(formState)}
                     >
                         {"Сохранить изменения"}
                     </Button>
@@ -249,7 +191,6 @@ function AddMachineUnit(props) {
                                                 <GridItem xs={12} sm={12} md={4}>
                                                     <CustomInput
                                                         disabled
-                                                        onChange={event => changeFormState(event.target)}
                                                         labelText={"Сила тока"}
                                                         id={"ampers"}
                                                         formControlProps={{
@@ -302,7 +243,7 @@ function AddMachineUnit(props) {
                         <CardHeader color="primary">
                             <h4 className={classes.cardTitleWhite}>Паспорт</h4>
                             <p className={classes.cardCategoryWhite}>
-                                чекаут перед сохранением
+                                <small>чекаут перед сохранением</small>
                             </p>
                         </CardHeader>
                         <CardBody>
@@ -314,7 +255,6 @@ function AddMachineUnit(props) {
                             <Button
                                 disabled
                                 color={"primary"}
-                                onClick={() => saveMachineUnit(formState)}
                             >
                                 {"Сохранить изменения"}
                             </Button>
@@ -325,7 +265,6 @@ function AddMachineUnit(props) {
                     <Button
                         disabled
                         color={"primary"}
-                        onClick={() => saveMachineUnit(formState)}
                     >
                         {"Сохранить изменения"}
                     </Button>
@@ -339,7 +278,7 @@ function validate(values) {
     const errors = {};
 // TODO: validation list - just names required- can be different of ADD_MACHINE_UNIT_FORM_FIELD_PROPS, for All Fields
     const FIELDS_TO_VALIDATE_LIST = [
-        "usage", "producerBrand", "model", "serialNumber", "documentationLink", "description", "voltage", "power", "hPressure","hVolume", "airPressure", "airConsumptionPerCycle"
+        "usage", "producerBrand", "model", "serialNumber", "documentationLink", "description", "voltage", "power", "hPressure", "hVolume", "airPressure", "airConsumptionPerCycle"
     ];
     _.each(FIELDS_TO_VALIDATE_LIST, name => {
         if (!values[name]) {
@@ -355,7 +294,3 @@ export default reduxForm({
     form: "addMachineUnitForm"
 })(withStyles(styles)(AddMachineUnit));
 
-// input={{
-//     multiline: true,
-//         rows: 3
-// }}
