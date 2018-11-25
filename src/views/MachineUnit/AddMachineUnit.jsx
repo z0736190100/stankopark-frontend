@@ -15,15 +15,11 @@ import CardHeader from "components/Card/CardHeader.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import CardFooter from "components/Card/CardFooter.jsx";
 import CustomInput from "components/CustomInput/CustomInput.jsx";
-import CustomSelectInput from "components/CustomInput/CustomSelectInput.jsx";
-import CustomSelectInputRedux from "components/CustomInput/CustomSelectInputRedux.jsx";
 import CustomSwitchInput from "components/CustomInput/CustomSwitchInput.jsx";
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
 import Table from "under_construction/components/Table/Table.jsx";
-import CustomInputForRedux from "under_construction/components/CustomInputForRedux.jsx"
 //assets
-import formFields from "views/MachineUnit/machineUnitFormFields.js";
 import ADD_MACHINE_UNIT_FORM_FIELD_PROPS from "views/MachineUnit/addMachineUnitFormFields.js";
 
 
@@ -47,48 +43,6 @@ const styles = {
     }
 };
 
-// const ADD_MACHINE_UNIT_FORM_FIELD_PROPS = [
-//     {
-//         name: "username",
-//         labelText: "Email",
-//        // endAdornment: <Email/>,
-//         errorText: "А емейл?",
-//         value: ""
-//     },
-//     {
-//         name: "password",
-//         labelText: "Пароль",
-//         // endAdornment:
-//         //     <Icon>
-//         //         lock_outline
-//         //     </Icon>,
-//         errorText: "А пололь?",
-//         value:""
-//     }
-// ];
-
-const formRenderer = () => {
-    const defaultErrorText = "Check if right.";
-    return _.map(ADD_MACHINE_UNIT_FORM_FIELD_PROPS, item => {
-        return (
-            <GridItem key={item.name} {...item.breakpoints}>
-            <Field
-                key={item.name}
-                name={item.name}
-                component={
-                    CustomInputForRedux
-                }
-                formControlProps={{
-                    fullWidth: true
-                }}
-                labelText={item.labelText}
-                endAdornment={item.endAdornment || null}
-                errorText={item.errorText || defaultErrorText}
-            />
-            </GridItem>
-        );
-    })
-};
 
 function AddMachineUnit(props) {
     const {classes, tableData} = props;
@@ -96,7 +50,7 @@ function AddMachineUnit(props) {
     // KUNG-FUSION: i18n of form field labels - how to?
 
     let formState = {};
-    const menuItemValues = [
+    const VOLTAGE_MENU_VALUES = [
         {
             value: 12,
             text: 12
@@ -119,7 +73,7 @@ function AddMachineUnit(props) {
         }
     ];
 
-    const menuItemValuesUsage = [
+    const USAGE_MENU_VALUES = [
         {
             value: "заготовительные работы",
             text: "заготовительные работы"
@@ -192,20 +146,37 @@ function AddMachineUnit(props) {
         });
     };
 
-    const formFieldsRenderer = () => {
-        return _.map(formFields, ({inputProps, itemBreakpoints}) => {
+    const formRenderer = (section) => {
+        const defaultErrorText = "Check if right.";
+        return _.map(ADD_MACHINE_UNIT_FORM_FIELD_PROPS[section], item => {
+            const {
+                component,
+                name,
+                labelText,
+                errorText,
+                endAdornment,
+                startAdornment,
+                menuValues,
+                breakpoints
+            } = item;
             return (
-                <GridItem key={inputProps.name} {...itemBreakpoints}>
-                    <CustomInput
-                        onChange={event => changeFormState(event.target)}
-                        {...inputProps}
+                <GridItem key={name} {...breakpoints}>
+                    <Field
+                        key={name}
+                        name={name}
+                        component={component}
                         formControlProps={{
                             fullWidth: true
                         }}
+                        labelText={labelText}
+                        endAdornment={endAdornment}
+                        startAdornment={startAdornment}
+                        errorText={errorText || defaultErrorText}
+                        menuValues={menuValues || null}
                     />
                 </GridItem>
             );
-        });
+        })
     };
 
     const saveMachineUnit = unit => {
@@ -261,36 +232,7 @@ function AddMachineUnit(props) {
                                             </ExpansionPanelSummary>
                                             <ExpansionPanelDetails>
                                                 <GridContainer>
-                                                    <GridItem xs={12} sm={12} md={12}>
-                                                        <Field
-                                                            name= {"usage"}
-                                                            value={props.iii}
-                                                            labelText={"Целевое назначение (группа работ)"}
-                                                            helperText={"Выберите значение"}
-                                                            menuValues={menuItemValuesUsage}
-                                                            formControlProps={{
-                                                                fullWidth: true
-                                                            }}
-                                                            component={CustomSelectInputRedux}
-                                                        />
-                                                    </GridItem>
-                                                    {formRenderer()}
-                                                    <GridItem xs={12} sm={12} md={12}>
-                                                        <CustomInput
-                                                            error={true}
-                                                            onChange={event => changeFormState(event.target)}
-                                                            labelText={"Описание"}
-                                                            id={"description"}
-                                                            formControlProps={{
-                                                                fullWidth: true
-                                                            }}
-                                                            inputProps={{
-                                                                multiline: true,
-                                                                rows: 5
-                                                            }}
-                                                            helperText={"Опишите назначение станка, указанное в паспорте"}
-                                                        />
-                                                    </GridItem>
+                                                    {formRenderer("GENERAL")}
                                                 </GridContainer>
                                             </ExpansionPanelDetails>
                                         </ExpansionPanel>
@@ -303,36 +245,7 @@ function AddMachineUnit(props) {
                                                 <h4 className={classes.heading}>{"Электрообеспечение"}</h4>
                                             </ExpansionPanelSummary>
                                             <ExpansionPanelDetails>
-                                                <GridItem xs={12} sm={12} md={4}>
-                                                    <CustomSelectInput
-                                                        onChange={event => props.selectOC(event)}
-                                                        labelText={"Напряжение"}
-                                                        helperText={"Выберите значение"}
-                                                        startAdornment={"V"}
-                                                        menuValues={menuItemValues}
-                                                        formControlProps={{
-                                                            fullWidth: true
-                                                        }}
-                                                        inputProps={{
-                                                            name: "voltage",
-                                                            id: "voltage",
-                                                            value: props.iii
-                                                        }}
-                                                    />
-                                                </GridItem>
-                                                <GridItem xs={12} sm={12} md={4}>
-                                                    <Field
-                                                        name={"power"}
-                                                        onChange={event => changeFormState(event.target)}
-                                                        labelText={"Мощность"}
-                                                        id={"watts"}
-                                                        formControlProps={{
-                                                            fullWidth: true
-                                                        }}
-                                                        startAdornment={"W"}
-                                                        component={CustomInputForRedux}
-                                                    />
-                                                </GridItem>
+                                                {formRenderer("ELECTRICS")}
                                                 <GridItem xs={12} sm={12} md={4}>
                                                     <CustomInput
                                                         disabled
@@ -361,36 +274,7 @@ function AddMachineUnit(props) {
                                                 <h4 className={classes.heading}>{"Гидравлическая система"}</h4>
                                             </ExpansionPanelSummary>
                                             <ExpansionPanelDetails>
-                                                <GridItem xs={12} sm={12} md={6}>
-                                                    <CustomInput
-                                                        onChange={event => changeFormState(event.target)}
-                                                        labelText={"Рабочее давление системы"}
-                                                        id={"oil_pressure"}
-                                                        formControlProps={{
-                                                            fullWidth: true
-                                                        }}
-                                                        inputProps={{
-                                                            name: "oil_pressure",
-                                                            id: "oil_pressure",
-                                                        }}
-                                                        endAdornment={"КПа"}
-                                                    />
-                                                </GridItem>
-                                                <GridItem xs={12} sm={12} md={6}>
-                                                    <CustomInput
-                                                        onChange={event => changeFormState(event.target)}
-                                                        labelText={"Емкость системы"}
-                                                        id={"oil_value"}
-                                                        formControlProps={{
-                                                            fullWidth: true
-                                                        }}
-                                                        inputProps={{
-                                                            name: "oil_value",
-                                                            id: "oil_value",
-                                                        }}
-                                                        endAdornment={"Кг"}
-                                                    />
-                                                </GridItem>
+                                                {formRenderer("HYDRAULICS")}
                                             </ExpansionPanelDetails>
                                         </ExpansionPanel>
                                     </GridItem>
@@ -402,36 +286,7 @@ function AddMachineUnit(props) {
                                                 <h4 className={classes.heading}>{"Пневматическая система"}</h4>
                                             </ExpansionPanelSummary>
                                             <ExpansionPanelDetails>
-                                                <GridItem xs={12} sm={12} md={6}>
-                                                    <CustomInput
-                                                        onChange={event => changeFormState(event.target)}
-                                                        labelText={"Рабочее давление системы"}
-                                                        id={"air_pressure"}
-                                                        formControlProps={{
-                                                            fullWidth: true
-                                                        }}
-                                                        inputProps={{
-                                                            name: "air_pressure",
-                                                            id: "air_pressure",
-                                                        }}
-                                                        endAdornment={"КПа"}
-                                                    />
-                                                </GridItem>
-                                                <GridItem xs={12} sm={12} md={6}>
-                                                    <CustomInput
-                                                        onChange={event => changeFormState(event.target)}
-                                                        labelText={"Потребление за рабочий цикл"}
-                                                        id={"air_value"}
-                                                        formControlProps={{
-                                                            fullWidth: true
-                                                        }}
-                                                        inputProps={{
-                                                            name: "air_value",
-                                                            id: "air_value",
-                                                        }}
-                                                        endAdornment={"М куб."}
-                                                    />
-                                                </GridItem>
+                                                {formRenderer("PNEUMATICS")}
                                             </ExpansionPanelDetails>
                                         </ExpansionPanel>
                                     </GridItem>
@@ -482,8 +337,11 @@ function AddMachineUnit(props) {
 
 function validate(values) {
     const errors = {};
-
-    _.each(ADD_MACHINE_UNIT_FORM_FIELD_PROPS, ({name}) => {
+// TODO: validation list - just names required- can be different of ADD_MACHINE_UNIT_FORM_FIELD_PROPS, for All Fields
+    const FIELDS_TO_VALIDATE_LIST = [
+        "usage", "producerBrand", "model", "serialNumber", "documentationLink", "description", "voltage", "power", "hPressure","hVolume", "airPressure", "airConsumptionPerCycle"
+    ];
+    _.each(FIELDS_TO_VALIDATE_LIST, name => {
         if (!values[name]) {
             errors[name] = true;
         }
@@ -496,3 +354,8 @@ export default reduxForm({
     validate,
     form: "addMachineUnitForm"
 })(withStyles(styles)(AddMachineUnit));
+
+// input={{
+//     multiline: true,
+//         rows: 3
+// }}

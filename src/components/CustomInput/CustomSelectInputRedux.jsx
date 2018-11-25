@@ -4,20 +4,16 @@ import PropTypes from "prop-types";
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
 import FormControl from "@material-ui/core/FormControl";
-// @material-ui/icons
-// core components
-import customInputStyle from "assets/jss/material-dashboard-react/components/customInputStyle.jsx";
 import InputLabel from "@material-ui/core/es/InputLabel/InputLabel";
 import Input from "@material-ui/core/es/Input/Input";
-import InputAdornment from "@material-ui/core/es/InputAdornment/InputAdornment";
-
-import Clear from "@material-ui/icons/Clear";
-import Check from "@material-ui/icons/Check";
 import MenuItem from "@material-ui/core/es/MenuItem/MenuItem";
 import Select from "@material-ui/core/es/Select/Select";
 import FormHelperText from "@material-ui/core/es/FormHelperText/FormHelperText";
+// @material-ui/icons
+// core components
+// assets
+import customInputStyle from "assets/jss/material-dashboard-react/components/customInputStyle.jsx";
 
-//FIXME:
 function CustomSelectInputRedux({input, meta: {touched, error}, ...props}) {
     const {
         classes,
@@ -27,7 +23,9 @@ function CustomSelectInputRedux({input, meta: {touched, error}, ...props}) {
         selectProps,
         id,
         success,
+        errorText,
         startAdornment,
+        endAdornment,
         menuValues,
         helperText
     } = props;
@@ -45,7 +43,6 @@ function CustomSelectInputRedux({input, meta: {touched, error}, ...props}) {
         [classes.marginTop]: labelText === undefined
     });
 
-    //FIXME:
     const menuItemRenderHelper = () => {
         return menuValues ? (
             menuValues.map(element => (
@@ -60,7 +57,7 @@ function CustomSelectInputRedux({input, meta: {touched, error}, ...props}) {
         );
     };
     const inputProps = input || props.inputProps;
-    //FIXME:
+
     return (
         <FormControl
             {...formControlProps}
@@ -88,24 +85,22 @@ function CustomSelectInputRedux({input, meta: {touched, error}, ...props}) {
                             disabled: classes.disabled,
                             underline: underlineClasses
                         }}
+                        endAdornment={endAdornment || null}
+                        startAdornment={startAdornment || null}
                         {...inputProps}
-                        startAdornment={
-                            <InputAdornment position="start">{startAdornment}</InputAdornment>
-                        }
+
                     />
                 }
             >
                 {menuItemRenderHelper()}
             </Select>
-            <FormHelperText>{helperText}</FormHelperText>
-            {error ? (
-                <Clear className={classes.feedback + " " + classes.labelRootError}/>
-            ) : success ? (
-                <Check className={classes.feedback + " " + classes.labelRootSuccess}/>
-            ) : null}
+            <FormHelperText
+                className={labelClasses}>{(touched && error) ? errorText : (helperText || null)}</FormHelperText>
         </FormControl>
     );
 }
+
+/*<InputAdornment position="start">{startAdornment || null}</InputAdornment>*/
 
 CustomSelectInputRedux.propTypes = {
     classes: PropTypes.object.isRequired,

@@ -12,10 +12,8 @@ const CustomSwitchInput = (props, input) => {
         classes,
         checked,
         value,
-        name,
         label,
         onClick,
-        id
     } = props;
 const inputProps = input;
     return (
