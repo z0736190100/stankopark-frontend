@@ -3,6 +3,8 @@ import AddMachineUnit from "views/MachineUnit/AddMachineUnit.jsx";
 import {connect} from "react-redux";
 import * as actions from "store/actions";
 
+import Snackbar from "components/Snackbar/Snackbar.jsx";
+
 //TODO uncontrolled CustomForm component + redux-form
 class AddMachineUnitClass extends Component {
 
@@ -12,7 +14,9 @@ class AddMachineUnitClass extends Component {
         pneumatic: false,
         hydraulic: false,
         manual: true,
-        tableData: []
+        tableData: [],
+        open: false,
+        message: "Whoa!"
     };
 
     componentDidUpdate(){
@@ -43,7 +47,9 @@ class AddMachineUnitClass extends Component {
                 electric: false,
                 pneumatic: false,
                 hydraulic: false,
-                [name]: !this.state[name]
+                [name]: !this.state[name],
+                open:true,
+                message: "Manual"
             });
         } else {
             this.setState({
@@ -56,12 +62,22 @@ class AddMachineUnitClass extends Component {
 
     render() {
         return (
-            <AddMachineUnit selectOC={this.selectOC}
+            <div>
+                <AddMachineUnit selectOC={this.selectOC}
                             iii={this.state.mockSelectVal}
                             switchStateHandler={this.switchInputOnChange}
                             switchState={this.state}
                             tableData={this.state.tableData}
             />
+                <Snackbar
+                    place={"tr"}
+                    color={"primary"}
+                    message={this.state.message}
+                    open={this.state.open}
+                    closeNotification={() => this.setState({open: false})}
+                    close
+                />
+            </div>
         );
     }
 }

@@ -4,13 +4,13 @@ import Dashboard from "@material-ui/icons/Dashboard";
 // import ContentPaste from "@material-ui/icons/ContentPaste";
 //import LibraryBooks from "@material-ui/icons/LibraryBooks";
 //import BubbleChart from "@material-ui/icons/BubbleChart";
-//import Notifications from "@material-ui/icons/Notifications";
+import Notifications from "@material-ui/icons/Notifications";
 // core components/views
 import DashboardPage from "views/Dashboard/Dashboard.jsx";
 //import MachineUnitsTableList from "views/MachineUnitsTableList/MachineUnitsTableList.jsx";
 //import Typography from "views/Typography/Typography.jsx";
 //import Icons from "views/Icons/Icons.jsx";
-//import NotificationsPage from "views/Notifications/Notifications.jsx";
+import NotificationsPage from "under_construction/components/Notifications/UCNotification.js";
 import AddMachineUnitClass from "views/MachineUnit/AddMachineUnitClass.jsx";
 import UCLoginPage from "under_construction/views/UCLoginPage.jsx";
 //import LoginPage from "components/layouts/LoginPage/LoginPage.jsx";
@@ -72,13 +72,13 @@ const dashboardRoutes = [
     //     icon: BubbleChart,
     //     component: Icons
     // },
-    // {
-    //     path: "/notifications",
-    //     sidebarName: "Notifications",
-    //     navbarName: "Notifications",
-    //     icon: Notifications,
-    //     component: NotificationsPage
-    // },
+    {
+        path: "/notifications",
+        sidebarName: "Notifications",
+        navbarName: "Notifications",
+        icon: Notifications,
+        component: NotificationsPage
+    },
     {redirect: true, path: "/", to: "/dashboard", navbarName: "Redirect"}
 ];
 

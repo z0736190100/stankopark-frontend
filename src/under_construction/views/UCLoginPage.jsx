@@ -13,7 +13,7 @@ import GridItem from "components/Grid/GridItem.jsx";
 import Card from "components/Card/Card.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import CardHeader from "components/Card/CardHeader.jsx";
-import CustomInputForRedux from "under_construction/components/CustomInputForRedux.jsx";
+import CustomInputForRedux from "components/CustomInput/CustomInputForRedux.jsx";
 //assets
 import loginPageStyle from "assets/jss/material-dashboard-react/views/loginStyle.jsx";
 import image from "assets/img/sidebar-1.jpg";

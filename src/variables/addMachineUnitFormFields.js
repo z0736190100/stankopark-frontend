@@ -18,7 +18,7 @@
  *
  */
 import CustomSelectInputRedux from "components/CustomInput/CustomSelectInputRedux.jsx";
-import CustomInputForRedux from "under_construction/components/CustomInputForRedux.jsx"
+import CustomInputForRedux from "components/CustomInput/CustomInputForRedux.jsx"
 
 // KUNG-FUSION: do we really need id, ha?
 
@@ -40,6 +40,7 @@ const USAGE_MENU_VALUES = [
         text: "финишные и упаковочные работы"
     },
 ];
+
 const VOLTAGE_MENU_VALUES = [
     {
         value: 12,
@@ -62,7 +63,6 @@ const VOLTAGE_MENU_VALUES = [
         text: 380
     }
 ];
-
 
 export default {
     GENERAL:
@@ -87,6 +87,7 @@ export default {
                 name: "producerBrand",
                 id: "producerBrand",
                 labelText: "Производитель",
+                tooltipText: "Введите название завода-изготовителя или то слово, которое на корпусе станка написано САМЫМИ БОЛЬШИМИ БУКВАМИ",
                 breakpoints: {
                     xs: 12,
                     sm: 12,

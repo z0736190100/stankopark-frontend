@@ -20,6 +20,7 @@ import GridContainer from "components/Grid/GridContainer.jsx";
 import Table from "under_construction/components/Table/Table.jsx";
 //assets
 import ADD_MACHINE_UNIT_FORM_FIELD_PROPS from "variables/addMachineUnitFormFields.js";
+import * as axios from "axios";
 
 const styles = {
     cardCategoryWhite: {
@@ -101,6 +102,7 @@ function AddMachineUnit(props) {
                 name,
                 labelText,
                 errorText,
+                tooltipText,
                 endAdornment,
                 startAdornment,
                 menuValues,
@@ -119,12 +121,18 @@ function AddMachineUnit(props) {
                         endAdornment={endAdornment}
                         startAdornment={startAdornment}
                         errorText={errorText || defaultErrorText}
+                        tooltipText={tooltipText || null}
                         menuValues={menuValues || null}
                     />
                 </GridItem>
             );
         })
     };
+
+
+const saveToDB = (values) => {
+
+    axios.post("/api/machine_units", values);};
 
     return (
         <div>
@@ -133,11 +141,13 @@ function AddMachineUnit(props) {
                     <Button
                         disabled
                         color={"primary"}
+                        type={"submit"}
                     >
                         {"Сохранить изменения"}
                     </Button>
                 </GridItem>
                 <GridItem xs={12} sm={12} md={8}>
+                    <form onSubmit={props.handleSubmit(values => saveToDB(values))}>
                     <Card> {/*this card avaliable only for saving new machineUnit, not for updating*/}
                         <CardHeader color={"primary"}>
                             <h4 className={classes.cardTitleWhite}>
@@ -164,7 +174,6 @@ function AddMachineUnit(props) {
                             </p>
                         </CardHeader>
                         <CardBody>
-                            <form onSubmit={props.handleSubmit(values => console.log(values))}>
                                 <GridContainer>
                                     <GridItem xs={12} sm={12} md={12}>
                                         <ExpansionPanel defaultExpanded
@@ -232,11 +241,17 @@ function AddMachineUnit(props) {
                                         </ExpansionPanel>
                                     </GridItem>
                                 </GridContainer>
-                            </form>
                         </CardBody>
                         <CardFooter>
                         </CardFooter>
                     </Card>
+                        <Button
+                            color={"primary"}
+                            type={"submit"}
+                        >
+                            {"Сохранить изменения"}
+                        </Button>
+                </form>
                 </GridItem>
                 <GridItem xs={12} sm={12} md={4}>
                     <Card>
@@ -255,19 +270,12 @@ function AddMachineUnit(props) {
                             <Button
                                 disabled
                                 color={"primary"}
+                                type={"submit"}
                             >
                                 {"Сохранить изменения"}
                             </Button>
                         </CardBody>
                     </Card>
-                </GridItem>
-                <GridItem xs={12} sm={12} md={8}>
-                    <Button
-                        disabled
-                        color={"primary"}
-                    >
-                        {"Сохранить изменения"}
-                    </Button>
                 </GridItem>
             </GridContainer>
         </div>

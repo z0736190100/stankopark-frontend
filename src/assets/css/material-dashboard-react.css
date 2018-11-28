@@ -1,4 +1,4 @@
-/*!
+ /*!
 
  =========================================================
  * Material Dashboard React - v1.5.0 based on Material Dashboard - v1.2.0
@@ -58,10 +58,10 @@ html * {
     -moz-osx-font-smoothing: grayscale;
 }
 body {
-    background-color: #EEEEEE;
+    background-color: #ecf2f9; /*#EEEEEE;*/
     color: #3C4858;
     margin: 0;
-    font-family: Roboto Slab;
+    font-family: Roboto Slab, "Helvetica", "Arial", sans-serif;
     font-weight: 300;
     line-height: 1.5em;
 }
@@ -106,11 +106,6 @@ h6 {
     font-weight: 500;
 }
 
-body {
-    background-color: #ecf2f9; /*#EEEEEE;*/
-    color: #3C4858;
-}
-
 blockquote p {
     font-style: italic;
 }
@@ -129,10 +124,6 @@ a {
 a:hover, a:focus {
     color: #89229b;
     text-decoration: none;
-}
-
-legend {
-    border-bottom: 0;
 }
 
 * {
@@ -156,6 +147,7 @@ input[type="file"] > input[type="button"]::-moz-focus-inner {
 }
 
 legend {
+    border-bottom: 0;
     margin-bottom: 20px;
     font-size: 21px;
 }

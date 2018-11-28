@@ -8,8 +8,12 @@ import InputLabel from "@material-ui/core/InputLabel";
 import Input from "@material-ui/core/Input";
 import FormHelperText from "@material-ui/core/es/FormHelperText/FormHelperText";
 // @material-ui/icons
+import Info from "@material-ui/icons/Info";
+import Icon from "@material-ui/core/Icon/Icon";
 // core components
 import customInputStyle from "assets/jss/material-dashboard-react/components/customInputStyle.jsx";
+import Tooltip from "@material-ui/core/Tooltip/Tooltip";
+
 
 // KUNG-FUSION: error that comes from reduxForm is boolean or a string with error text
 function CustomInput({input, meta: {touched, error}, ...props}) {
@@ -24,7 +28,8 @@ function CustomInput({input, meta: {touched, error}, ...props}) {
         success,
         disabled,
         helperText,
-        errorText
+        errorText,
+        tooltipText
     } = props;
 
     const inputProps = input || props.inputProps;
@@ -49,27 +54,34 @@ function CustomInput({input, meta: {touched, error}, ...props}) {
         >
             {labelText !== undefined ? (
                 <InputLabel
+                    shrink={startAdornment}
                     className={classes.labelRoot + labelClasses}
                     htmlFor={id}
                     {...labelProps}
                 >
                     {labelText}
                 </InputLabel>
+
             ) : null}
-            <Input
-                disabled={disabled}
-                onChange={event => props.onChange(event)}
-                classes={{
-                    root: marginTop,
-                    disabled: classes.disabled,
-                    underline: underlineClasses
-                }}
-                id={id}
-                {...inputProps}
-                endAdornment={endAdornment || null}
-                startAdornment={startAdornment || null}
-            />
-            <FormHelperText className={labelClasses}>{ ( touched && error ) ? errorText : (helperText || null) }</FormHelperText>
+            <Tooltip
+                title={tooltipText || ""}
+                placement={"top-start"}>
+                <Input
+                    disabled={disabled}
+                    onChange={event => props.onChange(event)}
+                    classes={{
+                        root: marginTop,
+                        disabled: classes.disabled,
+                        underline: underlineClasses
+                    }}
+                    id={id}
+                    {...inputProps}
+                    endAdornment={endAdornment || null}
+                    startAdornment={startAdornment || null}
+                />
+            </Tooltip>
+            <FormHelperText
+                className={labelClasses}>{(touched && error) ? errorText : (helperText || null)}</FormHelperText>
 
         </FormControl>
     );
