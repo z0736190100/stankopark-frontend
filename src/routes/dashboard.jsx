@@ -13,7 +13,7 @@ import DashboardPage from "views/Dashboard/Dashboard.jsx";
 import NotificationsPage from "under_construction/components/Notifications/UCNotification.js";
 import AddMachineUnitClass from "views/MachineUnit/AddMachineUnitClass.jsx";
 import UCLoginPage from "under_construction/views/UCLoginPage.jsx";
-//import LoginPage from "components/layouts/LoginPage/LoginPage.jsx";
+//import LoginPage from "components/layouts/LoginPage/WelcomePage.jsx";
 
 const dashboardRoutes = [
     {
