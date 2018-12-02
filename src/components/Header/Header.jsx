@@ -40,7 +40,7 @@ function Header({ ...props }) {
           </Button>
         </div>
         <Hidden smDown implementation="css">
-          <HeaderLinks switchPermitted={props.switchPermitted} />
+          <HeaderLinks logout={props.logout} />
         </Hidden>
         <Hidden mdUp implementation="css">
           <IconButton

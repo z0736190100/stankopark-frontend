@@ -151,13 +151,13 @@ class HeaderLinks extends React.Component {
           </Poppers>
         </div>
         <Button
-            href={"/api/logout"}
+            //href={"/api/logout"}
           color={window.innerWidth > 959 ? "transparent" : "white"}
           justIcon={window.innerWidth > 959}
           simple={!(window.innerWidth > 959)}
           aria-label="Person"
           className={classes.buttonLink}
-          onClick={this.props.switchPermitted}
+          onClick={this.props.logout}
         >
           <Person className={classes.icons} />
           <Hidden mdUp implementation="css">

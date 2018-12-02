@@ -1,5 +1,6 @@
 import React from "react";
 import {Field, reduxForm} from "redux-form";
+import {connect} from "react-redux";
 import * as actions from "store/actions";
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
@@ -34,7 +35,7 @@ class WelcomePage extends React.Component {
     }
 
     formRenderer = () => {
-        const defaultErrorText = "Check if right.";
+        const defaultErrorText = "Заполните поле правильно.";
         return _.map(LOGIN, item => {
             const {
                 component,
@@ -92,48 +93,35 @@ class WelcomePage extends React.Component {
                             <GridItem xs={12} sm={12} md={4}>
                                 <Card className={classes[this.state.cardAnimaton]}
                                       profile>
-
                                     <CardHeader color="primary" className={classes.cardHeader}>
                                         <h4>Добро Пожаловать!</h4>
                                     </CardHeader>
                                     <CardBody profile>
                                         {this.state.welcomeLogin ?
                                             (<form
-                                            onSubmit={this.props.handleSubmit(values => console.log(values))}>
+                                            onSubmit={this.props.handleSubmit(values => this.props.loginUser(values))}>
                                             <GridContainer>
                                                 {this.formRenderer()}
                                             </GridContainer>
                                             <Button
-                                                onClick={this.props.switchPermitted}
+                                                type={"submit"}
+                                                //onClick={this.props.switchPermitted}
                                                 color="primary"
                                                 style={{
                                                     fontFamily: "Roboto Slab"
                                                 }}
                                             >
-                                                {this.state.welcomeLogin ? "Вход" : "Сохранить"}
+                                                {"Вход"}
                                             </Button>
-                                            <p>или так:</p>
+                                            <p><small>или</small></p>
                                             <Button
-                                                // disabled
-                                                round
-                                                justIcon
-                                                color="danger"
-                                                href={"/auth/google"}
-                                            >
-                                                <i className={"fab fa-google-plus-g"}/>
-                                            </Button>
-                                            <Button
-                                                //type={"submit"}
                                                 onClick={() => this.switchForm()}
-                                                color="success"
+                                                color="primary"
+                                                style={{
+                                                    fontFamily: "Roboto Slab"
+                                                }}
                                             >
-                                                {this.state.welcomeLogin ? "REGISTRATION" : "LOGIN"}
-                                            </Button>
-                                            <Button
-                                                type={"submit"}
-                                                color="success"
-                                            >
-                                                submit
+                                                {"РЕГИСТРАЦИЯ"}
                                             </Button>
                                         </form>) : <RegistrationForm switchForm={this.switchForm}/>}
                                     </CardBody>
@@ -149,7 +137,7 @@ class WelcomePage extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        error: state.auth.error
+        state: state
     }
 };
 
@@ -166,7 +154,19 @@ const validate = values => {
     return errors;
 };
 
-export default reduxForm({
+export default connect(mapStateToProps, actions)(reduxForm({
     validate,
     form: "login"
-}, mapStateToProps, actions)(withStyles(welcomePageStyle)(WelcomePage));
+})(withStyles(welcomePageStyle)(WelcomePage)));
+
+
+{/*
+<Button
+    // disabled
+    round
+    justIcon
+    color="danger"
+    href={"/auth/google"}
+>
+    <i className={"fab fa-google-plus-g"}/>
+</Button>*/}

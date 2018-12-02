@@ -2,7 +2,8 @@ import {
     AUTH_USER,
     FETCH_USER,
     LOGOUT_USER,
-    AUTH_ERROR
+    AUTH_ERROR,
+    REGISTER_USER
 } from "store/actions/types.js";
 import axios from "axios";
 
@@ -32,7 +33,10 @@ export const switchAuth = () => async dispatch => {
 export const loginUser = ({email, password}) => dispatch => {
     axios.post("/api/login", {email, password})
         .then(res => {
-            dispatch({type: AUTH_USER});
+            dispatch({
+                type: AUTH_USER,
+                payload: res.data.token
+            });
             // save JWT to LocalStorage
             localStorage.setItem("token", res.data.token);
             // redirect to route in case of successfull authentication
@@ -57,13 +61,16 @@ export const logoutUser = () => dispatch => {
     })
 };
 
-export const registerUser = ({firstName, lastName, email, password}) => dispatch => {
-    axios.post("/api/users", {firstName, lastName, email, password})
+export const registerUser = ({firstName, lastName, email, password, password2}) => dispatch => {
+    axios.post("api/users", {firstName, lastName, email, password, password2})
         .then(res => {
-
+            console.log(res.data);
+            dispatch({
+                type: REGISTER_USER,
+                payload: res.data
+            })
         })
         .catch(err => {
-
+            console.log(err);
         })
-
 };

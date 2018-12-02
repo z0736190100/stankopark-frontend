@@ -7,9 +7,10 @@ module.exports = function(app) {
         "/api/machine_units",
         "/auth/google",
         "/api/logout",
+        "/api/login",
         "/api/current_user",
-        "/api/stripe",
-        "/api/units"
+        "/api/users/current",
+        "/api/users"
       ],
       {
         target: "http://localhost:5000/"

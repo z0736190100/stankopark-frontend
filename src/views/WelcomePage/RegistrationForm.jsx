@@ -1,6 +1,8 @@
 import React from 'react';
 import {Field, reduxForm} from "redux-form";
+import {connect} from "react-redux";
 import _ from "lodash";
+import * as actions from "store/actions";
 
 import GridContainer from "components/Grid/GridContainer.jsx";
 import Button from "components/CustomButtons/Button.jsx";
@@ -45,44 +47,44 @@ const formRenderer = () => {
 };
 
 const RegistrationForm = props => {
+
+    (function (){console.log(props);})();
+
+    const regUser = props.registerUser;
+
     return (
-        <form onSubmit={props.handleSubmit(values => console.log(values))}>
+        <form onSubmit={props.handleSubmit(values => regUser(values))}>
             <GridContainer>
                 {formRenderer()}
             </GridContainer>
             <Button
+                //type={"submit"}
+                onClick={() => props.switchForm()}
                 color="primary"
                 style={{
                     fontFamily: "Roboto Slab"
                 }}
             >
-                {"Сохранить"}
-            </Button>
-            <p>или так:</p>
-            <Button
-                // disabled
-                round
-                justIcon
-                color="danger"
-                href={"/auth/google"}
-            >
-                <i className={"fab fa-google-plus-g"}/>
-            </Button>
-            <Button
-                //type={"submit"}
-                onClick={() => props.switchForm()}
-                color="success"
-            >
-                { "LOGIN"}
+                {" <  Назад"}
             </Button>
             <Button
                 type={"submit"}
-                color="success"
+                color="primary"
+                style={{
+                    fontFamily: "Roboto Slab"
+                }}
             >
-                submit
+                {"Зарегистрировать"}
             </Button>
+
         </form>
     );
+};
+
+const mapStateToProps = (state) => {
+    return {
+        state: state
+    }
 };
 
 const validate = values => {
@@ -99,7 +101,8 @@ const validate = values => {
     return errors;
 };
 
-export default reduxForm({
+export default connect(mapStateToProps, actions)(
+    reduxForm({
     validate,
     form: "registration"
-})(RegistrationForm);
+})(RegistrationForm));
