@@ -299,6 +299,6 @@ function validate(values) {
 
 export default reduxForm({
     validate,
-    form: "addMachineUnitForm"
+    form: "add_machine"
 })(withStyles(styles)(AddMachineUnit));
 

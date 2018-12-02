@@ -1,14 +1,19 @@
 import CustomInputForRedux from "components/CustomInput/CustomInputForRedux.jsx"
 
-export default {
-    REGISTRATION:
-        [
+export const REGISTRATION = [
             {
                 component: CustomInputForRedux,
                 name: "firstName",
                 id: "firstName",
                 labelText: "Имя",
                 tooltipText: "Введите Ваше имя кириллицей.",
+                constraints: {
+                    required: true,
+                    type: "text",
+                    pattern: "/^[аАбБвВгГдДеЕёЁжЖзЗиИйЙкКлЛмМнНоОпПрРсСтТуУфФхХцЦчЧшШщЩъЪыЫьЬэЭюЮяЯ]+$/",
+                    minlength: 2,
+                    maxlength: 22
+                },
                 breakpoints: {
                     xs: 12,
                     sm: 12,
@@ -21,6 +26,13 @@ export default {
                 id: "lastName",
                 labelText: "Фамилия",
                 tooltipText: "Введите Вашу фамилию кириллицей.",
+                constraints: {
+                    required: true,
+                    type: "text",
+                    pattern: "/^[аАбБвВгГдДеЕёЁжЖзЗиИйЙкКлЛмМнНоОпПрРсСтТуУфФхХцЦчЧшШщЩъЪыЫьЬэЭюЮяЯ]+$/",
+                    minlength: 2,
+                    maxlength: 22
+                },
                 breakpoints: {
                     xs: 12,
                     sm: 12,
@@ -33,6 +45,12 @@ export default {
                 id: "email",
                 labelText: "Email",
                 tooltipText: "Ведите свой е-мейл.",
+                constraints: {
+                    required: true,
+                    type: "email",
+                    minlength: 5,
+                    maxlength: 22
+                },
                 breakpoints:
                     {
                         xs: 12,
@@ -46,6 +64,12 @@ export default {
                 id: "password",
                 labelText: "Пароль",
                 tooltipText: "Пароль должен быть длииинным и слооожным!",
+                constraints: {
+                    required: true,
+                    type: "password",
+                    minlength: 8,
+                    maxlength: 22
+                },
                 breakpoints:
                     {
                         xs: 12,
@@ -58,6 +82,12 @@ export default {
                 name: "password2",
                 id: "password2",
                 labelText: "Повторите пароль",
+                constraints: {
+                    required: true,
+                    type: "password",
+                    minlength: 8,
+                    maxlength: 22
+                },
                 breakpoints:
                     {
                         xs: 12,
@@ -65,14 +95,21 @@ export default {
                         md: 12
                     }
             }
-        ],
-    LOGIN: [
+            ];
+
+  export const LOGIN = [
         {
             component: CustomInputForRedux,
             name: "email",
             id: "email",
             labelText: "Email",
             tooltipText: "Ведите свой е-мейл.",
+            constraints: {
+                required: true,
+                type: "email",
+                minlength: 5,
+                maxlength: 22
+            },
             breakpoints:
                 {
                     xs: 12,
@@ -85,6 +122,12 @@ export default {
             name: "password",
             id: "password",
             labelText: "Пароль",
+            constraints: {
+                required: true,
+                type: "password",
+                minlength: 8,
+                maxlength: 22
+            },
             breakpoints:
                 {
                     xs: 12,
@@ -92,54 +135,4 @@ export default {
                     md: 12
                 }
         }
-    ]
-};
-
-
-{/*<CustomInput*/}
-    {/*labelText="Ник"*/}
-    {/*id="first"*/}
-    {/*formControlProps={{*/}
-        {/*fullWidth: true*/}
-    {/*}}*/}
-    {/*inputProps={{*/}
-        {/*type: "text",*/}
-        {/*endAdornment: (*/}
-            {/*<InputAdornment position="end">*/}
-                {/*<People className={classes.inputIconsColor}/>*/}
-            {/*</InputAdornment>*/}
-        {/*)*/}
-    {/*}}*/}
-{/*/>*/}
-{/*<CustomInput*/}
-{/*labelText="Email..."*/}
-{/*id="email"*/}
-{/*formControlProps={{*/}
-    {/*fullWidth: true*/}
-{/*}}*/}
-{/*inputProps={{*/}
-    {/*type: "email",*/}
-        {/*endAdornment: (*/}
-        {/*<InputAdornment position="end">*/}
-            {/*<Email className={classes.inputIconsColor}/>*/}
-        {/*</InputAdornment>*/}
-    {/*)*/}
-{/*}}*/}
-{/*/>*/}
-{/*<CustomInput*/}
-    {/*labelText="Пароль"*/}
-    {/*id="pass"*/}
-    {/*formControlProps={{*/}
-        {/*fullWidth: true*/}
-    {/*}}*/}
-    {/*inputProps={{*/}
-        {/*type: "password",*/}
-        {/*endAdornment: (*/}
-            {/*<InputAdornment position="end">*/}
-                {/*<Icon className={classes.inputIconsColor}>*/}
-                    {/*lock_outline*/}
-                {/*</Icon>*/}
-            {/*</InputAdornment>*/}
-        {/*)*/}
-    {/*}}*/}
-{/*/>*/}
+    ];

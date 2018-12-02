@@ -1,5 +1,6 @@
 import React from "react";
 import {Field, reduxForm} from "redux-form";
+import * as actions from "store/actions";
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
 import InputAdornment from "@material-ui/core/InputAdornment";
@@ -14,9 +15,10 @@ import Button from "components/CustomButtons/Button.jsx";
 import Card from "components/Card/Card.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import CardHeader from "components/Card/CardHeader.jsx";
+import RegistrationForm from "views/WelcomePage/RegistrationForm.jsx";
 
 import welcomePageStyle from "assets/jss/material-dashboard-react/views/welcomeStyle.jsx";
-import WELCOME_FORM_FIELDS from "views/WelcomePage/x.jsx";
+import {LOGIN} from "variables/welcomeFormFields.jsx";
 
 import image from "assets/img/sidebar-1.jpg";
 import _ from "lodash";
@@ -37,9 +39,7 @@ class WelcomePage extends React.Component {
 
     formRenderer = () => {
         const defaultErrorText = "Check if right.";
-        let section = this.state.welcomeLogin ? "LOGIN" : "REGISTRATION";
-        return _.map(WELCOME_FORM_FIELDS[section], item => {
-            console.log(item);
+        return _.map(LOGIN, item => {
             const {
                 component,
                 name,
@@ -48,7 +48,8 @@ class WelcomePage extends React.Component {
                 tooltipText,
                 endAdornment,
                 startAdornment,
-                breakpoints
+                breakpoints,
+                constraints
             } = item;
             return (
                 <GridItem key={name} {...breakpoints}>
@@ -64,9 +65,16 @@ class WelcomePage extends React.Component {
                         startAdornment={startAdornment}
                         errorText={errorText || defaultErrorText}
                         tooltipText={tooltipText || null}
+                        {...constraints}
                     />
                 </GridItem>
             );
+        })
+    };
+
+    switchForm = () => {
+        this.setState({
+            welcomeLogin: !this.state.welcomeLogin
         })
     };
 
@@ -88,13 +96,16 @@ class WelcomePage extends React.Component {
                             <GridItem xs={12} sm={12} md={4}>
                                 <Card className={classes[this.state.cardAnimaton]}
                                       profile>
-                                    <form className={classes.form}>
-                                        <CardHeader color="primary" className={classes.cardHeader}>
-                                            <h4>Добро Пожаловать!</h4>
-                                        </CardHeader>
-                                        <CardBody profile>
+
+                                    <CardHeader color="primary" className={classes.cardHeader}>
+                                        <h4>Добро Пожаловать!</h4>
+                                    </CardHeader>
+                                    <CardBody profile>
+                                        {this.state.welcomeLogin ?
+                                            (<form
+                                            onSubmit={this.props.handleSubmit(values => console.log(values))}>
                                             <GridContainer>
-                                                {this.formRenderer(this.state.welcomeForm)}
+                                                {this.formRenderer()}
                                             </GridContainer>
                                             <Button
                                                 onClick={this.props.switchPermitted}
@@ -116,17 +127,20 @@ class WelcomePage extends React.Component {
                                                 <i className={"fab fa-google-plus-g"}/>
                                             </Button>
                                             <Button
-                                                onClick={() => {
-                                                    this.setState({
-                                                        welcomeLogin: !this.state.welcomeLogin
-                                                    })
-                                                }}
+                                                //type={"submit"}
+                                                onClick={() => this.switchForm()}
                                                 color="success"
                                             >
                                                 {this.state.welcomeLogin ? "REGISTRATION" : "LOGIN"}
                                             </Button>
-                                        </CardBody>
-                                    </form>
+                                            <Button
+                                                type={"submit"}
+                                                color="success"
+                                            >
+                                                submit
+                                            </Button>
+                                        </form>) : <RegistrationForm switchForm={this.switchForm}/>}
+                                    </CardBody>
                                 </Card>
                             </GridItem>
                         </GridContainer>
@@ -137,6 +151,29 @@ class WelcomePage extends React.Component {
     }
 }
 
+const mapStateToProps = state => {
+    return {
+        error: state.auth.error
+    }
+};
+
+const validate = values => {
+    let errors = [];
+    const FIELDS_TO_VALIDATE_LIST = ["email", "password"];
+    console.log(values);
+
+    _.each(FIELDS_TO_VALIDATE_LIST, name => {
+        if (!values[name]) {
+            errors[name] = true;
+        }
+        console.log(errors);
+    });
+
+    return errors;
+
+};
+
 export default reduxForm({
-    form: "welcomeForm"
-})(withStyles(welcomePageStyle)(WelcomePage));
+    validate,
+    form: "login"
+}, mapStateToProps, actions)(withStyles(welcomePageStyle)(WelcomePage));

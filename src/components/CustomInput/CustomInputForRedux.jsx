@@ -29,7 +29,12 @@ function CustomInput({input, meta: {touched, error}, ...props}) {
         disabled,
         helperText,
         errorText,
-        tooltipText
+        tooltipText,
+        type,
+        required,
+        pattern,
+        minlength,
+        maxlength
     } = props;
 
     const inputProps = input || props.inputProps;
@@ -76,6 +81,11 @@ function CustomInput({input, meta: {touched, error}, ...props}) {
                     }}
                     id={id}
                     {...inputProps}
+                    type={type}
+                    required={required}
+                    minLength={minlength}
+                    maxLength={maxlength}
+                    pattern={pattern}
                     endAdornment={endAdornment || null}
                     startAdornment={startAdornment || null}
                 />
