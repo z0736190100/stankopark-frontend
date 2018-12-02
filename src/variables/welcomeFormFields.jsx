@@ -81,7 +81,8 @@ export const REGISTRATION = [
                 component: CustomInputForRedux,
                 name: "password2",
                 id: "password2",
-                labelText: "Повторите пароль",
+                labelText: "Подтвердите пароль",
+                errorText: "Пароль и подтверждение не совпадают.",
                 constraints: {
                     required: true,
                     type: "password",

@@ -1,6 +1,5 @@
 import React from 'react';
 import {Field, reduxForm} from "redux-form";
-import PropTypes from 'prop-types';
 import _ from "lodash";
 
 import GridContainer from "components/Grid/GridContainer.jsx";
@@ -10,14 +9,12 @@ import GridItem from "components/Grid/GridItem.jsx";
 import {REGISTRATION} from "variables/welcomeFormFields.jsx";
 
 
-
 const formRenderer = () => {
     const defaultErrorText = "Check if right.";
     return _.map(REGISTRATION, item => {
         const {
             component,
             name,
-            type,
             labelText,
             errorText,
             tooltipText,
@@ -91,23 +88,15 @@ const RegistrationForm = props => {
 const validate = values => {
     let errors = [];
     const FIELDS_TO_VALIDATE_LIST = ["lastName", "firstName", "email", "password", "password2"];
-    console.log(values);
-    if (values.password !== values.password2) errors.password = "Password not equals";
+    if (values.password !== values.password2) errors.password2 = true;
 
     _.each(FIELDS_TO_VALIDATE_LIST, name => {
         if (!values[name]) {
             errors[name] = true;
         }
-        console.log(errors);
     });
 
     return errors;
-
-};
-
-
-RegistrationForm.propTypes = {
-
 };
 
 export default reduxForm({

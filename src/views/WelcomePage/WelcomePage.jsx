@@ -3,11 +3,7 @@ import {Field, reduxForm} from "redux-form";
 import * as actions from "store/actions";
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
-import InputAdornment from "@material-ui/core/InputAdornment";
-import Icon from "@material-ui/core/Icon";
 // @material-ui/icons
-import Email from "@material-ui/icons/Email";
-import People from "@material-ui/icons/People";
 // core components
 import GridContainer from "components/Grid/GridContainer.jsx";
 import GridItem from "components/Grid/GridItem.jsx";
@@ -160,17 +156,14 @@ const mapStateToProps = state => {
 const validate = values => {
     let errors = [];
     const FIELDS_TO_VALIDATE_LIST = ["email", "password"];
-    console.log(values);
 
     _.each(FIELDS_TO_VALIDATE_LIST, name => {
         if (!values[name]) {
             errors[name] = true;
         }
-        console.log(errors);
     });
 
     return errors;
-
 };
 
 export default reduxForm({

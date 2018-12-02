@@ -8,8 +8,6 @@ import InputLabel from "@material-ui/core/InputLabel";
 import Input from "@material-ui/core/Input";
 import FormHelperText from "@material-ui/core/es/FormHelperText/FormHelperText";
 // @material-ui/icons
-import Info from "@material-ui/icons/Info";
-import Icon from "@material-ui/core/Icon/Icon";
 // core components
 import customInputStyle from "assets/jss/material-dashboard-react/components/customInputStyle.jsx";
 import Tooltip from "@material-ui/core/Tooltip/Tooltip";
@@ -19,22 +17,22 @@ import Tooltip from "@material-ui/core/Tooltip/Tooltip";
 function CustomInput({input, meta: {touched, error}, ...props}) {
     const {
         classes,
+        disabled,
+        endAdornment,
+        errorText,
         formControlProps,
-        labelText,
+        helperText,
         id,
         labelProps,
-        endAdornment,
+        labelText,
+        maxlength,
+        minlength,
+        pattern,
+        required,
         startAdornment,
         success,
-        disabled,
-        helperText,
-        errorText,
         tooltipText,
-        type,
-        required,
-        pattern,
-        minlength,
-        maxlength
+        type
     } = props;
 
     const inputProps = input || props.inputProps;
@@ -105,9 +103,20 @@ function CustomInput({input, meta: {touched, error}, ...props}) {
 
 CustomInput.propTypes = {
     classes: PropTypes.object.isRequired,
+    disabled: PropTypes.bool,
     labelText: PropTypes.node,
+    endAdornment: PropTypes.node,
+    startAdornment: PropTypes.node,
+    errorText: PropTypes.node,
+    helperText: PropTypes.node,
+    tooltipText: PropTypes.node,
+    maxlength: PropTypes.number,
+    minlength: PropTypes.number,
     labelProps: PropTypes.object,
     id: PropTypes.string,
+    type: PropTypes.string,
+    pattern: PropTypes.string,
+    required: PropTypes.bool,
     inputProps: PropTypes.object,
     formControlProps: PropTypes.object,
     error: PropTypes.bool,
