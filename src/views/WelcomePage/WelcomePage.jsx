@@ -13,6 +13,7 @@ import Card from "components/Card/Card.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import CardHeader from "components/Card/CardHeader.jsx";
 import RegistrationForm from "views/WelcomePage/RegistrationForm.jsx";
+import UCNotificationCase from "under_construction/components/Notifications/UCNotificationCase.jsx";
 
 import welcomePageStyle from "assets/jss/material-dashboard-react/views/welcomeStyle.jsx";
 import {LOGIN} from "variables/welcomeFormFields.jsx";
@@ -24,7 +25,9 @@ import _ from "lodash";
 class WelcomePage extends React.Component {
     state = {
         cardAnimaton: "cardHidden",
-        welcomeLogin: true
+        welcomeLogin: true,
+        notifications: [],
+        open: true
     };
 
     componentDidMount() {
@@ -69,16 +72,52 @@ class WelcomePage extends React.Component {
         })
     };
 
-    switchForm = () => {
-        this.setState({
-            welcomeLogin: !this.state.welcomeLogin
-        })
+    toRegiForm = () => {
+        this.props.toRegForm();
+        setTimeout(() => {
+            this.setState({
+                welcomeLogin: this.props.welcomeLogin
+            })
+        }, 5)
     };
+    toLoginForm = () => {
+        this.props.toLoginForm();
+        setTimeout(() => {
+            this.setState({
+                welcomeLogin: this.props.welcomeLogin
+            })
+        }, 5)
+    };
+
+    renderNotifications = () => {
+        const notif = this.props.notifications;
+        const notifArr = [];
+        _.map(notif, (item, key) => {
+            console.log({...item}, key);
+            return notifArr.push(
+                <UCNotificationCase
+                    place={"tr"}
+                    key={item.message}
+                    open={this.state.open}
+                    message={item.message}
+                    color={item.color}
+                    closeNotification={() => this.setState({
+                        open: false
+                    })}
+                    close
+                />
+            )
+        });
+        console.log(notifArr);
+        return notifArr;
+    };
+
 
     render() {
         const {classes} = this.props;
         return (
             <div>
+                {this.renderNotifications()}
                 <div
                     className={classes.pageHeader}
                     style={{
@@ -99,31 +138,46 @@ class WelcomePage extends React.Component {
                                     <CardBody profile>
                                         {this.state.welcomeLogin ?
                                             (<form
-                                            onSubmit={this.props.handleSubmit(values => this.props.loginUser(values))}>
-                                            <GridContainer>
-                                                {this.formRenderer()}
-                                            </GridContainer>
-                                            <Button
-                                                type={"submit"}
-                                                //onClick={this.props.switchPermitted}
-                                                color="primary"
-                                                style={{
-                                                    fontFamily: "Roboto Slab"
-                                                }}
-                                            >
-                                                {"Вход"}
-                                            </Button>
-                                            <p><small>или</small></p>
-                                            <Button
-                                                onClick={() => this.switchForm()}
-                                                color="primary"
-                                                style={{
-                                                    fontFamily: "Roboto Slab"
-                                                }}
-                                            >
-                                                {"РЕГИСТРАЦИЯ"}
-                                            </Button>
-                                        </form>) : <RegistrationForm switchForm={this.switchForm}/>}
+                                                onSubmit={this.props.handleSubmit(values => this.props.loginUser(values))}>
+                                                <GridContainer>
+                                                    {this.formRenderer()}
+                                                </GridContainer>
+                                                <Button
+                                                    type={"submit"}
+                                                    //onClick={this.props.switchPermitted}
+                                                    color="primary"
+                                                    style={{
+                                                        fontFamily: "Roboto Slab"
+                                                    }}
+                                                >
+                                                    {"Вход"}
+                                                </Button>
+                                                <p>
+                                                    <small>или</small>
+                                                </p>
+                                                <Button
+                                                    onClick={() => {
+                                                        this.toRegiForm();
+                                                    }}
+                                                    color="primary"
+                                                    style={{
+                                                        fontFamily: "Roboto Slab"
+                                                    }}
+                                                >
+                                                    {"РЕГИСТРАЦИЯ"}
+                                                </Button>
+                                                <Button
+                                                    onClick={() => {
+                                                        this.props.testNotification();
+                                                    }}
+                                                    color="primary"
+                                                    style={{
+                                                        fontFamily: "Roboto Slab"
+                                                    }}
+                                                >
+                                                    {"notific test"}
+                                                </Button>
+                                            </form>) : <RegistrationForm toLogin={this.toLoginForm}/>}
                                     </CardBody>
                                 </Card>
                             </GridItem>
@@ -137,7 +191,8 @@ class WelcomePage extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        state: state
+        notifications: state.notifications,
+        welcomeLogin: state.auth.welcomeLogin
     }
 };
 
@@ -169,4 +224,5 @@ export default connect(mapStateToProps, actions)(reduxForm({
     href={"/auth/google"}
 >
     <i className={"fab fa-google-plus-g"}/>
-</Button>*/}
+</Button>*/
+}

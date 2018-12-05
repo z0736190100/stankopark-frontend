@@ -3,7 +3,9 @@ import {
     FETCH_USER,
     LOGOUT_USER,
     AUTH_ERROR,
-    REGISTER_USER
+    REGISTER_USER,
+    REGISTER_USER_INIT,
+    TEST_NOTIFICATION
 } from "store/actions/types.js";
 import axios from "axios";
 
@@ -57,20 +59,77 @@ export const authError = (err) => dispatch => {
 export const logoutUser = () => dispatch => {
     localStorage.removeItem("token");
     dispatch({
-        type: LOGOUT_USER
+        type: LOGOUT_USER,
+        payload: null
     })
 };
 
 export const registerUser = ({firstName, lastName, email, password, password2}) => dispatch => {
     axios.post("api/users", {firstName, lastName, email, password, password2})
         .then(res => {
-            console.log(res.data);
+            const payload = res.data;
+            const isOk = res.status === 200;
+            payload.notifications = {
+                color: isOk ? "success" : "warning",
+                message: isOk ? "Registration successfully accomplished, tovarishi!" : "Smth went wrong..."
+            };
             dispatch({
-                type: REGISTER_USER,
-                payload: res.data
-            })
+                type: TEST_NOTIFICATION,
+                payload
+            });
+            return isOk;
         })
+        // dispatch ERROR_ACTION here
         .catch(err => {
-            console.log(err);
+            const payload = {};
+            payload.notifications = {
+                color: "danger",
+                message: err.message
+            };
+            dispatch({
+                type: TEST_NOTIFICATION,
+                payload
+            });
         })
+};
+
+export const testNotification = () => dispatch => {
+    console.log("test notification action");
+    dispatch({
+        type: TEST_NOTIFICATION,
+        payload: {
+            first: {
+                color: "success",
+                open: true,
+                message: "first"
+            },
+            second: {
+                color: "warning",
+                open: true,
+                message: "second"
+            }
+        }
+    })
+};
+
+export const clearNotification = () => dispatch => {
+    console.log("clear notification action");
+    dispatch({
+        type: TEST_NOTIFICATION,
+        payload: null
+    })
+};
+
+export const toRegForm = () => dispatch => {
+    dispatch({
+        type: REGISTER_USER,
+        payload: {welcomeLogin: false}
+    });
+};
+
+export const toLoginForm = () => dispatch => {
+    dispatch({
+        type: REGISTER_USER,
+        payload: {welcomeLogin: true}
+    });
 };

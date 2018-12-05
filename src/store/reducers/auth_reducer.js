@@ -14,7 +14,7 @@ export default function (state = null , action) {
         case AUTH_ERROR:
             return {...state, error: action.payload};
         case REGISTER_USER:
-            return {...state, registered: action.payload};
+            return {...state, welcomeLogin: action.payload.welcomeLogin};
         default:
             return state;
     }

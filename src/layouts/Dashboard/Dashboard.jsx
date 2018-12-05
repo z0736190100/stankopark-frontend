@@ -56,9 +56,10 @@ class App extends React.Component {
       this.setState({ mobileOpen: false });
     }
   };
+
   componentDidMount() {
 
-    this.props.fetchUserAction();
+    //this.props.fetchUserAction();
 
     // if (navigator.platform.indexOf("Win") > -1) {
     //   const ps = new PerfectScrollbar(this.refs.mainPanel);
@@ -83,7 +84,7 @@ class App extends React.Component {
   };
   render() {
     const { classes, ...rest } = this.props;
-    return this.props.auth || localStorage.getItem("token") ? (
+    return (
       <div className={classes.wrapper}>
         <Sidebar
           routes={dashboardRoutes}
@@ -113,8 +114,6 @@ class App extends React.Component {
           {this.getRoute() ? <Footer /> : null}
         </div>
       </div>
-    ) : (
-      <LoginPage switchPermitted={this.switchPermitted} />
     );
   }
 }
@@ -131,3 +130,8 @@ export default connect(
   mapStateToProps,
   actions
 )(withStyles(dashboardStyle)(App));
+
+/*
+this.props.auth || localStorage.getItem("token") ?
+) : (
+    <LoginPage switchPermitted={this.switchPermitted} />*/

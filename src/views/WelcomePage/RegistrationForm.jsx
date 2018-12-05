@@ -1,6 +1,7 @@
 import React from 'react';
 import {Field, reduxForm} from "redux-form";
 import {connect} from "react-redux";
+import {withRouter} from "react-router-dom";
 import _ from "lodash";
 import * as actions from "store/actions";
 
@@ -48,18 +49,19 @@ const formRenderer = () => {
 
 const RegistrationForm = props => {
 
-    (function (){console.log(props);})();
-
     const regUser = props.registerUser;
 
     return (
-        <form onSubmit={props.handleSubmit(values => regUser(values))}>
+        <form onSubmit={props.handleSubmit(values => {
+            regUser(values);
+            setTimeout(() => props.toLogin(), 3000)
+        })}>
             <GridContainer>
                 {formRenderer()}
             </GridContainer>
             <Button
                 //type={"submit"}
-                onClick={() => props.switchForm()}
+                onClick={() => props.toLogin()}
                 color="primary"
                 style={{
                     fontFamily: "Roboto Slab"
@@ -103,6 +105,7 @@ const validate = values => {
 
 export default connect(mapStateToProps, actions)(
     reduxForm({
-    validate,
-    form: "registration"
-})(RegistrationForm));
+        destroyOnUnmount: false,
+        validate,
+        form: "registration"
+    })(withRouter(RegistrationForm)));

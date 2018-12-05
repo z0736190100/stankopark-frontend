@@ -1,13 +1,11 @@
 import {
-    REGISTER_USER,
-    TEST_NOTIFICATION,
-    FETCH_USER
+    TEST_NOTIFICATION
 } from "store/actions/types.js";
 
 export default function (state = null, action) {
     switch (action.type) {
-        case FETCH_USER:
-            return action.payload || false;
+        case TEST_NOTIFICATION:
+            return action.payload;
         default:
             return state;
     }
