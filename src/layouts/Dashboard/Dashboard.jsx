@@ -20,6 +20,7 @@ import dashboardStyle from "assets/jss/material-dashboard-react/layouts/dashboar
 
 import image from "assets/img/sidebar-1.jpg";
 import logo from "assets/img/gh_logo3.png";
+import WelcomePage from "../../views/WelcomePage/WelcomePage";
 
 const switchRoutes = (
   <Switch>
@@ -84,7 +85,7 @@ class App extends React.Component {
   };
   render() {
     const { classes, ...rest } = this.props;
-    return (
+    return localStorage.getItem("token") ? (
       <div className={classes.wrapper}>
         <Sidebar
           routes={dashboardRoutes}
@@ -114,7 +115,7 @@ class App extends React.Component {
           {this.getRoute() ? <Footer /> : null}
         </div>
       </div>
-    );
+    ) : <WelcomePage/>;
   }
 }
 

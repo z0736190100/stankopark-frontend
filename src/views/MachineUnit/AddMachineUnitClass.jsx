@@ -4,6 +4,7 @@ import {connect} from "react-redux";
 import * as actions from "store/actions";
 
 import Snackbar from "components/Snackbar/Snackbar.jsx";
+import Notiferatu from "../../under_construction/components/Notifications/Notiferatu";
 
 //TODO uncontrolled CustomForm component + redux-form
 class AddMachineUnitClass extends Component {
@@ -19,18 +20,16 @@ class AddMachineUnitClass extends Component {
         message: "Whoa!"
     };
 
-    componentDidUpdate(){
+    componentDidUpdate() {
         if (this.props.form.addMachineUnitForm !== undefined)
-        console.log(this.props.form.addMachineUnitForm);
+            console.log(this.props.form.addMachineUnitForm);
     }
 
-    tableHelper(){
-        if (this.props.form.addMachineUnitForm !== undefined){
+    tableHelper() {
+        if (this.props.form.addMachineUnitForm !== undefined) {
             let values = this.props.form.addMachineUnitForm.values;
             this.setState({
-                tableData: this.state.tableData.push([
-
-                ])
+                tableData: this.state.tableData.push([])
             })
         }
     }
@@ -48,7 +47,7 @@ class AddMachineUnitClass extends Component {
                 pneumatic: false,
                 hydraulic: false,
                 [name]: !this.state[name],
-                open:true,
+                open: true,
                 message: "Manual"
             });
         } else {
@@ -63,20 +62,12 @@ class AddMachineUnitClass extends Component {
     render() {
         return (
             <div>
-                <AddMachineUnit selectOC={this.selectOC}
-                            iii={this.state.mockSelectVal}
-                            switchStateHandler={this.switchInputOnChange}
-                            switchState={this.state}
-                            tableData={this.state.tableData}
-            />
-                <Snackbar
-                    place={"tr"}
-                    color={"primary"}
-                    message={this.state.message}
-                    open={this.state.open}
-                    closeNotification={() => this.setState({open: false})}
-                    close
-                />
+                    <AddMachineUnit selectOC={this.selectOC}
+                                    iii={this.state.mockSelectVal}
+                                    switchStateHandler={this.switchInputOnChange}
+                                    switchState={this.state}
+                                    tableData={this.state.tableData}
+                    />
             </div>
         );
     }

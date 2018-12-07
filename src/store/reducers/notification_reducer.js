@@ -1,10 +1,10 @@
 import {
-    TEST_NOTIFICATION
+    SHOW_NOTIFICATION
 } from "store/actions/types.js";
 
 export default function (state = null, action) {
     switch (action.type) {
-        case TEST_NOTIFICATION:
+        case SHOW_NOTIFICATION:
             return action.payload;
         default:
             return state;

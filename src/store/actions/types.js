@@ -6,5 +6,5 @@ module.exports = {
     REGISTER_USER: "register_user",
     REGISTER_USER_INIT: "register_user_init",
     AUTH_ERROR: "auth_error",
-    TEST_NOTIFICATION: "test_notification"
+    SHOW_NOTIFICATION: "show_notification"
 };

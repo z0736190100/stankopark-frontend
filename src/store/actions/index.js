@@ -5,7 +5,7 @@ import {
     AUTH_ERROR,
     REGISTER_USER,
     REGISTER_USER_INIT,
-    TEST_NOTIFICATION
+    SHOW_NOTIFICATION
 } from "store/actions/types.js";
 import axios from "axios";
 
@@ -32,17 +32,32 @@ export const switchAuth = () => async dispatch => {
     });
 };
 
-export const loginUser = ({email, password}) => dispatch => {
+export const loginUser = ({email, password}, history) => dispatch => {
     axios.post("/api/login", {email, password})
         .then(res => {
+            // save JWT to LocalStorage
+            localStorage.setItem("token", res.data.token);
+            dispatch({
+                type: SHOW_NOTIFICATION,
+                payload: {
+                    login_notif: {
+                        color: "success",
+                        message: `Welcome, ${res.data.firstName}!`
+                    }
+                }
+            });
+
+            console.log("token is saved ", res.data.token);
+
             dispatch({
                 type: AUTH_USER,
                 payload: res.data.token
             });
-            // save JWT to LocalStorage
-            localStorage.setItem("token", res.data.token);
+
             // redirect to route in case of successfull authentication
             //browserHistory.push("/dashboard");
+            history.push("/dashboard");
+
         })
         .catch(err => {
             dispatch(authError("Bad credentials."));
@@ -52,12 +67,20 @@ export const loginUser = ({email, password}) => dispatch => {
 export const authError = (err) => dispatch => {
     dispatch({
         type: AUTH_ERROR,
-        payload: err
+        payload: {
+            error: {
+                color: "danger",
+                message: err.message
+            }
+        }
     });
 };
 
 export const logoutUser = () => dispatch => {
     localStorage.removeItem("token");
+
+    console.log("logout");
+
     dispatch({
         type: LOGOUT_USER,
         payload: null
@@ -74,21 +97,21 @@ export const registerUser = ({firstName, lastName, email, password, password2}) 
                 message: isOk ? "Registration successfully accomplished, tovarishi!" : "Smth went wrong..."
             };
             dispatch({
-                type: TEST_NOTIFICATION,
+                type: SHOW_NOTIFICATION,
                 payload
             });
             return isOk;
         })
         // dispatch ERROR_ACTION here
         .catch(err => {
-            const payload = {};
-            payload.notifications = {
-                color: "danger",
-                message: err.message
-            };
             dispatch({
-                type: TEST_NOTIFICATION,
-                payload
+                type: SHOW_NOTIFICATION,
+                payload: {
+                    error: {
+                        color: "danger",
+                        message: err.message
+                    }
+                }
             });
         })
 };
@@ -96,7 +119,7 @@ export const registerUser = ({firstName, lastName, email, password, password2}) 
 export const testNotification = () => dispatch => {
     console.log("test notification action");
     dispatch({
-        type: TEST_NOTIFICATION,
+        type: SHOW_NOTIFICATION,
         payload: {
             first: {
                 color: "success",
@@ -109,13 +132,13 @@ export const testNotification = () => dispatch => {
                 message: "second"
             }
         }
-    })
+    });
 };
 
 export const clearNotification = () => dispatch => {
     console.log("clear notification action");
     dispatch({
-        type: TEST_NOTIFICATION,
+        type: SHOW_NOTIFICATION,
         payload: null
     })
 };

@@ -58,7 +58,7 @@ function Snackbar({ ...props }) {
 
 Snackbar.propTypes = {
   classes: PropTypes.object.isRequired,
-  message: PropTypes.node.isRequired,
+  message: PropTypes.node,
   color: PropTypes.oneOf(["info", "success", "warning", "danger", "primary"]),
   close: PropTypes.bool,
   icon: PropTypes.func,

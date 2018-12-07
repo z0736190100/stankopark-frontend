@@ -57,7 +57,7 @@ function CustomInput({input, meta: {touched, error}, ...props}) {
         >
             {labelText !== undefined ? (
                 <InputLabel
-                    shrink={startAdornment}
+                    shrink={startAdornment ? true : false}
                     className={classes.labelRoot + labelClasses}
                     htmlFor={id}
                     {...labelProps}

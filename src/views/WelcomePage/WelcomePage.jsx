@@ -2,6 +2,7 @@ import React from "react";
 import {Field, reduxForm} from "redux-form";
 import {connect} from "react-redux";
 import * as actions from "store/actions";
+import {withRouter} from "react-router-dom";
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
 // @material-ui/icons
@@ -138,7 +139,7 @@ class WelcomePage extends React.Component {
                                     <CardBody profile>
                                         {this.state.welcomeLogin ?
                                             (<form
-                                                onSubmit={this.props.handleSubmit(values => this.props.loginUser(values))}>
+                                                onSubmit={this.props.handleSubmit(values => this.props.loginUser(values, this.props.history))}>
                                                 <GridContainer>
                                                     {this.formRenderer()}
                                                 </GridContainer>
@@ -212,7 +213,7 @@ const validate = values => {
 export default connect(mapStateToProps, actions)(reduxForm({
     validate,
     form: "login"
-})(withStyles(welcomePageStyle)(WelcomePage)));
+})(withStyles(welcomePageStyle)(withRouter(WelcomePage))));
 
 
 {/*
