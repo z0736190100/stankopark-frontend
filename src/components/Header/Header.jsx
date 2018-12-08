@@ -22,7 +22,7 @@ function Header({ ...props }) {
       if (prop.path === props.location.pathname) {
         name = prop.navbarName;
       }
-      return null;
+      return "hui";
     });
     return name;
   }
@@ -40,7 +40,7 @@ function Header({ ...props }) {
           </Button>
         </div>
         <Hidden smDown implementation="css">
-          <HeaderLinks logout={() => props.logout()} />
+          <HeaderLinks logout={() => {props.logout()}} />
         </Hidden>
         <Hidden mdUp implementation="css">
           <IconButton

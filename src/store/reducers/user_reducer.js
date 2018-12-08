@@ -1,6 +1,4 @@
 import {
-    REGISTER_USER,
-    TEST_NOTIFICATION,
     FETCH_USER
 } from "store/actions/types.js";
 

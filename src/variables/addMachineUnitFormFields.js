@@ -156,6 +156,7 @@ export default {
             id: "voltage",
             labelText: "Напряжение",
             helperText: "Выберите значение",
+            shrink: true,
             startAdornment: "V",
             menuValues: VOLTAGE_MENU_VALUES,
             breakpoints:

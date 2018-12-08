@@ -4,7 +4,6 @@ import {
     LOGOUT_USER,
     AUTH_ERROR,
     REGISTER_USER,
-    REGISTER_USER_INIT,
     SHOW_NOTIFICATION
 } from "store/actions/types.js";
 import axios from "axios";
@@ -56,7 +55,7 @@ export const loginUser = ({email, password}, history) => dispatch => {
 
             // redirect to route in case of successfull authentication
             //browserHistory.push("/dashboard");
-            history.push("/dashboard");
+           // history.push("/layout");
 
         })
         .catch(err => {
@@ -94,7 +93,7 @@ export const registerUser = ({firstName, lastName, email, password, password2}) 
             const isOk = res.status === 200;
             payload.notifications = {
                 color: isOk ? "success" : "warning",
-                message: isOk ? "Registration successfully accomplished, tovarishi!" : "Smth went wrong..."
+                message: isOk ? "Registration successfully accomplished, tovarish'!" : "Smth went wrong..."
             };
             dispatch({
                 type: SHOW_NOTIFICATION,

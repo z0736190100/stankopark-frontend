@@ -108,4 +108,4 @@ export default connect(mapStateToProps, actions)(
         destroyOnUnmount: false,
         validate,
         form: "registration"
-    })(withRouter(RegistrationForm)));
+    })(RegistrationForm));

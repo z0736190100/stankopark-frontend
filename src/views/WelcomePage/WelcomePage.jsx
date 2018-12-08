@@ -1,4 +1,5 @@
 import React from "react";
+import _ from "lodash";
 import {Field, reduxForm} from "redux-form";
 import {connect} from "react-redux";
 import * as actions from "store/actions";
@@ -14,21 +15,20 @@ import Card from "components/Card/Card.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import CardHeader from "components/Card/CardHeader.jsx";
 import RegistrationForm from "views/WelcomePage/RegistrationForm.jsx";
-import UCNotificationCase from "under_construction/components/Notifications/UCNotificationCase.jsx";
+import Notiferatu from "components/Notifications/Notiferatu";
 
 import welcomePageStyle from "assets/jss/material-dashboard-react/views/welcomeStyle.jsx";
 import {LOGIN} from "variables/welcomeFormFields.jsx";
 
 import image from "assets/img/sidebar-1.jpg";
-import _ from "lodash";
+
+
 
 //FIXME: CardFooter buttons centering- bad
 class WelcomePage extends React.Component {
     state = {
         cardAnimaton: "cardHidden",
-        welcomeLogin: true,
-        notifications: [],
-        open: true
+        welcomeLogin: true
     };
 
     componentDidMount() {
@@ -90,35 +90,10 @@ class WelcomePage extends React.Component {
         }, 5)
     };
 
-    renderNotifications = () => {
-        const notif = this.props.notifications;
-        const notifArr = [];
-        _.map(notif, (item, key) => {
-            console.log({...item}, key);
-            return notifArr.push(
-                <UCNotificationCase
-                    place={"tr"}
-                    key={item.message}
-                    open={this.state.open}
-                    message={item.message}
-                    color={item.color}
-                    closeNotification={() => this.setState({
-                        open: false
-                    })}
-                    close
-                />
-            )
-        });
-        console.log(notifArr);
-        return notifArr;
-    };
-
-
     render() {
         const {classes} = this.props;
         return (
             <div>
-                {this.renderNotifications()}
                 <div
                     className={classes.pageHeader}
                     style={{
@@ -139,7 +114,7 @@ class WelcomePage extends React.Component {
                                     <CardBody profile>
                                         {this.state.welcomeLogin ?
                                             (<form
-                                                onSubmit={this.props.handleSubmit(values => this.props.loginUser(values, this.props.history))}>
+                                                onSubmit={this.props.handleSubmit(values => this.props.loginUser(values))}>
                                                 <GridContainer>
                                                     {this.formRenderer()}
                                                 </GridContainer>
@@ -167,17 +142,6 @@ class WelcomePage extends React.Component {
                                                 >
                                                     {"РЕГИСТРАЦИЯ"}
                                                 </Button>
-                                                <Button
-                                                    onClick={() => {
-                                                        this.props.testNotification();
-                                                    }}
-                                                    color="primary"
-                                                    style={{
-                                                        fontFamily: "Roboto Slab"
-                                                    }}
-                                                >
-                                                    {"notific test"}
-                                                </Button>
                                             </form>) : <RegistrationForm toLogin={this.toLoginForm}/>}
                                     </CardBody>
                                 </Card>
@@ -192,7 +156,6 @@ class WelcomePage extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        notifications: state.notifications,
         welcomeLogin: state.auth.welcomeLogin
     }
 };
@@ -213,7 +176,7 @@ const validate = values => {
 export default connect(mapStateToProps, actions)(reduxForm({
     validate,
     form: "login"
-})(withStyles(welcomePageStyle)(withRouter(WelcomePage))));
+})(withStyles(welcomePageStyle)(WelcomePage)));
 
 
 {/*

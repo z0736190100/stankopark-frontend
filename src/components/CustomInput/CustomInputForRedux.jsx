@@ -30,6 +30,7 @@ function CustomInput({input, meta: {touched, error}, ...props}) {
         pattern,
         required,
         startAdornment,
+        shrink,
         success,
         tooltipText,
         type
@@ -57,7 +58,7 @@ function CustomInput({input, meta: {touched, error}, ...props}) {
         >
             {labelText !== undefined ? (
                 <InputLabel
-                    shrink={startAdornment ? true : false}
+                    shrink={shrink}
                     className={classes.labelRoot + labelClasses}
                     htmlFor={id}
                     {...labelProps}
@@ -120,7 +121,8 @@ CustomInput.propTypes = {
     inputProps: PropTypes.object,
     formControlProps: PropTypes.object,
     error: PropTypes.bool,
-    success: PropTypes.bool
+    success: PropTypes.bool,
+    shrink: PropTypes.bool
 };
 
 export default withStyles(customInputStyle)(CustomInput);
