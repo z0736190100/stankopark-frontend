@@ -3,7 +3,6 @@ import _ from "lodash";
 import {Field, reduxForm} from "redux-form";
 import {connect} from "react-redux";
 import * as actions from "store/actions";
-import {withRouter} from "react-router-dom";
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
 // @material-ui/icons
@@ -15,13 +14,11 @@ import Card from "components/Card/Card.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import CardHeader from "components/Card/CardHeader.jsx";
 import RegistrationForm from "views/WelcomePage/RegistrationForm.jsx";
-import Notiferatu from "components/Notifications/Notiferatu";
 
 import welcomePageStyle from "assets/jss/material-dashboard-react/views/welcomeStyle.jsx";
 import {LOGIN} from "variables/welcomeFormFields.jsx";
 
 import image from "assets/img/sidebar-1.jpg";
-
 
 
 //FIXME: CardFooter buttons centering- bad

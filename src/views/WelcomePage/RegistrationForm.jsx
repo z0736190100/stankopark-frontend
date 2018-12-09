@@ -1,7 +1,6 @@
 import React from 'react';
 import {Field, reduxForm} from "redux-form";
 import {connect} from "react-redux";
-import {withRouter} from "react-router-dom";
 import _ from "lodash";
 import * as actions from "store/actions";
 

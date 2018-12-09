@@ -73,6 +73,7 @@ export default {
                 id: "usage",
                 labelText: "Целевое назначение (группа работ)",
                 helperText: "Выберите значение",
+                tooltipText: "Подсказка: целевое назначение соответствует производственному участку, на котором размещено оборудование.",
                 menuValues: USAGE_MENU_VALUES,
                 breakpoints: {
                     xs: 12,
@@ -99,7 +100,7 @@ export default {
                 name: "model",
                 id: "model",
                 labelText: "Модель",
-                errorText: "a model!",
+                tooltipText: "Модель станка согласно паспорту или шилдику на корпусе. Может содержать буквы и цифры.",
                 breakpoints:
                     {
                         xs: 12,
@@ -113,6 +114,7 @@ export default {
                 name: "serialNumber",
                 id: "serialNumber",
                 labelText: "Серийный номер",
+                tooltipText: "Серийный номер станка согласно паспорту или шилдику на корпусе. Может содержать буквы и цифры.",
                 breakpoints:
                     {
                         xs: 12,
@@ -125,6 +127,7 @@ export default {
                 name: "documentationLink",
                 id: "documentationLink",
                 labelText: "Документация (ссылка на файл)",
+                tooltipText:"Скоро здесь будет drag'n'drop, а пока скопируйте ссылку на файл в окне Проводника. Или впишите \"нет\".",
                 breakpoints:
                     {
                         xs: 12,
@@ -138,7 +141,7 @@ export default {
                 id: "description",
                 labelText: "Описание",
                 helperText: "Опишите назначение станка, указанное в паспорте",
-                errorText: "Опишите назначение станка, указанное в паспорте",
+                tooltipText:"Ну, придумайте что-нибудь. Буквы и цифры. Можно.",
                 breakpoints:
                     {
                         xs: 12,
@@ -156,8 +159,7 @@ export default {
             id: "voltage",
             labelText: "Напряжение",
             helperText: "Выберите значение",
-            shrink: true,
-            startAdornment: "V",
+            endAdornment: "V  ",
             menuValues: VOLTAGE_MENU_VALUES,
             breakpoints:
                 {
@@ -173,7 +175,8 @@ export default {
             id: "power",
             labelText: "Мощность",
             errorText: "Недопустимое значение",
-            startAdornment: "W",
+            tooltipText:"Может содержать только цифры. СУММАРНАЯ мощность ВСЕХ потребляющих устройств согласно документации на оборудование или маркировке на шильдиках.",
+            endAdornment: "W  ",
             breakpoints:
                 {
                     xs: 12,
@@ -189,6 +192,7 @@ export default {
             id: "hPressure",
             labelText: "Рабочее давление системы",
             errorText: "Недопустимое значение",
+            tooltipText:"Может содержать только цифры. Согласно документации на оборудование или маркировке на шильдиках.",
             endAdornment: "КПа",
             breakpoints:
                 {
@@ -203,6 +207,7 @@ export default {
             name: "hVolume",
             id: "hVolume",
             labelText: "Емкость системы",
+            tooltipText:"Может содержать только цифры. СУММАРНАЯ емкость ВСЕХ потребляющих устройств согласно документации на оборудование или маркировке на шильдиках.",
             errorText: "Недопустимое значение",
             endAdornment: "Кг",
             breakpoints:
@@ -221,6 +226,7 @@ export default {
             id: "airPressure",
             labelText: "Рабочее давление системы",
             errorText: "Недопустимое значение",
+            tooltipText:"Может содержать только цифры. Согласно документации на оборудование или маркировке на шильдиках.",
             endAdornment: "КПа",
             breakpoints:
                 {
@@ -234,6 +240,7 @@ export default {
             name: "airConsumptionPerCycle",
             id: "airConsumptionPerCycle",
             labelText: "Потребление за рабочий цикл",
+            tooltipText:"Может содержать только цифры. СУММАРНАЯ емкость ВСЕХ потребляющих устройств согласно документации на оборудование или маркировке на шильдиках.",
             errorText: "Недопустимое значение",
             endAdornment: "М куб.",
             breakpoints:

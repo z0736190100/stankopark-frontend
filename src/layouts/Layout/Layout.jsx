@@ -1,5 +1,5 @@
 import React from "react";
-import {Redirect, Route, Switch, withRouter} from "react-router-dom";
+import {Redirect, Route, Switch} from "react-router-dom";
 import PropTypes from "prop-types";
 // creates a beautiful scrollbar
 // import PerfectScrollbar from "perfect-scrollbar";
@@ -11,7 +11,6 @@ import Header from "components/Header/Header.jsx";
 import Footer from "components/Footer/Footer.jsx";
 import Sidebar from "components/Sidebar/Sidebar.jsx";
 import WelcomePage from "views/WelcomePage/WelcomePage";
-import Notiferatu from "components/Notifications/Notiferatu";
 
 import dashboardRoutes from "routes/dashboard.jsx";
 import dashboardStyle from "assets/jss/material-dashboard-react/layouts/dashboardStyle.jsx"
@@ -20,7 +19,6 @@ import image from "assets/img/sidebar-1.jpg";
 import logo from "assets/img/gh_logo3.png";
 import {connect} from "react-redux";
 import * as actions from "store/actions";
-
 
 
 const switchRoutes = (
@@ -90,7 +88,6 @@ class Layout extends React.Component {
         const {classes, ...rest} = this.props;
         return localStorage.getItem("token") ? (
             <div className={classes.wrapper}>
-                <Notiferatu/>
                 <Sidebar
                     routes={dashboardRoutes}
                     logoText={"Станкопарк"}

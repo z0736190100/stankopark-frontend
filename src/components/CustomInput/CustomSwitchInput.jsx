@@ -1,19 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import withStyles from "@material-ui/core/styles/withStyles";
+//core components
 import FormControlLabel from "@material-ui/core/es/FormControlLabel/FormControlLabel";
-import Switch from "@material-ui/core/es/Switch/Switch";
+import Switch from "@material-ui/core/Switch/Switch";
 
 import customSwitchInputStyle from "assets/jss/material-dashboard-react/components/customSwitchInputStyle.jsx"
 
-const CustomSwitchInput = (props, input) => {
+const CustomSwitchInput = ({input, input: {onChange}, meta: {touched, error}, ...props}) => {
 
     const {
         classes,
         checked,
         value,
         label,
-        onClick,
+        onClick
     } = props;
 const inputProps = input;
     return (
@@ -23,7 +24,11 @@ const inputProps = input;
                     <Switch
                         checked={checked}
                         onClick={onClick}
-                        value={value}
+                        onChange={(checked) => {
+                            let check = checked.toString();
+                            onChange(check)
+                        }}
+                        value={checked + ""}
                         classes={{
                             switchBase: classes.switchBase,
                             checked: classes.switchChecked,
@@ -46,7 +51,11 @@ const inputProps = input;
 
 // TODO
 CustomSwitchInput.propTypes = {
-    classes: PropTypes.object.isRequired
+    classes: PropTypes.object.isRequired,
+    checked: PropTypes.bool,
+    value: PropTypes.node,
+    label: PropTypes.node,
+    onClick: PropTypes.func
 };
 
 export default withStyles(customSwitchInputStyle)(CustomSwitchInput);

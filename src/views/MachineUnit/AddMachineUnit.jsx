@@ -54,28 +54,32 @@ function AddMachineUnit(props) {
                 name: "electric",
                 id: "electric",
                 checked: false,
-                value: "electric"
+                value: "electric",
+                onChange: (event) => console.log(event.target)
             },
             {
                 label: "Гидравлическое",
                 name: "hydraulic",
                 id: "hydraulic",
                 checked: false,
-                value: "hydraulic"
+                value: "hydraulic",
+                onChange: (event) => console.log(event.target)
             },
             {
                 label: "Пневматическое",
                 name: "pneumatic",
                 id: "pneumatic",
                 checked: false,
-                value: "pneumatic"
+                value: "pneumatic",
+                onChange: (event) => console.log(event.target)
             },
             {
                 label: "Механическое",
                 name: "manual",
                 id: "manual",
                 checked: true,
-                value: "manual"
+                value: "manual",
+                onChange: (event) => console.log(event.target)
             },
         ];
         return _.map(SWITCH_ITEMS, val => {
@@ -88,19 +92,21 @@ function AddMachineUnit(props) {
                         id={val.id}
                         label={val.label}
                         checked={props.switchState[val.name] || false}
-                        onClick={(name) => props.switchStateHandler(val.name)}/>
+                        onClick={(event, name) => props.switchStateHandler(event, val.name)}
+                    />
                 </GridItem>
             );
         });
     };
 
     const formRenderer = (section) => {
-        const defaultErrorText = "Check if right.";
+        const defaultErrorText = "Проверьте введенные данные.";
         return _.map(ADD_MACHINE_UNIT_FORM_FIELD_PROPS[section], item => {
             const {
                 component,
                 name,
                 labelText,
+                shrink,
                 errorText,
                 tooltipText,
                 endAdornment,
@@ -118,6 +124,7 @@ function AddMachineUnit(props) {
                             fullWidth: true
                         }}
                         labelText={labelText}
+                        shrink={shrink}
                         endAdornment={endAdornment}
                         startAdornment={startAdornment}
                         errorText={errorText || defaultErrorText}
@@ -129,10 +136,10 @@ function AddMachineUnit(props) {
         })
     };
 
+    const saveToDB = (values) => {
 
-const saveToDB = (values) => {
-
-    axios.post("/api/machine_units", values);};
+        axios.post("/api/machine_units", values);
+    };
 
     return (
         <div>
@@ -147,33 +154,33 @@ const saveToDB = (values) => {
                     </Button>
                 </GridItem>
                 <GridItem xs={12} sm={12} md={8}>
-                    <form onSubmit={props.handleSubmit(values => saveToDB(values))}>
-                    <Card> {/*this card avaliable only for saving new machineUnit, not for updating*/}
-                        <CardHeader color={"primary"}>
-                            <h4 className={classes.cardTitleWhite}>
-                                {"Тип оборудования"}
-                            </h4>
-                            <p className={classes.cardCategoryWhite}>
-                                <small>{"Выбор определит набор характеристик оборудования"}</small>
-                            </p>
-                        </CardHeader>
-                        <CardBody>
-                            <GridContainer direction={"row"} zeroMinWidth>
-                                {switchInputRenderer()}
-                            </GridContainer>
-                        </CardBody>
-                        <CardFooter/>
-                    </Card>
-                    <Card>
-                        <CardHeader color={"primary"}>
-                            <h4 className={classes.cardTitleWhite}>
-                                {"Характеристики оборудования"}
-                            </h4>
-                            <p className={classes.cardCategoryWhite}>
-                                <small>{"Содержит обязательные и опциональные поля"}</small>
-                            </p>
-                        </CardHeader>
-                        <CardBody>
+                    <form onChange={props.formOnChange()} onSubmit={props.handleSubmit(values => saveToDB(values))}>
+                        <Card> {/*this card avaliable only for saving new machineUnit, not for updating*/}
+                            <CardHeader color={"primary"}>
+                                <h4 className={classes.cardTitleWhite}>
+                                    {"Тип оборудования"}
+                                </h4>
+                                <p className={classes.cardCategoryWhite}>
+                                    <small>{"Выбор определит набор характеристик оборудования"}</small>
+                                </p>
+                            </CardHeader>
+                            <CardBody>
+                                <GridContainer direction={"row"} zeroMinWidth>
+                                    {switchInputRenderer()}
+                                </GridContainer>
+                            </CardBody>
+                            <CardFooter/>
+                        </Card>
+                        <Card>
+                            <CardHeader color={"primary"}>
+                                <h4 className={classes.cardTitleWhite}>
+                                    {"Характеристики оборудования"}
+                                </h4>
+                                <p className={classes.cardCategoryWhite}>
+                                    <small>{"Содержит обязательные и опциональные поля"}</small>
+                                </p>
+                            </CardHeader>
+                            <CardBody>
                                 <GridContainer>
                                     <GridItem xs={12} sm={12} md={12}>
                                         <ExpansionPanel defaultExpanded
@@ -209,7 +216,7 @@ const saveToDB = (values) => {
                                                             name: "ampers",
                                                             id: "ampers",
                                                         }}
-                                                        startAdornment={"A"}
+                                                        endAdornment={"A"}
                                                         helperText={"Высчитано по формуле"}
                                                     />
                                                 </GridItem>
@@ -241,17 +248,17 @@ const saveToDB = (values) => {
                                         </ExpansionPanel>
                                     </GridItem>
                                 </GridContainer>
-                        </CardBody>
-                        <CardFooter>
-                        </CardFooter>
-                    </Card>
+                            </CardBody>
+                            <CardFooter>
+                            </CardFooter>
+                        </Card>
                         <Button
                             color={"primary"}
                             type={"submit"}
                         >
                             {"Сохранить изменения"}
                         </Button>
-                </form>
+                    </form>
                 </GridItem>
                 <GridItem xs={12} sm={12} md={4}>
                     <Card>
@@ -283,11 +290,32 @@ const saveToDB = (values) => {
 }
 
 function validate(values) {
+
     const errors = {};
-// TODO: validation list - just names required- can be different of ADD_MACHINE_UNIT_FORM_FIELD_PROPS, for All Fields
-    const FIELDS_TO_VALIDATE_LIST = [
-        "usage", "producerBrand", "model", "serialNumber", "documentationLink", "description", "voltage", "power", "hPressure", "hVolume", "airPressure", "airConsumptionPerCycle"
-    ];
+
+// TODO: combine with addMachineUnitFormFields.js in variables/
+    // CONE-FIGURE
+
+    const FIELDS_MAP = {
+        general: ["usage", "producerBrand", "model", "serialNumber", "documentationLink", "description"],
+        electric: ["voltage", "power"],
+        hydraulic: ["hPressure", "hVolume"],
+        pneumatic: ["airPressure", "airConsumptionPerCycle"]
+    };
+
+    let FIELDS_TO_VALIDATE_LIST = [];
+    console.log(FIELDS_MAP.general);
+
+    FIELDS_TO_VALIDATE_LIST = FIELDS_TO_VALIDATE_LIST.concat(FIELDS_MAP.general);
+
+    _.map(FIELDS_MAP, (section, key) => {
+        if (!!values[key]) {
+           FIELDS_TO_VALIDATE_LIST = FIELDS_TO_VALIDATE_LIST.concat(section)
+        }
+    });
+
+    console.log("f to val: ", FIELDS_TO_VALIDATE_LIST);
+
     _.each(FIELDS_TO_VALIDATE_LIST, name => {
         if (!values[name]) {
             errors[name] = true;

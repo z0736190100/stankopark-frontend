@@ -1,13 +1,11 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
-import {withRouter} from "react-router-dom";
 import * as actions from "store/actions";
 import _ from "lodash";
-
 // custom components
 import Snackbar from "components/Snackbar/Snackbar";
 
-    class Notiferatu extends Component {
+class Notiferatu extends Component {
 
         state = {
             open: true

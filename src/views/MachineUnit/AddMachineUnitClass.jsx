@@ -7,12 +7,10 @@ import * as actions from "store/actions";
 class AddMachineUnitClass extends Component {
 
     state = {
-        switch: {
-            electric: false,
-            pneumatic: false,
-            hydraulic: false,
-            manual: true
-        },
+        electric: false,
+        pneumatic: false,
+        hydraulic: false,
+        manual: true,
         tableData: [],
     };
 
@@ -30,38 +28,34 @@ class AddMachineUnitClass extends Component {
         }
     }
 
-    selectOC = event => {
-        this.setState({
-            mockSelectVal: event.target.value
-        });
-    };
-
-    switchInputOnChange = (name) => {
+    switchInputOnChange = (event, name) => {
         if (name === "manual") {
             this.setState({
                 electric: false,
                 pneumatic: false,
                 hydraulic: false,
-                [name]: !this.state[name],
-                open: true,
-                message: "Manual"
+                [name]: !this.state[name]
             });
         } else {
             this.setState({
                 [name]: !this.state[name],
                 manual: false
             });
-            console.log(this.state);
+            console.log(event.target);
         }
+    };
+
+    formOnChange = () => {
+        console.log(this.props.form.add_machine);
     };
 
     render() {
         return (
             <div>
-                <AddMachineUnit selectOC={this.selectOC}
-                                switchStateHandler={this.switchInputOnChange}
-                                switchState={this.state.switch}
+                <AddMachineUnit switchStateHandler={this.switchInputOnChange}
+                                switchState={this.state}
                                 tableData={this.state.tableData}
+                                formOnChange={this.formOnChange}
                 />
             </div>
         );
