@@ -7,6 +7,7 @@ import * as actions from "store/actions";
 class AddMachineUnitClass extends Component {
 
     state = {
+        dopen: false,
         electric: false,
         pneumatic: false,
         hydraulic: false,
@@ -48,6 +49,10 @@ class AddMachineUnitClass extends Component {
     formOnChange = () => {
         console.log(this.props.form.add_machine);
     };
+    showDialog = () => {
+        console.log("dopen");
+        this.setState({dopen: true});
+    };
 
     render() {
         return (
@@ -56,6 +61,8 @@ class AddMachineUnitClass extends Component {
                                 switchState={this.state}
                                 tableData={this.state.tableData}
                                 formOnChange={this.formOnChange}
+                                showDialog={this.showDialog}
+                                dopen={this.state.dopen}
                 />
             </div>
         );

@@ -157,6 +157,7 @@ export default {
             component: CustomSelectInputRedux,
             name: "voltage",
             id: "voltage",
+            type: "number",
             labelText: "Напряжение",
             helperText: "Выберите значение",
             endAdornment: "V  ",
@@ -173,6 +174,7 @@ export default {
             component: CustomInputForRedux,
             name: "power",
             id: "power",
+            type: "number",
             labelText: "Мощность",
             errorText: "Недопустимое значение",
             tooltipText:"Может содержать только цифры. СУММАРНАЯ мощность ВСЕХ потребляющих устройств согласно документации на оборудование или маркировке на шильдиках.",
@@ -190,6 +192,7 @@ export default {
             component: CustomInputForRedux,
             name: "hPressure",
             id: "hPressure",
+            type: "number",
             labelText: "Рабочее давление системы",
             errorText: "Недопустимое значение",
             tooltipText:"Может содержать только цифры. Согласно документации на оборудование или маркировке на шильдиках.",
@@ -198,7 +201,7 @@ export default {
                 {
                     xs: 12,
                     sm: 12,
-                    md: 6
+                    md: 4
                 }
 
         },
@@ -206,6 +209,7 @@ export default {
             component: CustomInputForRedux,
             name: "hVolume",
             id: "hVolume",
+            type: "number",
             labelText: "Емкость системы",
             tooltipText:"Может содержать только цифры. СУММАРНАЯ емкость ВСЕХ потребляющих устройств согласно документации на оборудование или маркировке на шильдиках.",
             errorText: "Недопустимое значение",
@@ -214,7 +218,22 @@ export default {
                 {
                     xs: 12,
                     sm: 12,
-                    md: 6
+                    md: 4
+                }
+
+        },
+        {
+            component: CustomInputForRedux,
+            name: "oilType",
+            id: "oilType",
+            labelText: "Марка масла",
+            errorText: "Недопустимое значение",
+            tooltipText:"Согласно рекомендациям в документации на оборудование.",
+            breakpoints:
+                {
+                    xs: 12,
+                    sm: 12,
+                    md: 4
                 }
 
         }
@@ -224,6 +243,7 @@ export default {
             component: CustomInputForRedux,
             name: "airPressure",
             id: "airPressure",
+            type: "number",
             labelText: "Рабочее давление системы",
             errorText: "Недопустимое значение",
             tooltipText:"Может содержать только цифры. Согласно документации на оборудование или маркировке на шильдиках.",
@@ -239,6 +259,7 @@ export default {
             component: CustomInputForRedux,
             name: "airConsumptionPerCycle",
             id: "airConsumptionPerCycle",
+            type: "number",
             labelText: "Потребление за рабочий цикл",
             tooltipText:"Может содержать только цифры. СУММАРНАЯ емкость ВСЕХ потребляющих устройств согласно документации на оборудование или маркировке на шильдиках.",
             errorText: "Недопустимое значение",

@@ -18,9 +18,11 @@ import CustomSwitchInput from "components/CustomInput/CustomSwitchInput.jsx";
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
 import Table from "under_construction/components/Table/Table.jsx";
+import DialogRaw from "under_construction/components/Dialog/DialogRaw";
 //assets
 import ADD_MACHINE_UNIT_FORM_FIELD_PROPS from "variables/addMachineUnitFormFields.js";
 import * as axios from "axios";
+
 
 const styles = {
     cardCategoryWhite: {
@@ -258,6 +260,12 @@ function AddMachineUnit(props) {
                         >
                             {"Сохранить изменения"}
                         </Button>
+                        <Button
+                            color={"primary"}
+                            onClick={props.showDialog}
+                        >
+                            {"Modal"}
+                        </Button>
                     </form>
                 </GridItem>
                 <GridItem xs={12} sm={12} md={4}>
@@ -284,6 +292,14 @@ function AddMachineUnit(props) {
                         </CardBody>
                     </Card>
                 </GridItem>
+                <DialogRaw
+                    classes={{
+                        paper: classes.paper,
+                        root: classes.root
+                    }}
+                    open={props.dopen}
+                    onClose={null}
+                />
             </GridContainer>
         </div>
     );
@@ -299,7 +315,7 @@ function validate(values) {
     const FIELDS_MAP = {
         general: ["usage", "producerBrand", "model", "serialNumber", "documentationLink", "description"],
         electric: ["voltage", "power"],
-        hydraulic: ["hPressure", "hVolume"],
+        hydraulic: ["hPressure", "hVolume", "oilType"],
         pneumatic: ["airPressure", "airConsumptionPerCycle"]
     };
 
@@ -310,7 +326,7 @@ function validate(values) {
 
     _.map(FIELDS_MAP, (section, key) => {
         if (!!values[key]) {
-           FIELDS_TO_VALIDATE_LIST = FIELDS_TO_VALIDATE_LIST.concat(section)
+            FIELDS_TO_VALIDATE_LIST = FIELDS_TO_VALIDATE_LIST.concat(section)
         }
     });
 
