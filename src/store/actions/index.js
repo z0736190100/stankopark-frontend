@@ -34,29 +34,33 @@ export const switchAuth = () => async dispatch => {
 export const loginUser = ({email, password}, history) => dispatch => {
     axios.post("/api/login", {email, password})
         .then(res => {
+            const isOk = res.status === 200;
             // save JWT to LocalStorage
-            localStorage.setItem("token", res.data.token);
-            dispatch({
-                type: SHOW_NOTIFICATION,
-                payload: {
-                    login_notif: {
-                        color: "success",
-                        message: `Welcome, ${res.data.firstName}!`
+            if (isOk) {
+                localStorage.setItem("token", res.data.token);
+                dispatch({
+                    type: SHOW_NOTIFICATION,
+                    payload: {
+                        login_notif: {
+                            color: "success",
+                            message: `Welcome, ${res.data.firstName}!`
+                        }
                     }
-                }
-            });
+                });
+                console.log("token is saved ", res.data.token);
 
-            console.log("token is saved ", res.data.token);
+                dispatch({
+                    type: AUTH_USER,
+                    payload: res.data.token
+                });
 
-            dispatch({
-                type: AUTH_USER,
-                payload: res.data.token
-            });
+                // redirect to route in case of successfull authentication
+                //browserHistory.push("/dashboard");
+                // history.push("/layout");
 
-            // redirect to route in case of successfull authentication
-            //browserHistory.push("/dashboard");
-           // history.push("/layout");
-
+            } else {
+                dispatch(authError("Bad credentials."));
+            }
         })
         .catch(err => {
             dispatch(authError("Bad credentials."));
@@ -64,6 +68,15 @@ export const loginUser = ({email, password}, history) => dispatch => {
 };
 
 export const authError = (err) => dispatch => {
+    dispatch({
+        type: SHOW_NOTIFICATION,
+        payload: {
+            error: {
+                color: "danger",
+                message: err.message || err
+            }
+        }
+    });
     dispatch({
         type: AUTH_ERROR,
         payload: {

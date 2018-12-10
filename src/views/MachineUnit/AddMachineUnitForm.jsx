@@ -3,9 +3,9 @@ import _ from "lodash";
 import {Field, reduxForm} from "redux-form";
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
-import ExpansionPanel from "@material-ui/core/es/ExpansionPanel/ExpansionPanel";
-import ExpansionPanelSummary from "@material-ui/core/es/ExpansionPanelSummary/ExpansionPanelSummary";
-import ExpansionPanelDetails from "@material-ui/core/es/ExpansionPanelDetails/ExpansionPanelDetails";
+import ExpansionPanel from "@material-ui/core/ExpansionPanel/ExpansionPanel";
+import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary/ExpansionPanelSummary";
+import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails/ExpansionPanelDetails";
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 // core components
 import Button from "components/CustomButtons/Button.jsx";
@@ -18,7 +18,7 @@ import CustomSwitchInput from "components/CustomInput/CustomSwitchInput.jsx";
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
 import Table from "under_construction/components/Table/Table.jsx";
-import DialogRaw from "under_construction/components/Dialog/DialogRaw";
+import DialogRaw from "under_construction/components/Dialog/ConfirmationDialogRaw";
 //assets
 import ADD_MACHINE_UNIT_FORM_FIELD_PROPS from "variables/addMachineUnitFormFields.js";
 import * as axios from "axios";
@@ -44,10 +44,9 @@ const styles = {
     }
 };
 
-function AddMachineUnit(props) {
-    const {classes, tableData} = props;
+function AddMachineUnitForm(props) {
 
-    // KUNG-FUSION: i18n of form field labels - how to?
+    const {classes} = props;
 
     const switchInputRenderer = () => {
         const SWITCH_ITEMS = [
@@ -139,7 +138,6 @@ function AddMachineUnit(props) {
     };
 
     const saveToDB = (values) => {
-
         axios.post("/api/machine_units", values);
     };
 
@@ -262,44 +260,12 @@ function AddMachineUnit(props) {
                         </Button>
                         <Button
                             color={"primary"}
-                            onClick={props.showDialog}
+                            onClick={() => props.showDialog()}
                         >
                             {"Modal"}
                         </Button>
                     </form>
                 </GridItem>
-                <GridItem xs={12} sm={12} md={4}>
-                    <Card>
-                        <CardHeader color="primary">
-                            <h4 className={classes.cardTitleWhite}>Паспорт</h4>
-                            <p className={classes.cardCategoryWhite}>
-                                <small>чекаут перед сохранением</small>
-                            </p>
-                        </CardHeader>
-                        <CardBody>
-                            <Table
-                                tableHeaderColor="success"
-                                tableHead={["Field", "Value"]}
-                                tableData={tableData}
-                            />
-                            <Button
-                                disabled
-                                color={"primary"}
-                                type={"submit"}
-                            >
-                                {"Сохранить изменения"}
-                            </Button>
-                        </CardBody>
-                    </Card>
-                </GridItem>
-                <DialogRaw
-                    classes={{
-                        paper: classes.paper,
-                        root: classes.root
-                    }}
-                    open={props.dopen}
-                    onClose={null}
-                />
             </GridContainer>
         </div>
     );
@@ -320,17 +286,16 @@ function validate(values) {
     };
 
     let FIELDS_TO_VALIDATE_LIST = [];
-    console.log(FIELDS_MAP.general);
 
     FIELDS_TO_VALIDATE_LIST = FIELDS_TO_VALIDATE_LIST.concat(FIELDS_MAP.general);
 
     _.map(FIELDS_MAP, (section, key) => {
         if (!!values[key]) {
-            FIELDS_TO_VALIDATE_LIST = FIELDS_TO_VALIDATE_LIST.concat(section)
+            FIELDS_TO_VALIDATE_LIST = FIELDS_TO_VALIDATE_LIST.concat(section);
         }
     });
 
-    console.log("f to val: ", FIELDS_TO_VALIDATE_LIST);
+    console.log("fields to validate: ", FIELDS_TO_VALIDATE_LIST);
 
     _.each(FIELDS_TO_VALIDATE_LIST, name => {
         if (!values[name]) {
@@ -344,5 +309,5 @@ function validate(values) {
 export default reduxForm({
     validate,
     form: "add_machine"
-})(withStyles(styles)(AddMachineUnit));
+})(withStyles(styles)(AddMachineUnitForm));
 
