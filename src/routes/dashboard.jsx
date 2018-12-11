@@ -11,7 +11,8 @@ import DashboardPage from "views/Dashboard/Dashboard.jsx";
 //import Typography from "views/Typography/Typography.jsx";
 //import Icons from "views/Icons/Icons.jsx";
 import AddMachineUnitClass from "views/MachineUnit/AddMachineUnitClass.jsx";
-import UCLoginPage from "under_construction/views/UCLoginPage.jsx";
+//import UCLoginPage from "under_construction/views/UCLoginPage.jsx";
+import MachineUnitsTableList from "views/MachineUnitsTableList/MachineUnitsTableList.jsx"
 //import LoginPage from "components/layouts/LoginPage/WelcomePage.jsx";
 
 const dashboardRoutes = [
@@ -30,11 +31,11 @@ const dashboardRoutes = [
         component: AddMachineUnitClass
     },
     {
-        path: "/login",
-        sidebarName: "exp_loginForm",
-        navbarName: "experimental",
-        icon: "voice_over_off",
-        component: UCLoginPage
+        path: "/machine-units",
+        sidebarName: "Реестр",
+        navbarName: "Реестр оборудования",
+        icon: "assignment",
+        component: MachineUnitsTableList
     },
     {redirect: true, path: "/", to: "/dashboard", navbarName: "Redirect"}
 ];

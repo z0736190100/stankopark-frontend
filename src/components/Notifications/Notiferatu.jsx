@@ -19,8 +19,9 @@ class Notiferatu extends Component {
                     console.log({...item}, key);
                     return notifArr.push(
                         <Snackbar
+                            hideAfter={7000}
                             place={"tr"}
-                            key={item.message}
+                            key={key}
                             open={this.state.open}
                             message={item.message}
                             color={item.color}

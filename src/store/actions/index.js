@@ -82,7 +82,7 @@ export const authError = (err) => dispatch => {
         payload: {
             error: {
                 color: "danger",
-                message: err.message
+                message: err.message || err
             }
         }
     });
@@ -112,7 +112,6 @@ export const registerUser = ({firstName, lastName, email, password, password2}) 
                 type: SHOW_NOTIFICATION,
                 payload
             });
-            return isOk;
         })
         // dispatch ERROR_ACTION here
         .catch(err => {
