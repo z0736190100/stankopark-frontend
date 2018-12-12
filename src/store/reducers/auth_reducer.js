@@ -14,6 +14,7 @@ export default function (state = null , action) {
         case AUTH_ERROR:
             return {...state, error: action.payload};
         case REGISTER_USER:
+            // TODO: is this switching forms reducer redundant?
             return {...state, welcomeLogin: action.payload.welcomeLogin};
         default:
             return state;

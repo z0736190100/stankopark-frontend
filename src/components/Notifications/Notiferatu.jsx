@@ -11,6 +11,10 @@ class Notiferatu extends Component {
             open: true
         };
 
+        onNotificationRecieved = () => {
+
+        };
+
         renderNotifications = () => {
             const notif = this.props.notifications;
             if (notif !== undefined) {
@@ -22,7 +26,7 @@ class Notiferatu extends Component {
                             hideAfter={7000}
                             place={"tr"}
                             key={key}
-                            open={this.state.open}
+                            open={item.open}
                             message={item.message}
                             color={item.color}
                             closeNotification={() => {
@@ -48,11 +52,8 @@ class Notiferatu extends Component {
         }
     }
 
-const mapStateToProps = (state) => {
-    return {
-        notifications: state.notifications
-    }
+const mapStateToProps = ({notifications}) => {
+    return {notifications}
 };
-
 
 export default connect(mapStateToProps, actions)(Notiferatu);

@@ -59,7 +59,7 @@ class Layout extends React.Component {
 
     componentDidMount() {
         console.log("history ", this.props.history);
-        //this.props.fetchUserAction();
+        //this.props.fetchCurrentUser();
 
         // if (navigator.platform.indexOf("Win") > -1) {
         //   const ps = new PerfectScrollbar(this.refs.mainPanel);
