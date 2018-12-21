@@ -4,8 +4,10 @@ import withStyles from "@material-ui/core/styles/withStyles";
 //core components
 import FormControlLabel from "@material-ui/core/es/FormControlLabel/FormControlLabel";
 import Switch from "@material-ui/core/Switch/Switch";
+import Tooltip from "@material-ui/core/Tooltip/Tooltip";
 
 import customSwitchInputStyle from "assets/jss/material-dashboard-react/components/customSwitchInputStyle.jsx"
+
 
 const CustomSwitchInput = ({input, input: {onChange}, meta: {touched, error}, ...props}) => {
 
@@ -14,30 +16,35 @@ const CustomSwitchInput = ({input, input: {onChange}, meta: {touched, error}, ..
         checked,
         value,
         label,
-        onClick
+        onClick,
+        tooltipText
     } = props;
-const inputProps = input;
+    const inputProps = input;
     return (
         <div>
             <FormControlLabel
                 control={
-                    <Switch
-                        checked={checked}
-                        onClick={onClick}
-                        onChange={(checked) => {
-                            let check = checked.toString();
-                            onChange(check)
-                        }}
-                        value={checked + ""}
-                        classes={{
-                            switchBase: classes.switchBase,
-                            checked: classes.switchChecked,
-                            icon: classes.switchIcon,
-                            iconChecked: classes.switchIconChecked,
-                            bar: classes.switchBar
-                        }}
-                        {...inputProps}
-                    />
+                    <Tooltip
+                        title={tooltipText || ""}
+                        placement={"top-start"}>
+                        <Switch
+                            checked={checked}
+                            onClick={onClick}
+                            onChange={(checked) => {
+                                let check = checked.toString();
+                                onChange(check)
+                            }}
+                            value={checked + ""}
+                            classes={{
+                                switchBase: classes.switchBase,
+                                checked: classes.switchChecked,
+                                icon: classes.switchIcon,
+                                iconChecked: classes.switchIconChecked,
+                                bar: classes.switchBar
+                            }}
+                            {...inputProps}
+                        />
+                    </Tooltip>
                 }
                 classes={{
                     label: classes.label

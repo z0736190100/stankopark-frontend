@@ -12,96 +12,102 @@ import Button from "components/CustomButtons/Button.jsx";
 import CardAvatar from "components/Card/CardAvatar.jsx";
 import AddIcon from '@material-ui/icons/Add';
 
+import MUIDataTable from "mui-datatables";
+
 import Fab from '@material-ui/core/Button';
 
 import avatar from "assets/img/faces/gh_logo.png";
 
 const styles = {
     cardCategoryWhite: {
-        "&,& a,& a:hover,& a:focus": {
-            color: "rgba(255,255,255,.62)",
-            margin: "0",
-            fontSize: "14px",
-            marginTop: "0",
-            marginBottom: "0"
-        },
-        "& a,& a:hover,& a:focus": {
-            color: "#FFFFFF"
-        }
+        color: "rgba(255,255,255,.62)",
+        margin: "0",
+        fontFamily: "Roboto",
+        fontSize: "14px",
+        marginTop: "0",
+        marginBottom: "0"
     },
     cardTitleWhite: {
         color: "#FFFFFF",
         marginTop: "0px",
         minHeight: "auto",
         fontWeight: "300",
-        fontFamily: "'Roboto', 'Helvetica', 'Arial', sans-serif",
+        fontFamily: "'Roboto Slab', 'Helvetica', 'Arial', sans-serif",
         marginBottom: "3px",
-        textDecoration: "none",
-        "& small": {
-            color: "#777",
-            fontSize: "65%",
-            fontWeight: "400",
-            lineHeight: "1"
-        }
+        textDecoration: "none"
     }
 };
-
 const fab =
     {
         color: 'primary',
         icon: <AddIcon/>,
     };
 
+const columns = ["Номер", "Производитель", "Модель", "Целевое назначение", "Описание"];
+
+const data = [
+    ["02-EH-013", "Завод Прессов", "ПКП-10", "заготовительные работы", "Пресс консольный с поворотным ударником"],
+    ["02-E-010", "Sideco", "220410", "заготовительные работы", "Машинка для спускания краев заготовки."],
+    ["04-ET-010", "Elvi", "Ub1010", "затяжные работы", "Парогенератор."],
+    ["04-EPHT-005", "CERIM", "K178", "затяжные работы", "Машина для затяжки носочно-геленочной части верха обуви"],
+    ["05-EH-007", "FAMAS", "300", "затяжные работы", "Пресс мембранный для приклейки подошвы"],
+];
+
+const options = {
+    filterType: 'checkbox',
+};
+
 function MachineUnitsTableList(props) {
     const {classes} = props;
     return (
         <GridContainer>
-            <GridItem xs={12} sm={12} md={8}>
+            <GridItem xs={12} sm={12} md={12}>
                 <Card>
                     <CardHeader color="primary">
                         <h4 className={classes.cardTitleWhite}>
                             {"ПЕРЕЧЕНЬ ОБОРУДОВАНИЯ"}
                         </h4>
-                        <p className={classes.cardCategoryWhite}>{"Кликни на строку"}</p>
+                        <p className={classes.cardCategoryWhite}>
+                            <small>{"Кликни на строку"}</small>
+                        </p>
                     </CardHeader>
                     <CardBody>
                         <Table
                             tableHeaderColor="primary"
-                            tableHead={["Name", "Country", "City", "Salary"]}
+                            tableHead={["Номер", "Производитель", "Модель", "Целевое назначение", "Описание"]}
                             tableData={[
-                                ["Dakota Rice", "Niger", "Oud-Turnhout", "$36,738"],
-                                ["Minerva Hooper", "Curaçao", "Sinaai-Waas", "$23,789"],
-                                ["Sage Rodriguez", "Netherlands", "Baileux", "$56,142"],
-                                ["Philip Chaney", "Korea, South", "Overland Park", "$38,735"],
-                                ["Doris Greene", "Malawi", "Feldkirchen in Kärnten", "$63,542"],
-                                ["Mason Porter", "Chile", "Gloucester", "$78,615"]
+                                ["02-EH-013", "Завод Прессов", "ПКП-10", "заготовительные работы", "Пресс консольный с поворотным ударником"],
+                                ["02-E-010", "Sideco", "220410", "заготовительные работы", "Машинка для спускания краев заготовки."],
+                                ["04-ET-010", "Elvi", "Ub1010", "затяжные работы", "Парогенератор."],
+                                ["04-ET-005", "CERIM", "K178", "затяжные работы", "Машина для затяжки носочно-геленочной части верха обуви"],
                             ]}
                         />
-                    </CardBody>
-                </Card>
-            </GridItem>
-            <GridItem xs={12} sm={12} md={4}>
-                <Card profile>
-                    <CardAvatar profile>
-                        <a href="#pablo" onClick={e => e.preventDefault()}>
-                            <img src={avatar} alt={"...."}/>
-                        </a>
-                    </CardAvatar>
-                    <CardBody profile>
-                        <h6 className={classes.cardCategory}>{"СТАНОК"}</h6>
-                        <h4 className={classes.cardTitle}>{"(паспортные данные)"}</h4>
-                        <p className={classes.description}>
-                            {"--отобразить выбраный в таблице станок--"}
-                        </p>
-                        <Button color="primary" round>
-                            {"ПЕРЕЙТИ"}
-                        </Button>
                     </CardBody>
                 </Card>
             </GridItem>
             <Fab color={fab.color}>
                 {fab.icon}
             </Fab>
+            <GridItem xs={12} sm={12} md={12}>
+                <Card>
+                    <CardHeader color="primary">
+                        <h4 className={classes.cardTitleWhite}>
+                            {"ПЕРЕЧЕНЬ ОБОРУДОВАНИЯ"}
+                        </h4>
+                        <p className={classes.cardCategoryWhite}>
+                            <small>{"Кликни на строку"}</small>
+                        </p>
+                    </CardHeader>
+                    <CardBody>
+                        <MUIDataTable
+                            title={"Станкопарк"}
+                            data={data}
+                            columns={columns}
+                            options={options}
+                        />
+                    </CardBody>
+                </Card>
+            </GridItem>
         </GridContainer>
     );
 }

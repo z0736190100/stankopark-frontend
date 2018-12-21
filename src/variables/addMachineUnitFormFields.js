@@ -64,6 +64,35 @@ const VOLTAGE_MENU_VALUES = [
     }
 ];
 
+const THERMO_TYPE_VALUES = [
+    {
+        value: "Спираль",
+        text: "Спираль"
+    },
+    {
+        value: "Плоский ТЭН",
+        text: "Плоский ТЭН"
+    },
+    {
+        value: "Пальчиковый ТЭН",
+        text: "Пальчиковый ТЭН"
+    },
+    {
+        value: "Лампа",
+        text: "Лампа"
+    }
+];
+const THERMO_VOLTAGE_MENU_VALUES = [
+    {
+        value: 220,
+        text: 220
+    },
+    {
+        value: 380,
+        text: 380
+    }
+];
+
 export default {
     GENERAL:
         [
@@ -269,6 +298,90 @@ export default {
                     xs: 12,
                     sm: 12,
                     md: 6
+                }
+        }
+    ],
+    THERMO: [
+        // type of thermo-element, geometric characteristics, voltage, power-consumption, number of elements
+        {
+            component: CustomSelectInputRedux,
+            name: "thermo_type",
+            id: "thermo_type",
+            type: "text",
+            labelText: "Тип термоэлемента",
+            helperText: "Выберите значение",
+            menuValues: THERMO_TYPE_VALUES,
+            breakpoints:
+                {
+                    xs: 12,
+                    sm: 12,
+                    md: 6
+                }
+
+        },
+        {
+            component: CustomInputForRedux,
+            name: "thermo_unit_param",
+            id: "thermo_unit_param",
+            type: "text",
+            labelText: "Характеристики термоэлемента",
+            errorText: "Недопустимое значение",
+            tooltipText:"Может содержать текст и цифры. Укажите пространственные характеристики термоэлемента",
+            endAdornment: "W  ",
+            breakpoints:
+                {
+                    xs: 12,
+                    sm: 12,
+                    md: 6
+                }
+        },
+        {
+            component: CustomSelectInputRedux,
+            name: "thermo_unit_voltage",
+            id: "thermo_unit_voltage",
+            type: "number",
+            labelText: "Напряжение",
+            helperText: "Выберите значение",
+            endAdornment: "V  ",
+            menuValues: THERMO_VOLTAGE_MENU_VALUES,
+            breakpoints:
+                {
+                    xs: 12,
+                    sm: 12,
+                    md: 4
+                }
+
+        },
+        {
+            component: CustomInputForRedux,
+            name: "thermo_unit_power",
+            id: "thermo_unit_power",
+            type: "number",
+            labelText: "Мощность",
+            errorText: "Недопустимое значение",
+            tooltipText:"Может содержать только цифры. Укажите мощность термоэлемента",
+            endAdornment: "W  ",
+            breakpoints:
+                {
+                    xs: 12,
+                    sm: 12,
+                    md: 4
+                }
+        },
+        {
+            component: CustomInputForRedux,
+            name: "thermo_unit_number",
+            id: "thermo_unit_number",
+            type: "number",
+            labelText: "Количество термоэлементов",
+            errorText: "Недопустимое значение",
+            tooltipText:"Укажите общее количество термоэлементов.",
+            endAdornment: "шт.",
+            breakpoints:
+                {
+                    xs: 12,
+                    sm: 12,
+                    md: 4
                 }
         }
     ]

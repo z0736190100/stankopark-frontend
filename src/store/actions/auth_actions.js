@@ -80,7 +80,7 @@ const authSuccess = (data) => dispatch => {
             authentication: {
                 open: true,
                 color: "success",
-                message: `Welcome, ${data.firstName}!`
+                message: `Привет, ${data.firstName}!`
             }
         }
     });

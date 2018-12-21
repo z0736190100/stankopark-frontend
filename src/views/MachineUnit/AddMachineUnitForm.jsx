@@ -52,6 +52,7 @@ function AddMachineUnitForm(props) {
         const SWITCH_ITEMS = [
             {
                 label: "Электрическое",
+                tooltipText: "Оборудование является потребителем электроэнергии.",
                 name: "electric",
                 id: "electric",
                 checked: false,
@@ -60,6 +61,7 @@ function AddMachineUnitForm(props) {
             },
             {
                 label: "Гидравлическое",
+                tooltipText: "Оборудование оснащено гидравлической системой.",
                 name: "hydraulic",
                 id: "hydraulic",
                 checked: false,
@@ -68,10 +70,20 @@ function AddMachineUnitForm(props) {
             },
             {
                 label: "Пневматическое",
+                tooltipText: "Оборудование оснащено пневматической системой.",
                 name: "pneumatic",
                 id: "pneumatic",
                 checked: false,
                 value: "pneumatic",
+                onChange: (event) => console.log(event.target)
+            },
+            {
+                label: "Термическое",
+                tooltipText: "Оборудование оснащено нагревательными или охладительными элементами.",
+                name: "thermo",
+                id: "thermo",
+                checked: false,
+                value: "thermo",
                 onChange: (event) => console.log(event.target)
             },
             {
@@ -92,6 +104,7 @@ function AddMachineUnitForm(props) {
                         component={CustomSwitchInput}
                         id={val.id}
                         label={val.label}
+                        tooltipText={val.tooltipText}
                         checked={props.switchState[val.name] || false}
                         onClick={(event, name) => props.switchStateHandler(event, val.name)}
                     />
@@ -153,7 +166,7 @@ function AddMachineUnitForm(props) {
                         {"Сохранить изменения"}
                     </Button>
                 </GridItem>
-                <GridItem xs={12} sm={12} md={8}>
+                <GridItem xs={12} sm={12} md={12}>
                     <form onChange={props.formOnChange()} onSubmit={props.handleSubmit(values => saveToDB(values))}>
                         <Card> {/*this card avaliable only for saving new machineUnit, not for updating*/}
                             <CardHeader color={"primary"}>
@@ -244,6 +257,19 @@ function AddMachineUnitForm(props) {
                                             </ExpansionPanelSummary>
                                             <ExpansionPanelDetails>
                                                 {formRenderer("PNEUMATICS")}
+                                            </ExpansionPanelDetails>
+                                        </ExpansionPanel>
+                                    </GridItem>
+                                    <GridItem xs={12} sm={12} md={12}>
+                                        <ExpansionPanel disabled={!props.switchState["thermo"]}
+                                                        elevation={3}>
+                                            <ExpansionPanelSummary expandIcon={<ExpandMoreIcon/>}>
+                                                <h4 className={classes.heading}>{"Термооснастка"}</h4>
+                                            </ExpansionPanelSummary>
+                                            <ExpansionPanelDetails>
+                                                <GridContainer>
+                                                    {formRenderer("THERMO")}
+                                                    </GridContainer>
                                             </ExpansionPanelDetails>
                                         </ExpansionPanel>
                                     </GridItem>

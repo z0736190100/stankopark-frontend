@@ -20,6 +20,7 @@ class AddMachineUnitClass extends Component {
         electric: false,
         pneumatic: false,
         hydraulic: false,
+        thermo: false,
         manual: true,
         showFormConfirmationDialog: false,
         tableHead: [],
@@ -50,6 +51,7 @@ class AddMachineUnitClass extends Component {
                 electric: false,
                 pneumatic: false,
                 hydraulic: false,
+                thermo: false,
                 [name]: !this.state[name]
             });
         } else {
