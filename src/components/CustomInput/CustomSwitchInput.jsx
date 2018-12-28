@@ -7,6 +7,7 @@ import Switch from "@material-ui/core/Switch/Switch";
 import Tooltip from "@material-ui/core/Tooltip/Tooltip";
 
 import customSwitchInputStyle from "assets/jss/material-dashboard-react/components/customSwitchInputStyle.jsx"
+import customInputStyle from "assets/jss/material-dashboard-react/components/customInputStyle.jsx";
 
 
 const CustomSwitchInput = ({input, input: {onChange}, meta: {touched, error}, ...props}) => {
@@ -17,12 +18,18 @@ const CustomSwitchInput = ({input, input: {onChange}, meta: {touched, error}, ..
         value,
         label,
         onClick,
-        tooltipText
+        tooltipText,
+        labelClasses
     } = props;
     const inputProps = input;
     return (
         <div>
             <FormControlLabel
+                style={{
+                    marginLeft: "13px",
+                    fontFamily: "Roboto Slab"
+                }}
+                labelPlacement={"start"}
                 control={
                     <Tooltip
                         title={tooltipText || ""}

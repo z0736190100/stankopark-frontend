@@ -21,7 +21,6 @@ class AddMachineUnitClass extends Component {
         pneumatic: false,
         hydraulic: false,
         thermo: false,
-        manual: true,
         showFormConfirmationDialog: false,
         tableHead: [],
         tableData: []
@@ -46,21 +45,18 @@ class AddMachineUnitClass extends Component {
     }
 
     switchInputOnChange = (event, name) => {
-        if (name === "manual") {
-            this.setState({
-                electric: false,
-                pneumatic: false,
-                hydraulic: false,
-                thermo: false,
+
+        this.setState(state => {
+            if (name === "thermo" && !state.electric)
+                return {
+                    electric: true,
+                    [name]: !state[name]
+
+                };
+            return{
                 [name]: !this.state[name]
-            });
-        } else {
-            this.setState({
-                [name]: !this.state[name],
-                manual: false
-            });
-            console.log(event.target);
-        }
+            };
+        });
     };
 
     formOnChange = () => {

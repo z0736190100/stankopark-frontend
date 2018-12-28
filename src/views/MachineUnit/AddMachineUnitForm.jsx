@@ -22,6 +22,7 @@ import DialogRaw from "under_construction/components/Dialog/ConfirmationDialogRa
 //assets
 import ADD_MACHINE_UNIT_FORM_FIELD_PROPS from "variables/addMachineUnitFormFields.js";
 import * as axios from "axios";
+import Paper from "@material-ui/core/Paper/Paper";
 
 
 const styles = {
@@ -51,7 +52,7 @@ function AddMachineUnitForm(props) {
     const switchInputRenderer = () => {
         const SWITCH_ITEMS = [
             {
-                label: "Электрическое",
+                label: "Является потребителем электроэнергии.",
                 tooltipText: "Оборудование является потребителем электроэнергии.",
                 name: "electric",
                 id: "electric",
@@ -60,7 +61,7 @@ function AddMachineUnitForm(props) {
                 onChange: (event) => console.log(event.target)
             },
             {
-                label: "Гидравлическое",
+                label: "Оснащено гидравлической системой.",
                 tooltipText: "Оборудование оснащено гидравлической системой.",
                 name: "hydraulic",
                 id: "hydraulic",
@@ -69,7 +70,7 @@ function AddMachineUnitForm(props) {
                 onChange: (event) => console.log(event.target)
             },
             {
-                label: "Пневматическое",
+                label: "Оснащено пневматической системой.",
                 tooltipText: "Оборудование оснащено пневматической системой.",
                 name: "pneumatic",
                 id: "pneumatic",
@@ -78,22 +79,14 @@ function AddMachineUnitForm(props) {
                 onChange: (event) => console.log(event.target)
             },
             {
-                label: "Термическое",
-                tooltipText: "Оборудование оснащено нагревательными или охладительными элементами.",
+                label: "Оснащено нагревательными и/или холодильными элементами.",
+                tooltipText: "Оборудование оснащено нагревательными и\/или холодильными элементами.",
                 name: "thermo",
                 id: "thermo",
                 checked: false,
                 value: "thermo",
                 onChange: (event) => console.log(event.target)
-            },
-            {
-                label: "Механическое",
-                name: "manual",
-                id: "manual",
-                checked: true,
-                value: "manual",
-                onChange: (event) => console.log(event.target)
-            },
+            }
         ];
         return _.map(SWITCH_ITEMS, val => {
             return (
@@ -171,14 +164,14 @@ function AddMachineUnitForm(props) {
                         <Card> {/*this card avaliable only for saving new machineUnit, not for updating*/}
                             <CardHeader color={"primary"}>
                                 <h4 className={classes.cardTitleWhite}>
-                                    {"Тип оборудования"}
+                                    {"Системы в составе оборудования"}
                                 </h4>
                                 <p className={classes.cardCategoryWhite}>
-                                    <small>{"Выбор определит набор характеристик оборудования"}</small>
+                                    <small>{"Оборудование может включать в себя одну или несколько функциональных систем. Выбор определит перечень характеристик для соответствующих систем."}</small>
                                 </p>
                             </CardHeader>
                             <CardBody>
-                                <GridContainer direction={"row"} zeroMinWidth>
+                                <GridContainer direction={"row"}>
                                     {switchInputRenderer()}
                                 </GridContainer>
                             </CardBody>
@@ -190,7 +183,7 @@ function AddMachineUnitForm(props) {
                                     {"Характеристики оборудования"}
                                 </h4>
                                 <p className={classes.cardCategoryWhite}>
-                                    <small>{"Содержит обязательные и опциональные поля"}</small>
+                                    <small>{"/* содержит обязательные и опциональные поля */"}</small>
                                 </p>
                             </CardHeader>
                             <CardBody>
@@ -269,7 +262,7 @@ function AddMachineUnitForm(props) {
                                             <ExpansionPanelDetails>
                                                 <GridContainer>
                                                     {formRenderer("THERMO")}
-                                                    </GridContainer>
+                                                </GridContainer>
                                             </ExpansionPanelDetails>
                                         </ExpansionPanel>
                                     </GridItem>
