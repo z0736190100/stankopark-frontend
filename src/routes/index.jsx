@@ -1,8 +1,8 @@
 import Layout from "layouts/Layout/Layout.jsx";
-//import LoginPage from "layouts/LoginPage/WelcomePage.jsx";
+//import WelcomePage from "views/WelcomePage/WelcomePage.jsx";
 
 const indexRoutes = [
-    { path: "/", component: Layout }
-]; //LoginPage
+    {path: "/", component: Layout },
+];
 
 export default indexRoutes;

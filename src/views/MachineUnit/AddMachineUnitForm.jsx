@@ -21,7 +21,7 @@ import Table from "under_construction/components/Table/Table.jsx";
 import DialogRaw from "under_construction/components/Dialog/ConfirmationDialogRaw";
 //assets
 import ADD_MACHINE_UNIT_FORM_FIELD_PROPS from "variables/addMachineUnitFormFields.js";
-import * as axios from "axios";
+import {a} from "util/axios_template.js";
 import Paper from "@material-ui/core/Paper/Paper";
 
 
@@ -144,7 +144,9 @@ function AddMachineUnitForm(props) {
     };
 
     const saveToDB = (values) => {
-        axios.post("/api/machine_units", values);
+        console.log("saving");
+        console.log(localStorage.getItem("token"));
+        a.post("/api/machine_units", values);
     };
 
     return (

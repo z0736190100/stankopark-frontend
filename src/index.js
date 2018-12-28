@@ -24,12 +24,13 @@ ReactDOM.render(
             <div className={"app"}>
                 <Notiferatu/>
                 <Switch history={hist}>
-                {indexRoutes.map((prop, key) => {
-                    return (
-                        <Route path={prop.path} component={prop.component} key={key}/>
-                    );
-                })}
-            </Switch></div>
+                    {indexRoutes.map((prop, key) => {
+                        return (
+                            <Route path={prop.path} component={prop.component} key={key}/>
+                        );
+                    })}
+                </Switch>
+            </div>
         </Router>
     </Provider>,
     document.getElementById("root")

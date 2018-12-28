@@ -48,9 +48,7 @@ class Layout extends React.Component {
     handleDrawerToggle = () => {
         this.setState({mobileOpen: !this.state.mobileOpen});
     };
-    getRoute = () => {
-        return this.props.location.pathname !== "/maps";
-    };
+
     resizeFunction = () => {
         if (window.innerWidth >= 617) {
             this.setState({mobileOpen: false});
@@ -80,10 +78,6 @@ class Layout extends React.Component {
         window.removeEventListener("resize", this.resizeFunction);
     }
 
-    switchPermitted = () => {
-        this.setState({permitted: !this.state.permitted});
-    };
-
     render() {
         const {classes, ...rest} = this.props;
         return localStorage.getItem("token") ? (
@@ -100,24 +94,20 @@ class Layout extends React.Component {
                 />
                 <div className={classes.mainPanel} ref="mainPanel">
                     <Header
-                        history={this.props.history}
                         logout={this.props.logoutUser}
                         routes={dashboardRoutes}
                         handleDrawerToggle={this.handleDrawerToggle}
                         {...rest}
                     />
-                    {/* On the /maps route we want the map to be on full screen - this is not possible if the content and conatiner classes are present because they have some paddings which would make the map smaller */}
-                    {this.getRoute() ? (
-                        <div className={classes.content}>
-                            <div className={classes.container}>{switchRoutes}</div>
+                    <div className={classes.content}>
+                        <div className={classes.container}>
+                            {switchRoutes}
                         </div>
-                    ) : (
-                        <div className={classes.map}>{switchRoutes}</div>
-                    )}
-                    {this.getRoute() ? <Footer/> : null}
+                    </div>
+                    <Footer/>
                 </div>
             </div>
-        ) : <WelcomePage/>;
+        ) : <WelcomePage />;
     }
 }
 
