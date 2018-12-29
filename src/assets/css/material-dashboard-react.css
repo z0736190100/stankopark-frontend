@@ -58,7 +58,7 @@ html * {
     -moz-osx-font-smoothing: grayscale;
 }
 body {
-    background-color: #F8ECC2; /*#EEEEEE;*/
+    background-color: white; /*#F8ECC2;*/
     color: #3C4858;
     margin: 0;
     font-family: Roboto Slab, "Helvetica", "Arial", sans-serif;

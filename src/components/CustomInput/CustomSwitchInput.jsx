@@ -29,7 +29,6 @@ const CustomSwitchInput = ({input, input: {onChange}, meta: {touched, error}, ..
                     marginLeft: "13px",
                     fontFamily: "Roboto Slab"
                 }}
-                labelPlacement={"start"}
                 control={
                     <Tooltip
                         title={tooltipText || ""}

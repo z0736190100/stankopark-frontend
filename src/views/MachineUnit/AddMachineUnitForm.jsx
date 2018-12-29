@@ -152,18 +152,12 @@ function AddMachineUnitForm(props) {
     return (
         <div>
             <GridContainer>
-                <GridItem xs={12} sm={12} md={8}>
-                    <Button
-                        disabled
-                        color={"primary"}
-                        type={"submit"}
-                    >
-                        {"Сохранить изменения"}
-                    </Button>
-                </GridItem>
                 <GridItem xs={12} sm={12} md={12}>
                     <form onChange={props.formOnChange()} onSubmit={props.handleSubmit(values => saveToDB(values))}>
-                        <Card> {/*this card avaliable only for saving new machineUnit, not for updating*/}
+                        <Card style={{
+                            border: "1.3px solid",
+                            borderColor: "#666699"
+                        }}> {/*this card avaliable only for saving new machineUnit, not for updating*/}
                             <CardHeader color={"primary"}>
                                 <h4 className={classes.cardTitleWhite}>
                                     {"Системы в составе оборудования"}
@@ -179,7 +173,10 @@ function AddMachineUnitForm(props) {
                             </CardBody>
                             <CardFooter/>
                         </Card>
-                        <Card>
+                        <Card style={{
+                            border: "1.3px solid",
+                            borderColor: "#666699"
+                        }}>
                             <CardHeader color={"primary"}>
                                 <h4 className={classes.cardTitleWhite}>
                                     {"Характеристики оборудования"}

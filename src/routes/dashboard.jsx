@@ -11,7 +11,7 @@ import DashboardPage from "views/Dashboard/Dashboard.jsx";
 //import Typography from "views/Typography/Typography.jsx";
 //import Icons from "views/Icons/Icons.jsx";
 import AddMachineUnitClass from "views/MachineUnit/AddMachineUnitClass.jsx";
-//import UCLoginPage from "under_construction/views/UCLoginPage.jsx";
+import MUP from "under_construction/components/MachineUnitPassport/MachineUnitPassport.jsx";
 import MachineUnitsTableList from "views/MachineUnitsTableList/MachineUnitsTableList.jsx"
 //import LoginPage from "components/layouts/LoginPage/WelcomePage.jsx";
 
@@ -36,6 +36,13 @@ const dashboardRoutes = [
         navbarName: "Реестр оборудования",
         icon: "assignment",
         component: MachineUnitsTableList
+    },
+    {
+        path: "/mup",
+        sidebarName: "passport",
+        navbarName: "passport",
+        icon: "assignment",
+        component: MUP
     },
     {redirect: true, path: "/", to: "/dashboard", navbarName: "Redirect"}
 ];

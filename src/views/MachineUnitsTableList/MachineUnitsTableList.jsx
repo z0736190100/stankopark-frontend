@@ -86,8 +86,8 @@ function MachineUnitsTableList(props) {
                 </Card>
             </GridItem>
             <Fab color={fab.color}>
-                {fab.icon}
-            </Fab>
+            {fab.icon}
+        </Fab>
             <GridItem xs={12} sm={12} md={12}>
                 <Card>
                     <CardHeader color="primary">
