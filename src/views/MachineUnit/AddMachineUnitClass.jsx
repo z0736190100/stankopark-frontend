@@ -31,7 +31,7 @@ class AddMachineUnitClass extends Component {
             console.log(this.props.form.addMachineUnitForm);
     }
 
-    tableHelper() {
+    dialogTableHelper() {
         if (this.props.form.add_machine !== undefined) {
             let values = this.props.form.add_machine.values;
             let tableHead = ["Характеристика", "Значение"];
@@ -63,7 +63,7 @@ class AddMachineUnitClass extends Component {
         console.log(this.props.form.add_machine);
     };
     showDialog = () => {
-        this.tableHelper();
+        this.dialogTableHelper();
         this.setState({dialogIsOpen: true});
     };
 

@@ -14,9 +14,9 @@ import indexRoutes from "routes/index.jsx";
 
 const hist = createBrowserHistory();
 
-const store = createStore(reducers, {auth: {welcomeLogin: true}}, compose(applyMiddleware(reduxThunk),
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-));
+const store = createStore(reducers, {auth: {welcomeLogin: true}},applyMiddleware(reduxThunk));// compose(applyMiddleware(reduxThunk),
+   // window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+//));
 
 ReactDOM.render(
     <Provider store={store}>
