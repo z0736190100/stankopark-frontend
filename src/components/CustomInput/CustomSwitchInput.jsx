@@ -7,15 +7,14 @@ import Switch from "@material-ui/core/Switch/Switch";
 import Tooltip from "@material-ui/core/Tooltip/Tooltip";
 
 import customSwitchInputStyle from "assets/jss/material-dashboard-react/components/customSwitchInputStyle.jsx"
-import customInputStyle from "assets/jss/material-dashboard-react/components/customInputStyle.jsx";
 
 
 const CustomSwitchInput = ({input, input: {onChange}, meta: {touched, error}, ...props}) => {
 
     const {
         classes,
+        disabled,
         checked,
-        value,
         label,
         onClick,
         tooltipText,
@@ -34,13 +33,9 @@ const CustomSwitchInput = ({input, input: {onChange}, meta: {touched, error}, ..
                         title={tooltipText || ""}
                         placement={"top-start"}>
                         <Switch
+                            disabled={disabled}
                             checked={checked}
                             onClick={onClick}
-                            onChange={(checked) => {
-                                let check = checked.toString();
-                                onChange(check)
-                            }}
-                            value={checked + ""}
                             classes={{
                                 switchBase: classes.switchBase,
                                 checked: classes.switchChecked,
@@ -64,9 +59,9 @@ const CustomSwitchInput = ({input, input: {onChange}, meta: {touched, error}, ..
 
 // TODO
 CustomSwitchInput.propTypes = {
+    disabled: PropTypes.bool,
     classes: PropTypes.object.isRequired,
     checked: PropTypes.bool,
-    value: PropTypes.node,
     label: PropTypes.node,
     onClick: PropTypes.func
 };

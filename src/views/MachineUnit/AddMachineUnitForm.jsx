@@ -17,12 +17,9 @@ import CustomInput from "components/CustomInput/CustomInput.jsx";
 import CustomSwitchInput from "components/CustomInput/CustomSwitchInput.jsx";
 import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
-import Table from "under_construction/components/Table/Table.jsx";
-import DialogRaw from "under_construction/components/Dialog/ConfirmationDialogRaw";
 //assets
 import ADD_MACHINE_UNIT_FORM_FIELD_PROPS from "variables/addMachineUnitFormFields.js";
 import {a} from "util/axios_template.js";
-import Paper from "@material-ui/core/Paper/Paper";
 
 
 const styles = {
@@ -108,7 +105,7 @@ function AddMachineUnitForm(props) {
 
     const formRenderer = (section) => {
         const defaultErrorText = "Проверьте введенные данные.";
-        return _.map(ADD_MACHINE_UNIT_FORM_FIELD_PROPS[section], item => {
+        return _.map(ADD_MACHINE_UNIT_FORM_FIELD_PROPS[section].fields, item => {
             const {
                 component,
                 name,
@@ -195,7 +192,7 @@ function AddMachineUnitForm(props) {
                                             </ExpansionPanelSummary>
                                             <ExpansionPanelDetails>
                                                 <GridContainer>
-                                                    {formRenderer("GENERAL")}
+                                                    {formRenderer("general")}
                                                 </GridContainer>
                                             </ExpansionPanelDetails>
                                         </ExpansionPanel>
@@ -208,7 +205,7 @@ function AddMachineUnitForm(props) {
                                                 <h4 className={classes.heading}>{"Электрообеспечение"}</h4>
                                             </ExpansionPanelSummary>
                                             <ExpansionPanelDetails>
-                                                {formRenderer("ELECTRICS")}
+                                                {formRenderer("electric")}
                                                 <GridItem xs={12} sm={12} md={4}>
                                                     <CustomInput
                                                         disabled
@@ -236,7 +233,7 @@ function AddMachineUnitForm(props) {
                                                 <h4 className={classes.heading}>{"Гидравлическая система"}</h4>
                                             </ExpansionPanelSummary>
                                             <ExpansionPanelDetails>
-                                                {formRenderer("HYDRAULICS")}
+                                                {formRenderer("hydraulic")}
                                             </ExpansionPanelDetails>
                                         </ExpansionPanel>
                                     </GridItem>
@@ -248,7 +245,7 @@ function AddMachineUnitForm(props) {
                                                 <h4 className={classes.heading}>{"Пневматическая система"}</h4>
                                             </ExpansionPanelSummary>
                                             <ExpansionPanelDetails>
-                                                {formRenderer("PNEUMATICS")}
+                                                {formRenderer("pneumatic")}
                                             </ExpansionPanelDetails>
                                         </ExpansionPanel>
                                     </GridItem>
@@ -260,7 +257,7 @@ function AddMachineUnitForm(props) {
                                             </ExpansionPanelSummary>
                                             <ExpansionPanelDetails>
                                                 <GridContainer>
-                                                    {formRenderer("THERMO")}
+                                                    {formRenderer("thermo")}
                                                 </GridContainer>
                                             </ExpansionPanelDetails>
                                         </ExpansionPanel>

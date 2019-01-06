@@ -17,6 +17,7 @@ import customInputStyle from "assets/jss/material-dashboard-react/components/cus
 function CustomSelectInputRedux({input, meta: {touched, error}, ...props}) {
     const {
         classes,
+        disabled,
         formControlProps,
         labelText,
         labelProps,
@@ -79,6 +80,7 @@ function CustomSelectInputRedux({input, meta: {touched, error}, ...props}) {
                 margin={"none"}
                 input={
                     <Input
+                        disabled={disabled}
                         onChange={(event, index, value) => input.onChange(value)}
                         classes={{
                             root: marginTop,

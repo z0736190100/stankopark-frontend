@@ -2,17 +2,11 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {withStyles} from '@material-ui/core/styles';
 // material-ui components
-import Button from '@material-ui/core/Button';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogActions from '@material-ui/core/DialogActions';
 import Dialog from '@material-ui/core/Dialog';
+import DialogContent from "@material-ui/core/DialogContent/DialogContent";
+import DialogActions from "@material-ui/core/DialogActions/DialogActions";
 //core components
-import Table from "components/Table/Table";
-import GridItem from "components/Grid/GridItem";
-import CardHeader from "components/Card/CardHeader";
-import Card from "../../../components/Card/Card";
-import CardBody from "../../../components/Card/CardBody";
 
 const styles = theme => ({
     root: {
@@ -91,7 +85,12 @@ class ConfirmationDialogRaw extends Component {
                 <DialogTitle id="confirmation-dialog-title">
                     <small style={{fontFamily: "Roboto Slab" }}>Проверьте данные перед сохранением:</small>
                 </DialogTitle>
-                {this.props.children}
+                <DialogContent>
+                    {this.props.dialogcontent}
+                </DialogContent>
+                <DialogActions>
+                    {this.props.dialogactions}
+                </DialogActions>
             </Dialog>
         );
     }

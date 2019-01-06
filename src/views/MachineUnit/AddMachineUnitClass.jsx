@@ -9,6 +9,8 @@ import Button from '@material-ui/core/Button';
 import GridItem from "../../components/Grid/GridItem";
 import Table from "../../components/Table/Table";
 import DialogContent from "@material-ui/core/DialogContent/DialogContent";
+// assets
+import ADD_MACHINE_UNIT_FORM_FIELD_PROPS from "variables/addMachineUnitFormFields.js";
 
 //TODO uncontrolled CustomForm component + redux-form
 class AddMachineUnitClass extends Component {
@@ -21,27 +23,43 @@ class AddMachineUnitClass extends Component {
         pneumatic: false,
         hydraulic: false,
         thermo: false,
-        showFormConfirmationDialog: false,
-        tableHead: [],
-        tableData: []
+        confirmationDialogContent: []
     };
 
-    componentDidUpdate() {
-        if (this.props.form.addMachineUnitForm !== undefined)
-            console.log(this.props.form.addMachineUnitForm);
+    dialogContentHelper() {
+        if (this.props.form.add_machine !== undefined) {
+            let fvalues = this.props.form.add_machine.values;
+            let dialogContent = this.state.confirmationDialogContent;
+            if (fvalues === undefined) return null;
+            return _.map(ADD_MACHINE_UNIT_FORM_FIELD_PROPS, (section) => {
+                this.dialogTableHelper(section, fvalues);
+            });
+        }
+        return null;
     }
 
-    dialogTableHelper() {
-        if (this.props.form.add_machine !== undefined) {
-            let values = this.props.form.add_machine.values;
-            let tableHead = ["Характеристика", "Значение"];
-            let tableData = [];
-            _.map(values, (value, key) => {
-                let tableRow = [key, value];
+    dialogTableHelper(section, values) {
+        let tableHead = [section.title, ""];
+        let tableData = [];
+        _.map(section.fields, item => {
+            if (values[item.name] !== undefined) {
+                let tableRow = [item.labelText, values[item.name]];
                 tableData.push(tableRow);
-            });
-            this.setState({tableData, tableHead});
-        }
+            }
+        });
+        this.setState(prevState => {
+            let temp = prevState.confirmationDialogContent;
+            temp.push(
+                <Table
+                    key={tableHead}
+                    tableHeaderColor="primary"
+                    tableHead={tableHead}
+                    tableData={tableData}
+                />);
+            return {
+                confirmationDialogContent: temp
+            }
+        });
     }
 
     switchInputOnChange = (event, name) => {
@@ -53,17 +71,18 @@ class AddMachineUnitClass extends Component {
                     [name]: !state[name]
 
                 };
-            return{
+            return {
                 [name]: !this.state[name]
             };
         });
     };
 
     formOnChange = () => {
+
         console.log(this.props.form.add_machine);
     };
     showDialog = () => {
-        this.dialogTableHelper();
+        this.dialogContentHelper();
         this.setState({dialogIsOpen: true});
     };
 
@@ -77,30 +96,24 @@ class AddMachineUnitClass extends Component {
             <div>
                 <AddMachineUnitForm switchStateHandler={this.switchInputOnChange}
                                     switchState={this.state}
-                                    tableData={this.state.tableData}
                                     formOnChange={this.formOnChange}
                                     showDialog={this.showDialog}
                 />
                 <ConfirmationDialogRaw
                     open={this.state.dialogIsOpen}
                     onClose={null}
-                >
-                    <DialogContent>
-                        <Table
-                            tableHeaderColor="primary"
-                            tableHead={this.state.tableHead}
-                            tableData={this.state.tableData}
-                        />
-                    </DialogContent>
-                    <DialogActions>
-                        <Button onClick={this.cancelDialog} color="primary">
-                            Cancel
-                        </Button>
-                        <Button onClick={this.cancelDialog} color="primary">
-                            Ok
-                        </Button>
-                    </DialogActions>
-                </ConfirmationDialogRaw>
+                    dialogcontent={this.state.confirmationDialogContent}
+                    dialogactions={
+                        <div>
+                            <Button onClick={this.cancelDialog} color="primary">
+                                Cancel
+                            </Button>
+                            <Button onClick={this.cancelDialog} color="primary">
+                                Ok
+                            </Button>
+                        </div>
+                    }
+                />
             </div>
         );
     }

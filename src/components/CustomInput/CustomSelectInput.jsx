@@ -21,6 +21,7 @@ import FormHelperText from "@material-ui/core/es/FormHelperText/FormHelperText";
 function CustomSelectInput({...props}) {
     const {
         classes,
+        disabled,
         formControlProps,
         labelText,
         labelProps,
@@ -86,6 +87,7 @@ function CustomSelectInput({...props}) {
                 value={inputProps.value}
                 input={
                     <Input
+                        disabled={disabled}
                         classes={{
                             root: marginTop,
                             disabled: classes.disabled,

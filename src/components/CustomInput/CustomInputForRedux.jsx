@@ -91,7 +91,6 @@ function CustomInput({input, meta: {touched, error}, ...props}) {
             </Tooltip>
             <FormHelperText
                 className={labelClasses}>{(touched && error) ? errorText : (helperText || null)}</FormHelperText>
-
         </FormControl>
     );
 }
