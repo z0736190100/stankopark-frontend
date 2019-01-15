@@ -1,3 +1,4 @@
+
 import React from "react";
 import _ from "lodash";
 import {Field, reduxForm} from "redux-form";
@@ -14,7 +15,8 @@ import Card from "components/Card/Card.jsx";
 import CardBody from "components/Card/CardBody.jsx";
 import CardHeader from "components/Card/CardHeader.jsx";
 import RegistrationForm from "views/WelcomePage/RegistrationForm.jsx";
-
+import PIButton from "under_construction/components/PIButton/PIButton.jsx";
+// assets
 import welcomePageStyle from "assets/jss/material-dashboard-react/views/welcomeStyle.jsx";
 import {LOGIN} from "variables/welcomeFormFields.jsx";
 
@@ -116,29 +118,27 @@ class WelcomePage extends React.Component {
                                                 <GridContainer>
                                                     {this.formRenderer()}
                                                 </GridContainer>
-                                                <Button
+                                                <PIButton
                                                     type={"submit"}
-                                                    //onClick={this.props.switchPermitted}
                                                     color="primary"
                                                     style={{
                                                         fontFamily: "Roboto Slab"
                                                     }}
                                                 >
                                                     {"Вход"}
-                                                </Button>
-                                                <p>
-                                                    <small>или</small>
-                                                </p>
-                                                <Button
+                                                </PIButton>
+                                               <p></p>
+                                                <Button 
                                                     onClick={() => {
                                                         this.toRegiForm();
                                                     }}
-                                                    color="primary"
+                                                    color="transparent"
                                                     style={{
-                                                        fontFamily: "Roboto Slab"
+                                                        fontFamily: "Roboto Slab",
+                                                        color: "grey"
                                                     }}
                                                 >
-                                                    {"РЕГИСТРАЦИЯ"}
+                                                  {"РЕГИСТРАЦИЯ"}
                                                 </Button>
                                             </form>) : <RegistrationForm toLogin={this.toLoginForm}/>}
                                     </CardBody>

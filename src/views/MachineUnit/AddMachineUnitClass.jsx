@@ -82,6 +82,9 @@ class AddMachineUnitClass extends Component {
         console.log(this.props.form.add_machine);
     };
     showDialog = () => {
+        this.setState({
+            confirmationDialogContent: []
+        });
         this.dialogContentHelper();
         this.setState({dialogIsOpen: true});
     };

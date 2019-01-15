@@ -59,16 +59,6 @@ const RegistrationForm = props => {
                 {formRenderer()}
             </GridContainer>
             <Button
-                //type={"submit"}
-                onClick={() => props.toLogin()}
-                color="primary"
-                style={{
-                    fontFamily: "Roboto Slab"
-                }}
-            >
-                {" <  Назад"}
-            </Button>
-            <Button
                 type={"submit"}
                 color="primary"
                 style={{
@@ -76,6 +66,19 @@ const RegistrationForm = props => {
                 }}
             >
                 {"Зарегистрировать"}
+            </Button>
+            <p></p>
+            <Button
+                //type={"submit"}
+                onClick={() => props.toLogin()}
+                color="transparent"
+                style={{
+                    fontWeight: "300",
+                    fontFamily: "Roboto Slab",
+                    color: "grey"
+                }}
+            >
+                {"ВХОД"}
             </Button>
 
         </form>
