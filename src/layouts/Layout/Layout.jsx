@@ -56,7 +56,6 @@ class Layout extends React.Component {
     };
 
     componentDidMount() {
-        console.log("history ", this.props.history);
         //this.props.fetchCurrentUser();
 
         // if (navigator.platform.indexOf("Win") > -1) {

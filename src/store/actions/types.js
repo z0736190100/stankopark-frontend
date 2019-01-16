@@ -4,6 +4,9 @@ module.exports = {
     AUTH_USER: "auth_user",
     LOGOUT_USER: "logout_user",
     REGISTER_USER: "register_user",
-    AUTH_ERROR: "auth_error",
-    SHOW_NOTIFICATION: "show_notification"
+    AUTH_PROCESSING_ERROR: "auth_error",
+    SHOW_NOTIFICATION: "show_notification",
+    SAVE_MACHINE_UNIT: "save_machine_unit",
+    SAVE_MACHINE_UNIT_SUCCESS: "save_machine_unit_success"
+
 };

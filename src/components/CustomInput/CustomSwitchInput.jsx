@@ -9,7 +9,7 @@ import Tooltip from "@material-ui/core/Tooltip/Tooltip";
 import customSwitchInputStyle from "assets/jss/material-dashboard-react/components/customSwitchInputStyle.jsx"
 
 
-const CustomSwitchInput = ({input, input: {onChange}, meta: {touched, error}, ...props}) => {
+const CustomSwitchInput = ({input, meta: {touched, error}, ...props}) => {
 
     const {
         classes,
@@ -17,8 +17,7 @@ const CustomSwitchInput = ({input, input: {onChange}, meta: {touched, error}, ..
         checked,
         label,
         onClick,
-        tooltipText,
-        labelClasses
+        tooltipText
     } = props;
     const inputProps = input;
     return (

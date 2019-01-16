@@ -1,4 +1,3 @@
-
 import React from "react";
 import _ from "lodash";
 import {Field, reduxForm} from "redux-form";
@@ -127,8 +126,8 @@ class WelcomePage extends React.Component {
                                                 >
                                                     {"Вход"}
                                                 </PIButton>
-                                               <p></p>
-                                                <Button 
+                                                <p></p>
+                                                <Button
                                                     onClick={() => {
                                                         this.toRegiForm();
                                                     }}
@@ -138,7 +137,7 @@ class WelcomePage extends React.Component {
                                                         color: "grey"
                                                     }}
                                                 >
-                                                  {"РЕГИСТРАЦИЯ"}
+                                                    {"РЕГИСТРАЦИЯ"}
                                                 </Button>
                                             </form>) : <RegistrationForm toLogin={this.toLoginForm}/>}
                                     </CardBody>
@@ -177,14 +176,13 @@ export default connect(mapStateToProps, actions)(reduxForm({
 })(withStyles(welcomePageStyle)(WelcomePage)));
 
 
-{/*
-<Button
-    // disabled
-    round
-    justIcon
-    color="danger"
-    href={"/auth/google"}
->
-    <i className={"fab fa-google-plus-g"}/>
-</Button>*/
-}
+//<Button
+// disabled
+//round
+// justIcon
+//color="danger"
+//href={"/auth/google"}
+//>
+// <i className={"fab fa-google-plus-g"}/>
+//</Button>
+

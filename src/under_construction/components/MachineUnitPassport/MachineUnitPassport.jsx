@@ -1,8 +1,10 @@
 import React from "react";
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
-import AddIcon from '@material-ui/icons/Add';
-import Divider from "@material-ui/core/Divider/Divider";
+import AddIcon from "@material-ui/icons/Add.js";
+import Settings from "@material-ui/icons/SettingsApplicationsSharp.js"
+import Book from "@material-ui/icons/BookSharp.js";
+import Build from "@material-ui/icons/Build.js"
 import GridList from "@material-ui/core/GridList/GridList";
 import GridListTile from "@material-ui/core/GridListTile/GridListTile";
 // core components
@@ -67,10 +69,9 @@ function MachineUnitPassport(props) {
                                     tabs={[
                                         {
                                             tabName: "Технические Характеристики",
-                                            tabIcon: AddIcon,
+                                            tabIcon: Settings,
                                             tabContent: (
                                                 <div>
-                                                    <Divider/>
                                                     <h5>
                                                         Электрообеспечение
                                                     </h5>
@@ -110,27 +111,38 @@ function MachineUnitPassport(props) {
                                                         tableData={[
                                                             ["ТЭН пальчиковый", "D 12, L 150", "220", "300", "4"]
                                                         ]}
-                                                    /></div>
-                                            )
-                                        },
-                                        {
-                                            tabName: "Руководство по эксплуатации",
-                                            tabIcon: AddIcon,
-                                            tabContent: (
-                                                <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae
-                                                    doloremque dolores, doloribus expedita explicabo, facilis, fugiat
-                                                    itaque iusto labore pariatur quam sapiente sint temporibus unde
-                                                    vero! Excepturi nam quis tempora!</div>
+                                                    />
+                                                </div>
                                             )
                                         },
                                         {
                                             tabName: "Графики обслуживания",
-                                            tabIcon: AddIcon,
+                                            tabIcon: Build,
                                             tabContent: (
-                                                <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                                                    Asperiores distinctio est, facere illo impedit ipsa molestias
-                                                    nesciunt nostrum obcaecati odit officiis quasi quibusdam quos saepe
-                                                    similique, ut velit veniam voluptatibus.</div>
+                                                <div>
+                                                    <h5>
+                                                        {"Техническое обслуживание"}
+                                                    </h5>
+                                                    <Table
+                                                        tableHeaderColor="primary"
+                                                        tableHead={["Вид работ", "Технические требования", "В смену", "В неделю", "В месяц", "В 6 месяцев", "В год"]}
+                                                        tableData={[
+                                                            ["Поверка уровня рабочей жидкости по глазку", "Уровень масла не ниже средней линии маслоуказателя", "x", "", "", "", ""],
+                                                            ["Проверка загрязненности и качества гидравлического масла", "Отсутствие механических загрязнений, пены, значительного замутнения, снижение или повышение вискозности", "", "", "", "", "x"],
+                                                            ["Чистка всасывающего масляного фильтра", "Отсутствие загрязнений", "", "", "", "x", ""],
+                                                            ["Проверка герметичности резьбовых соединений гидросистемы", "Отсутствие течей", "", "", "", "x", ""],
+                                                            ["Проверка давления рабочей жидкости в гидросистеме", "Рабочее давление во время проруба - не более 12,5 МПа (125 кгс/см2)", "", "x", "", "", ""],
+                                                            ["Проверка давления воздуха по манометру", "Рабочее давление 4-5 кгс/см2", "", "x", "", "", ""],
+                                                            ["Проверка температуры рабочей жидкости в баке", "Не более 50 С", "", "x", "", "", ""]
+                                                        ]}
+                                                    /></div>
+                                            )
+                                        },
+                                        {
+                                            tabName: "Руководства по эксплуатации",
+                                            tabIcon: Book,
+                                            tabContent: (
+                                                <div>Может содержать загруженные в архив файлы, html-документы с svg-графикой(?). В качестве платного контента документация в интерактивном варианте, индексированная, с возможностью поиска по документам.</div>
                                             )
                                         }
                                     ]}

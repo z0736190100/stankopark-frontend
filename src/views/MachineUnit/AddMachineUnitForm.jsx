@@ -1,5 +1,6 @@
 import React from "react";
 import _ from "lodash";
+// redux
 import {Field, reduxForm} from "redux-form";
 // @material-ui/core components
 import withStyles from "@material-ui/core/styles/withStyles";
@@ -19,8 +20,7 @@ import GridItem from "components/Grid/GridItem.jsx";
 import GridContainer from "components/Grid/GridContainer.jsx";
 //assets
 import ADD_MACHINE_UNIT_FORM_FIELD_PROPS from "variables/addMachineUnitFormFields.js";
-import {a} from "util/axios_template.js";
-
+// utils
 
 const styles = {
     cardCategoryWhite: {
@@ -54,8 +54,7 @@ function AddMachineUnitForm(props) {
                 name: "electric",
                 id: "electric",
                 checked: false,
-                value: "electric",
-                onChange: (event) => console.log(event.target)
+                value: "electric"
             },
             {
                 label: "Оснащено гидравлической системой.",
@@ -63,8 +62,7 @@ function AddMachineUnitForm(props) {
                 name: "hydraulic",
                 id: "hydraulic",
                 checked: false,
-                value: "hydraulic",
-                onChange: (event) => console.log(event.target)
+                value: "hydraulic"
             },
             {
                 label: "Оснащено пневматической системой.",
@@ -72,17 +70,15 @@ function AddMachineUnitForm(props) {
                 name: "pneumatic",
                 id: "pneumatic",
                 checked: false,
-                value: "pneumatic",
-                onChange: (event) => console.log(event.target)
+                value: "pneumatic"
             },
             {
                 label: "Оснащено нагревательными и/или холодильными элементами.",
-                tooltipText: "Оборудование оснащено нагревательными и\/или холодильными элементами.",
+                tooltipText: "Оборудование оснащено нагревательными и/или холодильными элементами.",
                 name: "thermo",
                 id: "thermo",
                 checked: false,
-                value: "thermo",
-                onChange: (event) => console.log(event.target)
+                value: "thermo"
             }
         ];
         return _.map(SWITCH_ITEMS, val => {
@@ -139,18 +135,13 @@ function AddMachineUnitForm(props) {
             );
         })
     };
-
-    const saveToDB = (values) => {
-        console.log("saving");
-        console.log(localStorage.getItem("token"));
-        a.post("/api/machine_units", values);
-    };
-
+    // TODO: ExpansionPanel render helper
+    // FIXME: card inline-styling stinks
     return (
         <div>
             <GridContainer>
                 <GridItem xs={12} sm={12} md={12}>
-                    <form onChange={props.formOnChange()} onSubmit={props.handleSubmit(values => saveToDB(values))}>
+                    <form onSubmit={props.handleSubmit(values => props.saveToDB(values))}>
                         <Card style={{
                             border: "1.3px solid",
                             borderColor: "#666699"
@@ -290,7 +281,7 @@ function validate(values) {
 
     const errors = {};
 
-// TODO: combine with addMachineUnitFormFields.js in variables/
+// TODO: combine with addMachineUnitFormFields.js in variables
     // CONE-FIGURE
 
     const FIELDS_MAP = {
@@ -309,8 +300,6 @@ function validate(values) {
             FIELDS_TO_VALIDATE_LIST = FIELDS_TO_VALIDATE_LIST.concat(section);
         }
     });
-
-    console.log("fields to validate: ", FIELDS_TO_VALIDATE_LIST);
 
     _.each(FIELDS_TO_VALIDATE_LIST, name => {
         if (!values[name]) {

@@ -1,12 +1,12 @@
 import {
     AUTH_USER,
     LOGOUT_USER,
-    AUTH_ERROR,
+    AUTH_PROCESSING_ERROR,
     SHOW_NOTIFICATION
 } from "store/actions/types.js";
 import {
     SERVER_ERROR_MESSAGE,
-    AUTH_ERROR_MESSAGE
+    AUTH_PROCESSING_ERROR_MESSAGE
 } from "variables/API_messages.js";
 
 import {serverConnectionError} from "store/actions/general_errors_actions.js";
@@ -28,8 +28,8 @@ export const loginUser = ({email, password}, history) => dispatch => {
             // that falls out of the range of 2xx
             if (error.response.status >= 400 && error.response.status < 500) {
 
-                dispatch(authError({
-                    message: `${error.response.status}: ${AUTH_ERROR_MESSAGE}`
+                dispatch(authenticationProcessError({
+                    message: `${error.response.status}: ${AUTH_PROCESSING_ERROR_MESSAGE}`
                 }));
             } else if (error.response.status >= 500) {
                 //TODO: remove attributes from serverConnectionError
@@ -91,7 +91,7 @@ const authSuccess = (data) => dispatch => {
     });
 };
 
-const authError = (err) => dispatch => {
+const authenticationProcessError = (err) => dispatch => {
     dispatch({
         type: SHOW_NOTIFICATION,
         payload: {
@@ -103,7 +103,7 @@ const authError = (err) => dispatch => {
         }
     });
     dispatch({
-        type: AUTH_ERROR,
+        type: AUTH_PROCESSING_ERROR,
         payload: {
             error: {
                 open: true,

@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import {createBrowserHistory} from "history";
 import {Route, Router, Switch} from "react-router-dom";
 import {Provider} from "react-redux";
-import {applyMiddleware, compose, createStore} from "redux";
+import {applyMiddleware, createStore} from "redux";
 import reduxThunk from "redux-thunk";
 import reducers from "./store/reducers";
 // custom components

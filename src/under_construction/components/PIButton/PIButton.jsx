@@ -5,14 +5,16 @@ import {withStyles} from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
 // core components
 import Button from "components/CustomButtons/Button.jsx";
+// assets
+import {primaryColor as primary} from "assets/jss/material-dashboard-react.jsx"
 
 const styles = () => ({
 
     wrapper: {
-      position: "relative"
+        position: "relative"
     },
     buttonProgress: {
-        color: "primary",
+        color: primary,
         position: 'absolute',
         top: '50%',
         left: '50%',
@@ -33,25 +35,27 @@ class PIButton extends React.Component {
 
     handleButtonClick = () => {
         if (!this.state.loading) {
-            this.setState(
-                {
-                    success: false,
-                    loading: true,
-                },
-                () => {
-                    this.timer = setTimeout(() => {
-                        this.setState({
-                            loading: false,
-                            success: true,
-                        });
-                    }, 2000);
-                },
-            );
+            this.timer = setTimeout(() => {
+                this.setState(
+                    {
+                        success: false,
+                        loading: true,
+                    },
+                    () => {
+                        this.timer = setTimeout(() => {
+                            this.setState({
+                                loading: false,
+                                success: true,
+                            });
+                        }, 3000);
+                    }
+                );
+            }, 1000);
         }
     };
 
     render() {
-        const { loading, success } = this.state;
+        const {loading, success} = this.state;
         const {
             classes,
             type,
@@ -63,19 +67,19 @@ class PIButton extends React.Component {
         });
 
         return (
-                <div className={classes.wrapper}>
-                    <Button
-                        className={buttonClassname}
-                        type={type}
-                        color={color}
-                        disabled={loading}
-                        onClick={this.handleButtonClick}
-                        style={style}
-                    >
-                        {this.props.children}
-                    </Button>
-                    {loading && <CircularProgress size={24} className={classes.buttonProgress} />}
-                </div>
+            <div className={classes.wrapper}>
+                <Button
+                    className={buttonClassname}
+                    type={type}
+                    color={color}
+                    disabled={loading}
+                    onClick={this.handleButtonClick}
+                    style={style}
+                >
+                    {this.props.children}
+                </Button>
+                {loading && <CircularProgress size={24} className={classes.buttonProgress}/>}
+            </div>
         );
     }
 }

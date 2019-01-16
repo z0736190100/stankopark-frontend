@@ -8,15 +8,11 @@ import Table from "components/Table/Table.jsx";
 import Card from "components/Card/Card.jsx";
 import CardHeader from "components/Card/CardHeader.jsx";
 import CardBody from "components/Card/CardBody.jsx";
-import Button from "components/CustomButtons/Button.jsx";
-import CardAvatar from "components/Card/CardAvatar.jsx";
 import AddIcon from '@material-ui/icons/Add';
 
 import MUIDataTable from "mui-datatables";
 
 import Fab from '@material-ui/core/Button';
-
-import avatar from "assets/img/faces/gh_logo.png";
 
 const styles = {
     cardCategoryWhite: {

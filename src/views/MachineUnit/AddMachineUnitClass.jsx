@@ -4,11 +4,8 @@ import AddMachineUnitForm from "views/MachineUnit/AddMachineUnitForm.jsx";
 import {connect} from "react-redux";
 import * as actions from "store/actions";
 import ConfirmationDialogRaw from "under_construction/components/Dialog/ConfirmationDialogRaw";
-import DialogActions from "@material-ui/core/DialogActions/DialogActions";
 import Button from '@material-ui/core/Button';
-import GridItem from "../../components/Grid/GridItem";
 import Table from "../../components/Table/Table";
-import DialogContent from "@material-ui/core/DialogContent/DialogContent";
 // assets
 import ADD_MACHINE_UNIT_FORM_FIELD_PROPS from "variables/addMachineUnitFormFields.js";
 
@@ -29,7 +26,6 @@ class AddMachineUnitClass extends Component {
     dialogContentHelper() {
         if (this.props.form.add_machine !== undefined) {
             let fvalues = this.props.form.add_machine.values;
-            let dialogContent = this.state.confirmationDialogContent;
             if (fvalues === undefined) return null;
             return _.map(ADD_MACHINE_UNIT_FORM_FIELD_PROPS, (section) => {
                 this.dialogTableHelper(section, fvalues);
@@ -77,10 +73,6 @@ class AddMachineUnitClass extends Component {
         });
     };
 
-    formOnChange = () => {
-
-        console.log(this.props.form.add_machine);
-    };
     showDialog = () => {
         this.setState({
             confirmationDialogContent: []
@@ -90,8 +82,12 @@ class AddMachineUnitClass extends Component {
     };
 
     cancelDialog = () => {
-        console.log("dialog cancel");
         this.setState({dialogIsOpen: false});
+    };
+
+    saveToDB = (values) => {
+        this.props.saveMachineUnit(values);
+
     };
 
     render() {
@@ -99,8 +95,8 @@ class AddMachineUnitClass extends Component {
             <div>
                 <AddMachineUnitForm switchStateHandler={this.switchInputOnChange}
                                     switchState={this.state}
-                                    formOnChange={this.formOnChange}
                                     showDialog={this.showDialog}
+                                    saveToDB = {this.saveToDB}
                 />
                 <ConfirmationDialogRaw
                     open={this.state.dialogIsOpen}

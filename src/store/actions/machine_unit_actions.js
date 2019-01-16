@@ -1,42 +1,42 @@
-import axios from "axios";
 import {
-    FETCH_USER,
-    //REGISTER_USER,
-    SHOW_NOTIFICATION
+    SAVE_MACHINE_UNIT_SUCCESS,
+    SHOW_NOTIFICATION,
+    AUTH_PROCESSING_ERROR
 } from "store/actions/types.js";
+
 import {
     SERVER_ERROR_MESSAGE,
-    REGISTRATION_ERROR_MESSAGE,
-    REGISTRATION_SUCCESS_MESSAGE
+    NOT_AUTHORIZED_REQUEST_MESSAGE,
+    SAVE_MACHINE_UNIT_SUCCESS_MESSAGE
 } from "variables/API_messages.js";
 
 import {serverConnectionError} from "store/actions/general_errors_actions.js";
 
-// KUNG-FUSION: what is a profit of async-await here?
-export const fetchCurrentUser = () => async dispatch => {
-    const res = await axios.get("/api/current_user");
+import {a} from "util/axios_template.js";
 
-    dispatch({
-        type: FETCH_USER,
-        payload: res.data
-    });
-};
+// TODO: SAVE_MACHINE_UNIT_FAIL
 
-export const registerUser = ({firstName, lastName, email, password, password2}) => dispatch => {
-    axios.post("api/users", {firstName, lastName, email, password, password2})
+export const saveMachineUnit = (values) => dispatch => {
+
+    // TODO: get current user, put to request body (JWT ?)
+    a.post("/api/machine_units", values)
         .then(res => {
-            dispatch(registrationSuccess());
+
+            dispatch(saveMUnitSuccess(res.data));
+            // TODO: redirect to route in case of successfull save - show new passport of MU
+
         })
         .catch( error => {
+            // TODO: 403 error handling with NOT_AUTHORIZED_REQUEST_MESSAGE
             // The request was made and the server responded with a status code
             // that falls out of the range of 2xx
             if (error.response.status >= 400 && error.response.status < 500) {
 
-                dispatch(registrationError({
-                    message: `${error.response.status}: ${REGISTRATION_ERROR_MESSAGE}`
+                dispatch(notAuthorizedRequestError({
+                    message: `${error.response.status}: ${NOT_AUTHORIZED_REQUEST_MESSAGE}`
                 }));
             } else if (error.response.status >= 500) {
-
+                //TODO: remove attributes from serverConnectionError
                 dispatch(serverConnectionError({
                     message: `${error.response.status}: ${SERVER_ERROR_MESSAGE}`
                 }));
@@ -51,24 +51,40 @@ export const registerUser = ({firstName, lastName, email, password, password2}) 
             }
             // NB: console.log(error.config);
         });
+
 };
 
-const registrationSuccess = () => dispatch => {
+const saveMUnitSuccess = (data) => dispatch => {
     dispatch({
         type: SHOW_NOTIFICATION,
         payload: {
-            registration: {
+            authentication: {
                 open: true,
                 color: "success",
-                message: REGISTRATION_SUCCESS_MESSAGE
+                message: SAVE_MACHINE_UNIT_SUCCESS_MESSAGE
             }
         }
     });
+    dispatch({
+        type: SAVE_MACHINE_UNIT_SUCCESS,
+        payload: data
+    });
 };
 
-const registrationError = err => dispatch => {
+const notAuthorizedRequestError = (err) => dispatch => {
     dispatch({
         type: SHOW_NOTIFICATION,
+        payload: {
+            error: {
+                open: true,
+                color: "warning",
+                message: err.message
+            }
+        }
+    });
+    // KUNG-FUSION: do we need NOT_AUTHORIZED_... action?
+    dispatch({
+        type: AUTH_PROCESSING_ERROR,
         payload: {
             error: {
                 open: true,

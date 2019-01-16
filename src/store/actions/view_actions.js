@@ -18,7 +18,6 @@ export const toLoginForm = () => dispatch => {
 };
 
 export const clearNotification = () => dispatch => {
-    console.log("clear notification action");
     dispatch({
         type: SHOW_NOTIFICATION,
         payload: null

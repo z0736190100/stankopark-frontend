@@ -14,6 +14,10 @@ import {
     logoutUser
 } from "store/actions/auth_actions";
 
+import {
+    saveMachineUnit
+} from "store/actions/machine_unit_actions";
+
 export {
     toRegForm,
     toLoginForm,
@@ -22,4 +26,5 @@ export {
     registerUser,
     loginUser,
     logoutUser,
+    saveMachineUnit
 }
