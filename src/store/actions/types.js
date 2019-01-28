@@ -7,6 +7,7 @@ module.exports = {
     AUTH_PROCESSING_ERROR: "auth_error",
     SHOW_NOTIFICATION: "show_notification",
     SAVE_MACHINE_UNIT: "save_machine_unit",
-    SAVE_MACHINE_UNIT_SUCCESS: "save_machine_unit_success"
+    SAVE_MACHINE_UNIT_SUCCESS: "save_machine_unit_success",
+    PROCESS_INDICATE:"process_indicate"
 
 };

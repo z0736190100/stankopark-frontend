@@ -39,8 +39,8 @@ const dashboardRoutes = [
     },
     {
         path: "/mup",
-        sidebarName: "passport",
-        navbarName: "passport",
+        sidebarName: "Паспорт",
+        navbarName: "Паспорт",
         icon: "assignment",
         component: MUP
     },

@@ -2,7 +2,8 @@ import {
     AUTH_USER,
     LOGOUT_USER,
     AUTH_PROCESSING_ERROR,
-    SHOW_NOTIFICATION
+    SHOW_NOTIFICATION,
+    PROCESS_INDICATE
 } from "store/actions/types.js";
 import {
     SERVER_ERROR_MESSAGE,
@@ -14,6 +15,7 @@ import {serverConnectionError} from "store/actions/general_errors_actions.js";
 import axios from "axios";
 
 export const loginUser = ({email, password}, history) => dispatch => {
+    dispatch(processIndicateOn());
     axios.post("/api/login", {email, password})
         .then(res => {
             // save JWT to LocalStorage
@@ -23,11 +25,10 @@ export const loginUser = ({email, password}, history) => dispatch => {
             //browserHistory.push("/dashboard");
             // history.push("/layout");
         })
-        .catch( error => {
+        .catch(error => {
             // The request was made and the server responded with a status code
             // that falls out of the range of 2xx
             if (error.response.status >= 400 && error.response.status < 500) {
-
                 dispatch(authenticationProcessError({
                     message: `${error.response.status}: ${AUTH_PROCESSING_ERROR_MESSAGE}`
                 }));
@@ -71,9 +72,24 @@ export const logoutUser = () => dispatch => {
     })
 };
 
+const processIndicateOn = () => dispatch => {
+    console.log("processIndicateOn");
+    dispatch({
+        type: PROCESS_INDICATE,
+        payload: {
+            authentication: true
+        }
+    });
+};
 
 const authSuccess = (data) => dispatch => {
     // TODO: emit USER_PUB_DATA type for personalising views (avatar, name, etc.)
+    dispatch({
+        type: PROCESS_INDICATE,
+        payload: {
+            authentication: false
+        }
+    });
     dispatch({
         type: SHOW_NOTIFICATION,
         payload: {
@@ -92,6 +108,12 @@ const authSuccess = (data) => dispatch => {
 };
 
 const authenticationProcessError = (err) => dispatch => {
+    dispatch({
+        type: PROCESS_INDICATE,
+        payload: {
+            authentication: false
+        }
+    });
     dispatch({
         type: SHOW_NOTIFICATION,
         payload: {

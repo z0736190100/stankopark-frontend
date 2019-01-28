@@ -6,7 +6,7 @@ export const REGISTRATION = [
                 name: "firstName",
                 id: "firstName",
                 labelText: "Имя",
-                tooltipText: "Введите Ваше имя кириллицей.",
+                tooltipText: "Введите Ваше имя.",
                 constraints: {
                     required: true,
                     type: "text",
@@ -25,7 +25,7 @@ export const REGISTRATION = [
                 name: "lastName",
                 id: "lastName",
                 labelText: "Фамилия",
-                tooltipText: "Введите Вашу фамилию кириллицей.",
+                tooltipText: "Введите Вашу фамилию.",
                 constraints: {
                     required: true,
                     type: "text",
@@ -104,7 +104,6 @@ export const REGISTRATION = [
             name: "email",
             id: "email",
             labelText: "Email",
-            tooltipText: "Ведите свой е-мейл.",
             constraints: {
                 required: true,
                 type: "email",

@@ -15,14 +15,13 @@ import CardBody from "components/Card/CardBody.jsx";
 import CardHeader from "components/Card/CardHeader.jsx";
 import RegistrationForm from "views/WelcomePage/RegistrationForm.jsx";
 import PIButton from "under_construction/components/PIButton/PIButton.jsx";
+import PIButtonStateless from "under_construction/components/PIButton/PIButtonStateless";
 // assets
 import welcomePageStyle from "assets/jss/material-dashboard-react/views/welcomeStyle.jsx";
 import {LOGIN} from "variables/welcomeFormFields.jsx";
 
 import image from "assets/img/sidebar-1.jpg";
 
-
-//FIXME: CardFooter buttons centering- bad
 class WelcomePage extends React.Component {
     state = {
         cardAnimaton: "cardHidden",
@@ -117,7 +116,8 @@ class WelcomePage extends React.Component {
                                                 <GridContainer>
                                                     {this.formRenderer()}
                                                 </GridContainer>
-                                                <PIButton
+                                                <PIButtonStateless
+                                                    indicate={this.props.indicate.authentication}
                                                     type={"submit"}
                                                     color="primary"
                                                     style={{
@@ -125,7 +125,7 @@ class WelcomePage extends React.Component {
                                                     }}
                                                 >
                                                     {"Вход"}
-                                                </PIButton>
+                                                </PIButtonStateless>
                                                 <p></p>
                                                 <Button
                                                     onClick={() => {
@@ -153,7 +153,8 @@ class WelcomePage extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        welcomeLogin: state.auth.welcomeLogin
+        welcomeLogin: state.auth.welcomeLogin,
+        indicate: state.indicateProcess
     }
 };
 

@@ -19,14 +19,21 @@ const styles = () => ({
         top: '50%',
         left: '50%',
         marginTop: -12,
-        marginLeft: -12,
+        marginLeft: -12
+    },
+    buttonSuccess: {
+        color: "green"
+    },
+    buttonWarning: {
+        color: "warning"
     }
 });
 
 class PIButton extends React.Component {
     state = {
-        loading: false,
+        show: false,
         success: false,
+        warning: false
     };
 
     componentWillUnmount() {
@@ -34,18 +41,16 @@ class PIButton extends React.Component {
     }
 
     handleButtonClick = () => {
-        if (!this.state.loading) {
+        if (!this.state.show) {
             this.timer = setTimeout(() => {
                 this.setState(
                     {
-                        success: false,
-                        loading: true,
+                        show: true
                     },
                     () => {
                         this.timer = setTimeout(() => {
                             this.setState({
-                                loading: false,
-                                success: true,
+                                show: false
                             });
                         }, 3000);
                     }
@@ -55,7 +60,7 @@ class PIButton extends React.Component {
     };
 
     render() {
-        const {loading, success} = this.state;
+        const {show, success, warning} = this.state;
         const {
             classes,
             type,
@@ -69,16 +74,15 @@ class PIButton extends React.Component {
         return (
             <div className={classes.wrapper}>
                 <Button
-                    className={buttonClassname}
                     type={type}
-                    color={color}
-                    disabled={loading}
+                    color={(success && "success") || (warning && "warning") || color }
+                    disabled={show}
                     onClick={this.handleButtonClick}
                     style={style}
                 >
                     {this.props.children}
                 </Button>
-                {loading && <CircularProgress size={24} className={classes.buttonProgress}/>}
+                {show && <CircularProgress size={24} className={classes.buttonProgress}/>}
             </div>
         );
     }

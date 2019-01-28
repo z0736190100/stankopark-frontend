@@ -10,6 +10,7 @@ import Table from "../../components/Table/Table";
 import ADD_MACHINE_UNIT_FORM_FIELD_PROPS from "variables/addMachineUnitFormFields.js";
 
 //TODO uncontrolled CustomForm component + redux-form
+// KUNG-FUSION: set redux-form values to null after successful saving OR what? Redirection or smth else?
 class AddMachineUnitClass extends Component {
 
     classes = this.props.classes;
