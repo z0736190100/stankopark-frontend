@@ -35,229 +35,239 @@ import {completedTasksChart, dailySalesChart, emailsSubscriptionChart} from "var
 import dashboardStyle from "assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
 
 class Dashboard extends React.Component {
-  state = {
-    value: 0
-  };
-  handleChange = (event, value) => {
-    this.setState({ value });
-  };
+    state = {
+        value: 0
+    };
+    handleChange = (event, value) => {
+        this.setState({value});
+    };
 
-  handleChangeIndex = index => {
-    this.setState({ value: index });
-  };
-  render() {
-    const { classes } = this.props;
-    return (
-      <div>
-        <GridContainer>
-          <GridItem xs={12} sm={6} md={4}>
-            <Card>
-              <CardHeader color="warning" stats icon>
-                <CardIcon color="warning">
-                  <Icon>content_copy</Icon>
-                </CardIcon>
-                <p className={classes.cardCategory}>Станкопарк</p>
-                <h3 className={classes.cardTitle}>
-                  42 <small>станка</small>
-                </h3>
-              </CardHeader>
-              <CardFooter stats>
-                <div className={classes.stats}>
-                  <Danger>
-                    <Warning />
-                  </Danger>
-                  <a href="#pablo" onClick={e => e.preventDefault()}>
-                    Требуется обслуживание (ссылка на событие в -График обслуживания- или -Заявки на ремонт-)
-                  </a>
-                </div>
-              </CardFooter>
-            </Card>
-          </GridItem>
-          <GridItem xs={12} sm={6} md={4}>
-            <Card>
-              <CardHeader color="success" stats icon>
-                <CardIcon color="success">
-                  <Store />
-                </CardIcon>
-                <p className={classes.cardCategory}>Исправлено</p>
-                <h3 className={classes.cardTitle}>12 <small>заявок</small></h3>
-              </CardHeader>
-              <CardFooter stats>
-                <div className={classes.stats}>
-                  <DateRange />
-                  За текущий месяц
-                </div>
-              </CardFooter>
-            </Card>
-          </GridItem>
-          <GridItem xs={12} sm={6} md={4}>
-            <Card>
-              <CardHeader color="danger" stats icon>
-                <CardIcon color="danger">
-                  <Icon>info_outline</Icon>
-                </CardIcon>
-                <p className={classes.cardCategory}>Требует вмешательства руководства!</p>
-                <h3 className={classes.cardTitle}>2</h3>
-              </CardHeader>
-              <CardFooter stats>
-                <div className={classes.stats}>
-                  <LocalOffer />
-                  (ссылка на -Ремонты- (незавершенные))
-                </div>
-              </CardFooter>
-            </Card>
-          </GridItem>
-        </GridContainer>
-        <GridContainer>
-          <GridItem xs={12} sm={12} md={4}>
-            <Card chart>
-              <CardHeader color="success">
-                <ChartistGraph
-                  className="ct-chart"
-                  data={dailySalesChart.data}
-                  type="Line"
-                  options={dailySalesChart.options}
-                  listener={dailySalesChart.animation}
-                />
-              </CardHeader>
-              <CardBody>
-                <h4 className={classes.cardTitle}>Регламентные мероприятия ( ссылка на -Журнал- )</h4>
-                <p className={classes.cardCategory}>
+    handleChangeIndex = index => {
+        this.setState({value: index});
+    };
+
+    cardStyle = {
+        border: "1.3px solid",
+        borderColor: "#666699"
+    };
+
+    render() {
+        const {classes} = this.props;
+        return (
+            <div>
+                <GridContainer>
+                    <GridItem xs={12} sm={6} md={4}>
+                        <Card style={this.cardStyle}>
+                            <CardHeader color="warning" stats icon>
+                                <CardIcon color="warning">
+                                    <Icon>content_copy</Icon>
+                                </CardIcon>
+                                <p className={classes.cardCategory}>Станкопарк</p>
+                                <h3 className={classes.cardTitle}>
+                                    42 <small>станка</small>
+                                </h3>
+                            </CardHeader>
+                            <CardFooter stats>
+                                <div className={classes.stats}>
+                                    <Danger>
+                                        <Warning/>
+                                    </Danger>
+                                    <a href="#pablo" onClick={e => e.preventDefault()}>
+                                        Требуется обслуживание (ссылка на событие в -График обслуживания- или -Заявки на
+                                        ремонт-)
+                                    </a>
+                                </div>
+                            </CardFooter>
+                        </Card>
+                    </GridItem>
+                    <GridItem xs={12} sm={6} md={4}>
+                        <Card style={this.cardStyle}>
+                            <CardHeader color="success" stats icon>
+                                <CardIcon color="success">
+                                    <Store/>
+                                </CardIcon>
+                                <p className={classes.cardCategory}>Исправлено</p>
+                                <h3 className={classes.cardTitle}>12 <small>заявок</small></h3>
+                            </CardHeader>
+                            <CardFooter stats>
+                                <div className={classes.stats}>
+                                    <DateRange/>
+                                    За текущий месяц
+                                </div>
+                            </CardFooter>
+                        </Card>
+                    </GridItem>
+                    <GridItem xs={12} sm={6} md={4}>
+                        <Card style={this.cardStyle}>
+                            <CardHeader color="danger" stats icon>
+                                <CardIcon color="danger">
+                                    <Icon>info_outline</Icon>
+                                </CardIcon>
+                                <p className={classes.cardCategory}>Требует вмешательства руководства!</p>
+                                <h3 className={classes.cardTitle}>2</h3>
+                            </CardHeader>
+                            <CardFooter stats>
+                                <div className={classes.stats}>
+                                    <LocalOffer/>
+                                    (ссылка на -Ремонты- (незавершенные))
+                                </div>
+                            </CardFooter>
+                        </Card>
+                    </GridItem>
+                </GridContainer>
+                <GridContainer>
+                    <GridItem xs={12} sm={12} md={4}>
+                        <Card chart>
+                            <CardHeader color="success">
+                                <ChartistGraph
+                                    className="ct-chart"
+                                    data={dailySalesChart.data}
+                                    type="Line"
+                                    options={dailySalesChart.options}
+                                    listener={dailySalesChart.animation}
+                                />
+                            </CardHeader>
+                            <CardBody>
+                                <h4 className={classes.cardTitle}>Регламентные мероприятия ( ссылка на -Журнал- )</h4>
+                                <p className={classes.cardCategory}>
                   <span className={classes.successText}>
-                    <ArrowUpward className={classes.upArrowCardCategory} /> 79%
+                    <ArrowUpward className={classes.upArrowCardCategory}/> 79%
                   </span>{" "}
-                 статистика за период ( запланированные работы по обслуживанию оборудования со статусом "выполнено" )
-                </p>
-              </CardBody>
-              <CardFooter chart>
-                <div className={classes.stats}>
-                  <AccessTime /> обновлено 1 час назад
-                </div>
-              </CardFooter>
-            </Card>
-          </GridItem>
-          <GridItem xs={12} sm={12} md={4}>
-            <Card chart>
-              <CardHeader color="warning">
-                <ChartistGraph
-                  className="ct-chart"
-                  data={emailsSubscriptionChart.data}
-                  type="Bar"
-                  options={emailsSubscriptionChart.options}
-                  responsiveOptions={emailsSubscriptionChart.responsiveOptions}
-                  listener={emailsSubscriptionChart.animation}
-                />
-              </CardHeader>
-              <CardBody>
-                <h4 className={classes.cardTitle}>Регламентные мероприятия ( ссылка на -Журнал- )</h4>
-                <p className={classes.cardCategory}>
-                  статистика за период ( запланированные работы по ремонту оборудования со статусом "ожидают" )
-                </p>
-              </CardBody>
-              <CardFooter chart>
-                <div className={classes.stats}>
-                  <AccessTime /> обновлено 1 час назад
-                </div>
-              </CardFooter>
-            </Card>
-          </GridItem>
-          <GridItem xs={12} sm={12} md={4}>
-            <Card chart>
-              <CardHeader color="danger">
-                <ChartistGraph
-                  className="ct-chart"
-                  data={completedTasksChart.data}
-                  type="Line"
-                  options={completedTasksChart.options}
-                  listener={completedTasksChart.animation}
-                />
-              </CardHeader>
-              <CardBody>
-                <h4 className={classes.cardTitle}>Неплановые Работы</h4>
-                <p className={classes.cardCategory}>
-                  статистика за период ( внезапные работы по ремонту оборудования со статусом "выполнено" )
-                </p>
-              </CardBody>
-              <CardFooter chart>
-                <div className={classes.stats}>
-                  <AccessTime /> обновлено 1 час назад
-                </div>
-              </CardFooter>
-            </Card>
-          </GridItem>
-        </GridContainer>
-        <GridContainer>
-          <GridItem xs={12} sm={12} md={6}>
-            <CustomTabs
-              title="Задачи:"
-              headerColor="primary"
-              tabs={[
-                {
-                  tabName: "Оборудование",
-                  tabIcon: BugReport,
-                  tabContent: (
-                    <Tasks
-                      checkedIndexes={[0, 3]}
-                      tasksIndexes={[0, 1, 2, 3]}
-                      tasks={bugs}
-                    />
-                  )
-                },
-                {
-                  tabName: "Общие",
-                  tabIcon: Code,
-                  tabContent: (
-                    <Tasks
-                      checkedIndexes={[0]}
-                      tasksIndexes={[0, 1]}
-                      tasks={website}
-                    />
-                  )
-                },
-                {
-                  tabName: "Сервер",
-                  tabIcon: Cloud,
-                  tabContent: (
-                    <Tasks
-                      checkedIndexes={[1]}
-                      tasksIndexes={[0, 1, 2]}
-                      tasks={server}
-                    />
-                  )
-                }
-              ]}
-            />
-          </GridItem>
-          <GridItem xs={12} sm={12} md={6}>
-            <Card>
-              <CardHeader color="warning">
-                <h4 className={classes.cardTitleWhite}>Табель</h4>
-                <p className={classes.cardCategoryWhite}>
-                  за текущий месяц
-                </p>
-              </CardHeader>
-              <CardBody>
-                <Table
-                  tableHeaderColor="warning"
-                  tableHead={["ID", "Сотрудник", "Дата", "Часы"]}
-                  tableData={[
-                    ["1", "Иванов", "13.11", "8"],
-                    ["2", "Пушкин", "13.11", "13"],
-                    ["3", "Шоппенгауер", "13.11", "2"],
-                    ["4", "Петров", "13.11", "8"]
-                  ]}
-                />
-              </CardBody>
-            </Card>
-          </GridItem>
-        </GridContainer>
-      </div>
-    );
-  }
+                                    статистика за период ( запланированные работы по обслуживанию оборудования со
+                                    статусом "выполнено" )
+                                </p>
+                            </CardBody>
+                            <CardFooter chart>
+                                <div className={classes.stats}>
+                                    <AccessTime/> обновлено 1 час назад
+                                </div>
+                            </CardFooter>
+                        </Card>
+                    </GridItem>
+                    <GridItem xs={12} sm={12} md={4}>
+                        <Card chart>
+                            <CardHeader color="warning">
+                                <ChartistGraph
+                                    className="ct-chart"
+                                    data={emailsSubscriptionChart.data}
+                                    type="Bar"
+                                    options={emailsSubscriptionChart.options}
+                                    responsiveOptions={emailsSubscriptionChart.responsiveOptions}
+                                    listener={emailsSubscriptionChart.animation}
+                                />
+                            </CardHeader>
+                            <CardBody>
+                                <h4 className={classes.cardTitle}>Регламентные мероприятия ( ссылка на -Журнал- )</h4>
+                                <p className={classes.cardCategory}>
+                                    статистика за период ( запланированные работы по ремонту оборудования со статусом
+                                    "ожидают" )
+                                </p>
+                            </CardBody>
+                            <CardFooter chart>
+                                <div className={classes.stats}>
+                                    <AccessTime/> обновлено 1 час назад
+                                </div>
+                            </CardFooter>
+                        </Card>
+                    </GridItem>
+                    <GridItem xs={12} sm={12} md={4}>
+                        <Card chart>
+                            <CardHeader color="danger">
+                                <ChartistGraph
+                                    className="ct-chart"
+                                    data={completedTasksChart.data}
+                                    type="Line"
+                                    options={completedTasksChart.options}
+                                    listener={completedTasksChart.animation}
+                                />
+                            </CardHeader>
+                            <CardBody>
+                                <h4 className={classes.cardTitle}>Неплановые Работы</h4>
+                                <p className={classes.cardCategory}>
+                                    статистика за период ( внезапные работы по ремонту оборудования со статусом
+                                    "выполнено" )
+                                </p>
+                            </CardBody>
+                            <CardFooter chart>
+                                <div className={classes.stats}>
+                                    <AccessTime/> обновлено 1 час назад
+                                </div>
+                            </CardFooter>
+                        </Card>
+                    </GridItem>
+                </GridContainer>
+                <GridContainer>
+                    <GridItem xs={12} sm={12} md={6}>
+                        <CustomTabs
+                            title="Задачи:"
+                            headerColor="primary"
+                            tabs={[
+                                {
+                                    tabName: "Оборудование",
+                                    tabIcon: BugReport,
+                                    tabContent: (
+                                        <Tasks
+                                            checkedIndexes={[0, 3]}
+                                            tasksIndexes={[0, 1, 2, 3]}
+                                            tasks={bugs}
+                                        />
+                                    )
+                                },
+                                {
+                                    tabName: "Общие",
+                                    tabIcon: Code,
+                                    tabContent: (
+                                        <Tasks
+                                            checkedIndexes={[0]}
+                                            tasksIndexes={[0, 1]}
+                                            tasks={website}
+                                        />
+                                    )
+                                },
+                                {
+                                    tabName: "Сервер",
+                                    tabIcon: Cloud,
+                                    tabContent: (
+                                        <Tasks
+                                            checkedIndexes={[1]}
+                                            tasksIndexes={[0, 1, 2]}
+                                            tasks={server}
+                                        />
+                                    )
+                                }
+                            ]}
+                        />
+                    </GridItem>
+                    <GridItem xs={12} sm={12} md={6}>
+                        <Card>
+                            <CardHeader color="warning">
+                                <h4 className={classes.cardTitleWhite}>Табель</h4>
+                                <p className={classes.cardCategoryWhite}>
+                                    за текущий месяц
+                                </p>
+                            </CardHeader>
+                            <CardBody>
+                                <Table
+                                    tableHeaderColor="warning"
+                                    tableHead={["ID", "Сотрудник", "Дата", "Часы"]}
+                                    tableData={[
+                                        ["1", "Иванов", "13.11", "8"],
+                                        ["2", "Пушкин", "13.11", "13"],
+                                        ["3", "Шоппенгауер", "13.11", "2"],
+                                        ["4", "Петров", "13.11", "8"]
+                                    ]}
+                                />
+                            </CardBody>
+                        </Card>
+                    </GridItem>
+                </GridContainer>
+            </div>
+        );
+    }
 }
 
 Dashboard.propTypes = {
-  classes: PropTypes.object.isRequired
+    classes: PropTypes.object.isRequired
 };
 
 export default withStyles(dashboardStyle)(Dashboard);

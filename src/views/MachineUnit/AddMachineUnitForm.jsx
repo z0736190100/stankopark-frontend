@@ -141,7 +141,7 @@ function AddMachineUnitForm(props) {
         <div>
             <GridContainer>
                 <GridItem xs={12} sm={12} md={12}>
-                    <form onSubmit={props.handleSubmit(values => props.saveToDB(values))}>
+                    <form onSubmit={props.handleSubmit(() => props.showDialog())}>
                         <Card style={{
                             border: "1.3px solid",
                             borderColor: "#666699"
@@ -262,13 +262,7 @@ function AddMachineUnitForm(props) {
                             color={"primary"}
                             type={"submit"}
                         >
-                            {"Сохранить изменения"}
-                        </Button>
-                        <Button
-                            color={"primary"}
-                            onClick={() => props.showDialog()}
-                        >
-                            {"Modal"}
+                            {"Продолжить"}
                         </Button>
                     </form>
                 </GridItem>

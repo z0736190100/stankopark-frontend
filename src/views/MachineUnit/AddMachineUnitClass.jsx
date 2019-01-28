@@ -86,18 +86,20 @@ class AddMachineUnitClass extends Component {
         this.setState({dialogIsOpen: false});
     };
 
-    saveToDB = (values) => {
-        this.props.saveMachineUnit(values);
+    saveToDB = () => {
+        if (this.props.form.add_machine !== undefined)
+        this.props.saveMachineUnit(this.props.form.add_machine.values);
 
     };
 
     render() {
+        // FIXME: cancelation of dialog during saving to DB should happens only after response arrival
         return (
             <div>
                 <AddMachineUnitForm switchStateHandler={this.switchInputOnChange}
                                     switchState={this.state}
                                     showDialog={this.showDialog}
-                                    saveToDB = {this.saveToDB}
+                                    saveToDB={this.saveToDB}
                 />
                 <ConfirmationDialogRaw
                     open={this.state.dialogIsOpen}
@@ -105,11 +107,17 @@ class AddMachineUnitClass extends Component {
                     dialogcontent={this.state.confirmationDialogContent}
                     dialogactions={
                         <div>
-                            <Button onClick={this.cancelDialog} color="primary">
-                                Cancel
+                            <Button
+                                onClick={this.cancelDialog}
+                                color="primary"
+                            >
+                                {"Назад"}
                             </Button>
-                            <Button onClick={this.cancelDialog} color="primary">
-                                Ok
+                            <Button
+                                onClick={() => { this.saveToDB(); setTimeout(() => this.cancelDialog(), 1500)}}
+                                color="success"
+                            >
+                                {"Сохранить"}
                             </Button>
                         </div>
                     }
